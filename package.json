@@ -1,0 +1,27 @@
+{
+  "name": "rivalismeuniverse-somnia",
+  "version": "1.0.0",
+  "description": "AI Persona Economy on Somnia Blockchain",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:somnia": "hardhat run scripts/deploy.js --network somnia",
+    "test": "hardhat test"
+  },
+  "keywords": [
+    "blockchain",
+    "nft",
+    "somnia",
+    "ai",
+    "web3"
+  ],
+  "author": "unuserv01",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "dotenv": "^16.3.1",
+    "hardhat": "^2.19.0",
+    "ethers": "^5.7.2"
+  }
+}
