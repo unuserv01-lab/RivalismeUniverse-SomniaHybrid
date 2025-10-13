@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rivalisme Universe - Cosmic Portal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        #globe-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .ui-overlay > * {
+            pointer-events: auto;
+        }
+
+        .main-title {
+            position: absolute;
+            top: 8%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff1493, #00ffff, #ff1493);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: neonPulse 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255,20,147,0.8);
+            z-index: 10;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            position: absolute;
+            top: 18%;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0,255,255,0.6);
+            z-index: 10;
+        }
+
+        .portal-buttons {
+            position: absolute;
+            bottom: 15%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            z-index: 10;
+        }
+
+        .portal-btn {
+            padding: 1.2rem 2.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .portal-btn:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 30px #00ffff, 0 0 60px rgba(0, 255, 255, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .creator-btn {
+            border-color: #ff1493;
+            color: #ff1493;
+        }
+
+        .creator-btn:hover {
+            background: #ff1493;
+            color: #000;
+            box-shadow: 0 0 30px #ff1493, 0 0 60px rgba(255, 20, 147, 0.5);
+        }
+
+        .info-panel {
+            position: absolute;
+            top: 30%;
+            right: 5%;
+            width: 300px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .info-panel h3 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .info-panel p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff1493;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .country-info {
+            position: absolute;
+            top: 30%;
+            left: 5%;
+            width: 300px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            z-index: 10;
+            pointer-events: auto;
+            display: none;
+        }
+
+        .country-info h3 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .country-info p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .persona-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .persona-item {
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 20, 147, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .persona-item:hover {
+            background: rgba(255, 20, 147, 0.3);
+            transform: translateX(5px);
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,20,147,0.3) 0%, transparent 70%);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .element-1 {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .element-2 {
+            top: 60%;
+            left: 15%;
+            animation-delay: 2s;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(0,255,255,0.3) 0%, transparent 70%);
+        }
+
+        .element-3 {
+            top: 30%;
+            right: 10%;
+            animation-delay: 4s;
+            width: 120px;
+            height: 120px;
+        }
+
+        .element-4 {
+            top: 70%;
+            right: 15%;
+            animation-delay: 6s;
+            background: radial-gradient(circle, rgba(0,255,255,0.3) 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .pulse-ring {
+            position: absolute;
+            border: 2px solid #00ffff;
+            border-radius: 50%;
+            animation: pulse 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #1a1a2e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s ease;
+        }
+
+        .loading-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ff1493, #00ffff, #ff1493);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: neonPulse 3s ease-in-out infinite;
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff1493, #00ffff);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* NEW FEATURES STYLES */
+        .wallet-section {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .connect-wallet-btn, .explore-somnia-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #00ffff;
+            background: rgba(0, 255, 255, 0.1);
+            color: #00ffff;
+            border-radius: 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .connect-wallet-btn:hover, .explore-somnia-btn:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 30px #00ffff;
+            transform: translateY(-2px);
+        }
+
+        .wallet-connected {
+            background: rgba(0, 255, 0, 0.2);
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+
+        .nft-mint-section {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            text-align: center;
+        }
+
+        .nft-preview {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 1.5rem;
+            border-radius: 15px;
+            border: 3px solid #00ffff;
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nft-preview::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 20, 147, 0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .mint-price {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .mint-button {
+            padding: 1rem 2rem;
+            border: 2px solid #ff1493;
+            background: rgba(255, 20, 147, 0.2);
+            color: #ff1493;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .mint-button:hover {
+            background: #ff1493;
+            color: #000;
+            box-shadow: 0 0 30px #ff1493;
+            transform: translateY(-3px);
+        }
+
+        .ai-providers {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .ai-provider-badge {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ai-provider-badge.active {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: #00ffff;
+            color: #00ffff;
+        }
+
+        .generation-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #00ffff;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .global-globe {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(0, 255, 255, 0.1) 0%,
+                rgba(255, 20, 147, 0.05) 40%,
+                transparent 70%);
+            box-shadow: 
+                0 0 200px rgba(0, 255, 255, 0.3),
+                inset 0 0 100px rgba(255, 20, 147, 0.2);
+            animation: globeRotate 60s linear infinite;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .globe-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(0, 255, 255, 0.1) 0%,
+                rgba(255, 20, 147, 0.05) 30%,
+                transparent 70%);
+            animation: globePulse 8s ease-in-out infinite;
+            z-index: -2;
+        }
+
+        @keyframes globeRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes globePulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* NFT Modal */
+        .nft-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            z-index: 1000;
+            display: none;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: #ff1493;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+                top: 5%;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                top: 15%;
+            }
+
+            .portal-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                bottom: 10%;
+            }
+
+            .info-panel, .country-info {
+                position: relative;
+                width: 90%;
+                margin: 2rem auto;
+                right: auto;
+                left: auto;
+            }
+
+            .wallet-section {
+                position: relative;
+                top: auto;
+                right: auto;
+                justify-content: center;
+                margin-bottom: 2rem;
+            }
+
+            .global-globe {
+                width: 300px;
+                height: 300px;
+            }
+
+            .globe-glow {
+                width: 400px;
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <h1 class="loading-title">RIVALISME UNIVERSE</h1>
+        <p style="color: #00ffff; margin-bottom: 2rem;">Initializing Cosmic Portal...</p>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+    </div>
+    
+    <!-- NEW: Interactive Globe Background -->
+    <div class="global-globe"></div>
+    <div class="globe-glow"></div>
+    
+    <div id="globe-container"></div>
+    
+    <div class="ui-overlay">
+        <!-- NEW: Wallet Connection Section -->
+        <div class="wallet-section">
+            <button class="connect-wallet-btn" onclick="connectWallet()">
+                <span class="wallet-icon">🔗</span>
+                <span class="wallet-text">Connect Wallet</span>
+            </button>
+            <button class="explore-somnia-btn" onclick="exploreSomnia()">
+                <span class="somnia-icon">🌐</span>
+                <span class="somnia-text">Explore Somnia</span>
+            </button>
+        </div>
+        
+        <h1 class="main-title">RIVALISME UNIVERSE</h1>
+        <p class="subtitle">Summon AI Personas from Across the Globe</p>
+        
+        <div class="portal-buttons">
+            <button class="portal-btn creator-btn" onclick="enterCreatorRealm()">Content Creator Realm</button>
+            <button class="portal-btn" onclick="enterAcademicHall()">Academic Hall</button>
+            <button class="portal-btn creator-btn" onclick="generatePersona()">Generate New Persona</button>
+            <!-- NEW: NFT Mint Button -->
+            <button class="portal-btn" onclick="showNFTPortal()">🖼️ NFT Portal</button>
+        </div>
+        
+        <div class="info-panel">
+            <h3>Cosmic Portal Active</h3>
+            <p>Select a region on the globe or use the portals to access AI personas from different dimensions of knowledge and creativity.</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-value" id="persona-count">142</span>
+                    <span class="stat-label">Personas</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="user-count">3.2K</span>
+                    <span class="stat-label">Users</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="country-count">67</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+            </div>
+
+            <!-- NEW: Network Status -->
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,20,147,0.3);">
+                <h4 style="color: #00ffff; margin-bottom: 0.5rem;">🌐 Somnia Network</h4>
+                <div class="generation-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="blockHeight">--</span>
+                        <span>Block Height</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="gasPrice">--</span>
+                        <span>Gas Price</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="country-info" id="countryInfo">
+            <h3 id="countryName">Country Name</h3>
+            <p id="countryDescription">Country description will appear here.</p>
+            <h4>Available Personas:</h4>
+            <ul class="persona-list" id="personaList">
+                <!-- Persona items will be dynamically added here -->
+            </ul>
+            <button class="portal-btn" style="margin-top: 1rem; width: 100%;" onclick="generateCountryPersona()">Generate Local Persona</button>
+            
+            <!-- NEW: NFT Minting Section for Country -->
+            <div class="nft-mint-section" style="margin-top: 1.5rem;">
+                <h4 style="color: #00ffff;">🖼️ Mint Country NFT</h4>
+                <div class="mint-price">Price: 0.01 ETH</div>
+                <button class="mint-button" onclick="mintCountryNFT()">
+                    🚀 Mint Country NFT
+                </button>
+            </div>
+        </div>
+        
+        <div class="floating-elements">
+            <div class="floating-element element-1"></div>
+            <div class="floating-element element-2"></div>
+            <div class="floating-element element-3"></div>
+            <div class="floating-element element-4"></div>
+        </div>
+    </div>
+
+    <!-- NEW: NFT Modal -->
+    <div class="nft-modal" id="nftModal">
+        <div class="modal-header">
+            <h3 style="color: #00ffff;">🖼️ Mint NFT Persona</h3>
+            <button class="close-modal" onclick="closeNFTModal()">×</button>
+        </div>
+        
+        <div class="nft-preview" id="modalNftPreview">🔥</div>
+        
+        <div class="mint-price" id="modalMintPrice">Price: 0.05 ETH</div>
+        
+        <div class="generation-stats">
+            <div class="stat-item">
+                <span class="stat-value" id="modalGasFee">0.001 ETH</span>
+                <span>Gas Fee</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="modalSupply">124/1000</span>
+                <span>Supply</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="modalRoyalty">7.5%</span>
+                <span>Royalty</span>
+            </div>
+        </div>
+
+        <!-- AI Generation Section -->
+        <div style="margin: 1.5rem 0;">
+            <h4 style="color: #00ffff; margin-bottom: 1rem;">🤖 Generate AI Content</h4>
+            <div class="ai-providers">
+                <span class="ai-provider-badge active" onclick="setAIProvider('gpt4')">GPT-4</span>
+                <span class="ai-provider-badge" onclick="setAIProvider('claude')">Claude 3</span>
+                <span class="ai-provider-badge" onclick="setAIProvider('gemini')">Gemini Pro</span>
+                <span class="ai-provider-badge" onclick="setAIProvider('deepseek')">DeepSeek</span>
+            </div>
+            <button class="mint-button" onclick="generateAIContent()" style="width: 100%; margin-top: 1rem;">
+                🎯 Generate with <span id="currentAIProvider">GPT-4</span>
+            </button>
+        </div>
+
+        <button class="mint-button" onclick="mintNFTPersona()" style="width: 100%;">
+            🚀 Mint NFT on Somnia
+        </button>
+    </div>
+
+    <script>
+        // Initialize Three.js scene
+        let scene, camera, renderer, globe, controls;
+        let countryData = {};
+        let activeCountry = null;
+        
+        // NEW: Enhanced Features
+        let currentWallet = null;
+        let currentAIProvider = 'gpt4';
+        let currentMintingPersona = null;
+        
+        const AI_PROVIDERS = {
+            gpt4: { name: 'GPT-4', speed: 'Fast', cost: '0.001 ETH' },
+            claude: { name: 'Claude 3', speed: 'Medium', cost: '0.0008 ETH' },
+            gemini: { name: 'Gemini Pro', speed: 'Fast', cost: '0.0009 ETH' },
+            deepseek: { name: 'DeepSeek', speed: 'Very Fast', cost: '0.0005 ETH' }
+        };
+
+        // Sample country data with personas
+        const countryDatabase = {
+            "USA": {
+                description: "United States of America - A melting pot of cultures and innovation.",
+                personas: [
+                    { name: "Tech Innovator", type: "Content Creator", emoji: "🤖", price: "0.05 ETH" },
+                    { name: "Hollywood Storyteller", type: "Content Creator", emoji: "🎬", price: "0.04 ETH" },
+                    { name: "Silicon Valley Visionary", type: "Academic", emoji: "💻", price: "0.06 ETH" }
+                ]
+            },
+            "Japan": {
+                description: "Japan - Where tradition meets cutting-edge technology.",
+                personas: [
+                    { name: "Anime Creator", type: "Content Creator", emoji: "🎨", price: "0.045 ETH" },
+                    { name: "Zen Philosopher", type: "Academic", emoji: "🎋", price: "0.035 ETH" },
+                    { name: "Robotics Expert", type: "Academic", emoji: "🤖", price: "0.055 ETH" }
+                ]
+            },
+            "Brazil": {
+                description: "Brazil - Vibrant culture and rich biodiversity.",
+                personas: [
+                    { name: "Carnival Artist", type: "Content Creator", emoji: "🎭", price: "0.03 ETH" },
+                    { name: "Amazon Ecologist", type: "Academic", emoji: "🌿", price: "0.04 ETH" },
+                    { name: "Samba Master", type: "Content Creator", emoji: "💃", price: "0.035 ETH" }
+                ]
+            },
+            "Egypt": {
+                description: "Egypt - Ancient civilization with timeless wisdom.",
+                personas: [
+                    { name: "Historian of Pharaohs", type: "Academic", emoji: "🏺", price: "0.05 ETH" },
+                    { name: "Desert Mystic", type: "Content Creator", emoji: "🔮", price: "0.04 ETH" },
+                    { name: "Pyramid Architect", type: "Academic", emoji: "🔺", price: "0.06 ETH" }
+                ]
+            },
+            "India": {
+                description: "India - Diversity in unity, ancient wisdom meets modern innovation.",
+                personas: [
+                    { name: "Yoga Guru", type: "Content Creator", emoji: "🧘", price: "0.035 ETH" },
+                    { name: "Bollywood Director", type: "Content Creator", emoji: "🎥", price: "0.045 ETH" },
+                    { name: "Vedic Scholar", type: "Academic", emoji: "📜", price: "0.055 ETH" }
+                ]
+            }
+        };
+        
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            
+            // Create camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            document.getElementById('globe-container').appendChild(renderer.domElement);
+            
+            // Add orbit controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.rotateSpeed = 0.5;
+            
+            // Create globe with detailed geography
+            createDetailedGlobe();
+            
+            // Add ambient light
+            const ambientLight = new THREE.AmbientLight(0x333333);
+            scene.add(ambientLight);
+            
+            // Add directional light
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 3, 5);
+            scene.add(directionalLight);
+            
+            // Add stars
+            createStars();
+            
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize, false);
+            
+            // Start animation
+            animate();
+            
+            // Simulate loading progress
+            simulateLoading();
+            
+            // NEW: Initialize network status
+            refreshNetworkStatus();
+        }
+        
+        function simulateLoading() {
+            let progress = 0;
+            const progressBar = document.getElementById('loadingProgress');
+            const loadingScreen = document.getElementById('loadingScreen');
+            
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    // Hide loading screen after a short delay
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = 0;
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 800);
+                    }, 500);
+                }
+                progressBar.style.width = `${progress}%`;
+            }, 200);
+        }
+        
+        function createDetailedGlobe() {
+            // Create a more detailed globe with country outlines
+            const geometry = new THREE.SphereGeometry(2, 64, 64);
+            
+            // Create a texture for the globe with country outlines
+            const canvas = document.createElement('canvas');
+            canvas.width = 2048;
+            canvas.height = 1024;
+            const context = canvas.getContext('2d');
+            
+            // Draw the base globe
+            context.fillStyle = '#0a0a2a';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw continents with a slightly different color
+            context.fillStyle = '#1a1a3a';
+            
+            // Simplified continent shapes (in a real app, you'd use actual geographic data)
+            
+            // North America
+            context.beginPath();
+            context.moveTo(600, 200);
+            context.lineTo(700, 250);
+            context.lineTo(750, 300);
+            context.lineTo(700, 400);
+            context.lineTo(600, 450);
+            context.lineTo(500, 400);
+            context.lineTo(450, 300);
+            context.lineTo(500, 250);
+            context.closePath();
+            context.fill();
+            
+            // South America
+            context.beginPath();
+            context.moveTo(550, 450);
+            context.lineTo(600, 500);
+            context.lineTo(550, 650);
+            context.lineTo(500, 700);
+            context.lineTo(450, 650);
+            context.lineTo(500, 500);
+            context.closePath();
+            context.fill();
+            
+            // Europe
+            context.beginPath();
+            context.moveTo(950, 250);
+            context.lineTo(1000, 300);
+            context.lineTo(950, 350);
+            context.lineTo(900, 300);
+            context.closePath();
+            context.fill();
+            
+            // Africa
+            context.beginPath();
+            context.moveTo(900, 350);
+            context.lineTo(950, 400);
+            context.lineTo(900, 600);
+            context.lineTo(850, 650);
+            context.lineTo(800, 600);
+            context.lineTo(850, 400);
+            context.closePath();
+            context.fill();
+            
+            // Asia
+            context.beginPath();
+            context.moveTo(1100, 200);
+            context.lineTo(1300, 250);
+            context.lineTo(1400, 350);
+            context.lineTo(1350, 500);
+            context.lineTo(1200, 550);
+            context.lineTo(1100, 400);
+            context.closePath();
+            context.fill();
+            
+            // Australia
+            context.beginPath();
+            context.moveTo(1300, 600);
+            context.lineTo(1400, 650);
+            context.lineTo(1350, 750);
+            context.lineTo(1250, 700);
+            context.closePath();
+            context.fill();
+            
+            // Draw country outlines
+            context.strokeStyle = '#00ffff';
+            context.lineWidth = 2;
+            context.stroke();
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            const material = new THREE.MeshPhongMaterial({ 
+                map: texture,
+                transparent: true,
+                opacity: 0.9
+            });
+            
+            globe = new THREE.Mesh(geometry, material);
+            scene.add(globe);
+            
+            // Add click event listener for country selection
+            renderer.domElement.addEventListener('click', onGlobeClick, false);
+        }
+        
+        function onGlobeClick(event) {
+            // Calculate mouse position in normalized device coordinates
+            const mouse = new THREE.Vector2();
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            
+            // Set up raycaster
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(mouse, camera);
+            
+            // Calculate objects intersecting the picking ray
+            const intersects = raycaster.intersectObject(globe);
+            
+            if (intersects.length > 0) {
+                // Get the intersection point
+                const intersect = intersects[0];
+                
+                // Convert intersection point to spherical coordinates
+                const spherical = new THREE.Spherical();
+                spherical.setFromVector3(intersect.point);
+                
+                // Convert spherical coordinates to latitude and longitude
+                const lat = 90 - (spherical.phi * 180 / Math.PI);
+                const lon = (spherical.theta * 180 / Math.PI);
+                
+                // Determine country based on coordinates (simplified)
+                const country = getCountryFromCoords(lon, lat);
+                if (country) {
+                    showCountryInfo(country);
+                }
+            }
+        }
+        
+        function getCountryFromCoords(lon, lat) {
+            // Simplified country detection based on coordinates
+            if (lat > 25 && lat < 50 && lon > -130 && lon < -65) return "USA";
+            if (lat > 30 && lat < 46 && lon > 128 && lon < 146) return "Japan";
+            if (lat > -34 && lat < 6 && lon > -74 && lon < -35) return "Brazil";
+            if (lat > 22 && lat < 32 && lon > 25 && lon < 35) return "Egypt";
+            if (lat > 8 && lat < 33 && lon > 68 && lon < 98) return "India";
+            return null;
+        }
+        
+        function showCountryInfo(country) {
+            const countryInfo = document.getElementById('countryInfo');
+            const countryName = document.getElementById('countryName');
+            const countryDescription = document.getElementById('countryDescription');
+            const personaList = document.getElementById('personaList');
+            
+            if (countryDatabase[country]) {
+                activeCountry = country;
+                countryName.textContent = country;
+                countryDescription.textContent = countryDatabase[country].description;
+                
+                // Clear previous personas
+                personaList.innerHTML = '';
+                
+                // Add personas for this country
+                countryDatabase[country].personas.forEach(persona => {
+                    const li = document.createElement('li');
+                    li.className = 'persona-item';
+                    li.innerHTML = `
+                        ${persona.emoji} ${persona.name} 
+                        <span style="float: right; color: #00ffff;">${persona.price}</span>
+                    `;
+                    li.onclick = () => openPersonaModal(persona, country);
+                    personaList.appendChild(li);
+                });
+                
+                countryInfo.style.display = 'block';
+            }
+        }
+        
+        function createStars() {
+            const starsGeometry = new THREE.BufferGeometry();
+            const starsMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.1,
+                transparent: true
+            });
+            
+            const starsVertices = [];
+            for (let i = 0; i < 10000; i++) {
+                const x = (Math.random() - 0.5) * 2000;
+                const y = (Math.random() - 0.5) * 2000;
+                const z = (Math.random() - 0.5) * 2000;
+                starsVertices.push(x, y, z);
+            }
+            
+            starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+            const starField = new THREE.Points(starsGeometry, starsMaterial);
+            scene.add(starField);
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (globe) {
+                globe.rotation.y += 0.001;
+            }
+            
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        
+        function enterCreatorRealm() {
+            alert('Entering Content Creator Realm...');
+            // In a real application, this would navigate to the creator realm page
+        }
+        
+        function enterAcademicHall() {
+            alert('Entering Academic Hall...');
+            // In a real application, this would navigate to the academic hall page
+        }
+        
+        function generatePersona() {
+            alert('Generating New AI Persona...');
+            // In a real application, this would open a persona generation interface
+        }
+        
+        function generateCountryPersona() {
+            if (activeCountry) {
+                alert(`Generating local persona for ${activeCountry}...`);
+                // In a real application, this would generate a persona based on the selected country
+            } else {
+                alert('Please select a country first by clicking on the globe.');
+            }
+        }
+
+        // NEW: Enhanced Features Implementation
+        
+        // 🔗 Wallet Connection
+        async function connectWallet() {
+            try {
+                const walletBtn = document.querySelector('.connect-wallet-btn');
+                walletBtn.innerHTML = '🔄 Connecting...';
+                
+                setTimeout(() => {
+                    currentWallet = '0x742d...S0mn1a';
+                    walletBtn.innerHTML = '✅ ' + currentWallet;
+                    walletBtn.classList.add('wallet-connected');
+                    
+                    refreshNetworkStatus();
+                    
+                    alert('🔗 Wallet connected successfully to Somnia Network!');
+                }, 1500);
+            } catch (error) {
+                alert('❌ Wallet connection failed: ' + error.message);
+            }
+        }
+
+        // 🌐 Explore Somnia
+        function exploreSomnia() {
+            window.open('https://somnia.network', '_blank');
+        }
+
+        // 🖼️ NFT Portal
+        function showNFTPortal() {
+            const modal = document.getElementById('nftModal');
+            modal.style.display = 'block';
+            currentMintingPersona = { name: "Custom Persona", emoji: "🌟", price: "0.05 ETH" };
+            updateModalContent();
+        }
+
+        function closeNFTModal() {
+            const modal = document.getElementById('nftModal');
+            modal.style.display = 'none';
+        }
+
+        function openPersonaModal(persona, country) {
+            const modal = document.getElementById('nftModal');
+            currentMintingPersona = { ...persona, country };
+            modal.style.display = 'block';
+            updateModalContent();
+        }
+
+        function updateModalContent() {
+            if (!currentMintingPersona) return;
+            
+            document.getElementById('modalNftPreview').textContent = currentMintingPersona.emoji;
+            document.getElementById('modalMintPrice').textContent = `Price: ${currentMintingPersona.price}`;
+            
+            // Update supply counter
+            const supply = Math.floor(Math.random() * 1000);
+            document.getElementById('modalSupply').textContent = `${supply}/1000`;
+        }
+
+        // 🤖 AI Provider Selection
+        function setAIProvider(provider) {
+            currentAIProvider = provider;
+            const providerBadges = document.querySelectorAll('.ai-provider-badge');
+            providerBadges.forEach(badge => badge.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('currentAIProvider').textContent = AI_PROVIDERS[provider].name;
+        }
+
+        // 🎯 AI Content Generation
+        async function generateAIContent() {
+            if (!currentWallet) {
+                alert('Please connect wallet for AI generation tracking');
+                return;
+            }
+
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = `🤖 Generating with ${AI_PROVIDERS[currentAIProvider].name}...`;
+            button.disabled = true;
+
+            setTimeout(() => {
+                const content = generatePersonaContent(currentMintingPersona, currentAIProvider);
+                alert(`🤖 AI Generated Content:\n\n${content}`);
+                
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+
+        function generatePersonaContent(persona, provider) {
+            const contents = {
+                "Tech Innovator": "🚀 Innovation is not about ideas. It's about making ideas happen...",
+                "Zen Philosopher": "🎋 In the stillness of mind, the universe reveals itself...",
+                "Carnival Artist": "🎭 Life is the ultimate performance - dance like everyone's watching...",
+                "Custom Persona": "🌟 Your unique AI persona is ready to create amazing content..."
+            };
+            
+            return contents[persona.name] || `Content generated with ${AI_PROVIDERS[provider].name} for ${persona.name}`;
+        }
+
+        // 🖼️ NFT Minting
+        async function mintNFTPersona() {
+            if (!currentWallet) {
+                alert('Please connect your wallet first!');
+                return;
+            }
+
+            const mintButton = event.target;
+            const originalText = mintButton.innerHTML;
+            
+            mintButton.innerHTML = '⛏️ Minting...';
+            mintButton.disabled = true;
+
+            setTimeout(() => {
+                mintButton.innerHTML = '✅ Minted!';
+                mintButton.style.background = '#00ff00';
+                mintButton.style.color = '#000';
+                
+                alert(`🎉 Successfully minted ${currentMintingPersona.name} NFT!\n\n` +
+                      `📜 Transaction: 0x${Math.random().toString(16).substr(2, 10)}...\n` +
+                      `🌐 Network: Somnia L2\n` +
+                      `🖼️ Token ID: #${Math.floor(Math.random() * 10000)}`);
+                
+                setTimeout(() => {
+                    mintButton.innerHTML = originalText;
+                    mintButton.disabled = false;
+                    mintButton.style.background = '';
+                    mintButton.style.color = '';
+                    closeNFTModal();
+                }, 3000);
+            }, 2000);
+        }
+
+        function mintCountryNFT() {
+            if (!activeCountry) {
+                alert('Please select a country first!');
+                return;
+            }
+
+            if (!currentWallet) {
+                alert('Please connect your wallet first!');
+                return;
+            }
+
+            alert(`🖼️ Minting ${activeCountry} Country NFT...\nThis NFT will represent your connection to ${activeCountry}'s cultural heritage.`);
+        }
+
+        // 🌐 Network Status
+        function refreshNetworkStatus() {
+            document.getElementById('blockHeight').textContent = (Math.floor(Math.random() * 10000000)).toLocaleString();
+            document.getElementById('gasPrice').textContent = (Math.random() * 0.01).toFixed(4) + ' ETH';
+        }
+
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html>
