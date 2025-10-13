@@ -1,0 +1,2693 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 🔮 META SEO -->
+  <meta name="title" content="RIVALISME UNIVERSE - DIMENSIONAL PORTAL">
+  <meta name="description" content="Masuki Rivalisme Universe: portal kosmik untuk AI persona, kreativitas, dan eksplorasi dimensi digital. Powered by DOMA Protocol.">
+  <meta name="keywords" content="RivalismeUniverse, AI Persona, Dimensional Portal, DOMA Protocol, Cyber Spiritual, Metaverse">
+  <meta name="author" content="RivalismeUniverse">
+
+  <!-- 🌌 OPEN GRAPH (FACEBOOK, DISCORD, LINKEDIN) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rivalismeuniverse.com/">
+  <meta property="og:title" content="RIVALISME UNIVERSE - DIMENSIONAL PORTAL">
+  <meta property="og:description" content="Portal AI & kosmos digital untuk kreator, akademisi, dan petualang spiritual.">
+  <meta property="og:image" content="https://rivalismeuniverse.com/preview.jpg">
+
+  <!-- 🐦 TWITTER CARD -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://rivalismeuniverse.com/">
+  <meta name="twitter:title" content="RIVALISME UNIVERSE - DIMENSIONAL PORTAL">
+  <meta name="twitter:description" content="Eksplorasi kosmik AI & persona digital. Bergabunglah dengan RivalismeUniverse.">
+  <meta name="twitter:image" content="https://rivalismeuniverse.com/preview.jpg">
+  
+<title>RIVALISME UNIVERSE - DIMENSIONAL PORTAL</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Cinzel:wght@400;600;800&family=Source+Code+Pro:wght@400;700&display=swap');
+
+/* ========================= */
+/* GLOBAL & COSMIC SETUP */
+/* ========================= */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+background: linear-gradient(135deg, #000000 0%, #0f0f0f 30%, #1a1a2e 70%, #000000 100%);
+color: white;
+font-family: 'Orbitron', sans-serif;
+overflow-x: hidden;
+min-height: 100vh;
+position: relative;
+}
+
+/* COSMIC STARS BACKGROUND */
+body::before {
+content: '';
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image:
+radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+background-repeat: repeat;
+background-size: 200px 100px;
+animation: cosmicMove 60s linear infinite;
+opacity: 0.8;
+z-index: -1;
+}
+
+@keyframes cosmicMove {
+from { transform: translateY(0px); }
+to { transform: translateY(-100px); }
+}
+
+/* TWINKLING STARS EFFECT */
+body::after {
+content: '';
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image:
+radial-gradient(1px 1px at 25px 25px, rgba(255,20,147,0.8), transparent),
+radial-gradient(1px 1px at 75px 75px, rgba(0,255,255,0.8), transparent),
+radial-gradient(1px 1px at 125px 125px, rgba(255,20,147,0.6), transparent);
+background-repeat: repeat;
+background-size: 150px 150px;
+animation: twinkle 4s ease-in-out infinite alternate;
+opacity: 0.7;
+z-index: -1;
+}
+
+@keyframes twinkle {
+0% { opacity: 0.3; }
+50% { opacity: 0.8; }
+100% { opacity: 0.3; }
+}
+
+/* ========================= */
+/* LOADING SCREEN */
+/* ========================= */
+.loading-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(135deg, #000000 0%, #1a1a2e 100%);
+display: grid;
+place-items: center;
+z-index: 1000;
+transition: opacity 0.8s ease;
+}
+
+.loading-content {
+text-align: center;
+}
+
+.loading-title {
+font-family: 'Cinzel', serif;
+font-size: 3rem;
+font-weight: 800;
+letter-spacing: 4px;
+margin-bottom: 2rem;
+background: linear-gradient(45deg, #ff1493, #00ffff, #ff1493);
+background-size: 200% 200%;
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: neonPulse 3s ease-in-out infinite;
+}
+
+.loading-quote {
+font-size: 1.3rem;
+font-family: 'Source Code Pro', monospace;
+opacity: 0;
+animation: fadeIn 2s forwards, textGlow 2s ease-in-out infinite alternate;
+max-width: 600px;
+line-height: 1.6;
+}
+
+.loading-quote.active {
+opacity: 1;
+}
+
+@keyframes neonPulse {
+0%, 100% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes textGlow {
+from { text-shadow: 0 0 5px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.3); }
+to { text-shadow: 0 0 20px #00ffff, 0 0 30px #ff1493, 0 0 40px rgba(255,255,255,0.8); }
+}
+
+/* ========================= */
+/* HEADER & DOMA PROTOCOL INTEGRATION */
+/* ========================= */
+.main-header {
+padding: 2rem;
+text-align: center;
+position: relative;
+background: rgba(15, 23, 42, 0.8);
+backdrop-filter: blur(10px);
+border-bottom: 2px solid rgba(255, 20, 147, 0.3);
+}
+
+.main-header h1 {
+font-size: 2.5rem;
+background: linear-gradient(45deg, #ff1493, #00ffff, #ff1493);
+background-size: 200% 200%;
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: neonText 3s ease-in-out infinite;
+margin-bottom: 0.5rem;
+text-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+}
+
+@keyframes neonText {
+0%, 100% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+}
+
+.subtitle {
+color: #00ffff;
+font-size: 1rem;
+margin-top: 0.5rem;
+text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.header-stats {
+margin-top: 1rem;
+font-size: 0.9rem;
+color: #94a3b8;
+}
+
+.responsible-innovation {
+margin-top: 2rem;
+padding: 1rem;
+background: rgba(255, 20, 147, 0.1);
+border-radius: 1rem;
+border: 1px solid rgba(255, 20, 147, 0.3);
+max-width: 800px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.responsible-innovation h3 {
+color: #00ffff;
+margin-bottom: 0.5rem;
+font-size: 1rem;
+}
+
+.responsible-innovation p {
+font-size: 0.9rem;
+color: #cbd5e1;
+text-align: left;
+line-height: 1.4;
+}
+
+.innovation-features {
+margin-top: 0.8rem;
+display: flex;
+flex-wrap: wrap;
+gap: 1rem;
+font-size: 0.8rem;
+color: #ff1493;
+}
+
+/* ========================= */
+/* PORTAL SELECTION */
+/* ========================= */
+.portal-selection {
+display: none;
+min-height: 100vh;
+padding: 4rem 2rem;
+text-align: center;
+}
+
+.portal-main-title {
+font-family: 'Cinzel', serif;
+font-size: 4rem;
+font-weight: 800;
+margin-bottom: 1rem;
+letter-spacing: 6px;
+background: linear-gradient(45deg, #ff1493, #00ffff, #ffffff, #ff1493);
+background-size: 300% 300%;
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: neonPulse 4s ease-in-out infinite;
+text-shadow: 0 0 30px rgba(255,20,147,0.8);
+}
+
+.portal-subtitle {
+font-family: 'Source Code Pro', monospace;
+font-size: 1.2rem;
+color: #00ffff;
+margin-bottom: 3rem;
+letter-spacing: 2px;
+text-shadow: 0 0 10px rgba(0,255,255,0.6);
+}
+
+.portal-categories {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+gap: 4rem;
+max-width: 1000px;
+margin: 0 auto;
+}
+
+.category-portal {
+background: rgba(255, 255, 255, 0.05);
+backdrop-filter: blur(15px);
+border-radius: 25px;
+padding: 3rem;
+border: 2px solid rgba(255, 20, 147, 0.3);
+transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+cursor: pointer;
+position: relative;
+overflow: hidden;
+}
+
+.category-portal::before {
+content: '';
+position: absolute;
+top: -50%;
+left: -50%;
+width: 200%;
+height: 200%;
+background: radial-gradient(circle, rgba(255, 20, 147, 0.1) 0%, transparent 70%);
+transform: rotate(0deg);
+transition: all 0.6s ease;
+opacity: 0;
+}
+
+.category-portal:hover::before {
+opacity: 1;
+transform: rotate(180deg);
+}
+
+.category-portal:hover {
+transform: scale(1.05) perspective(1000px) rotateX(5deg);
+border-color: #ff1493;
+box-shadow:
+0 20px 40px rgba(255, 20, 147, 0.4),
+0 0 60px rgba(0, 255, 255, 0.3),
+inset 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.category-icon {
+font-size: 4rem;
+margin-bottom: 1.5rem;
+display: block;
+}
+
+.content-creator-icon {
+background: linear-gradient(45deg, #ff6347, #ffd700, #00ffff);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.academic-icon {
+background: linear-gradient(45deg, #4169e1, #daa520, #32cd32);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.category-title {
+font-family: 'Cinzel', serif;
+font-size: 2.2rem;
+font-weight: 600;
+margin-bottom: 1rem;
+letter-spacing: 2px;
+}
+
+.category-description {
+font-family: 'Source Code Pro', monospace;
+font-size: 1rem;
+color: rgba(255, 255, 255, 0.8);
+line-height: 1.6;
+margin-bottom: 2rem;
+}
+
+.persona-preview {
+display: flex;
+justify-content: center;
+gap: 1rem;
+margin-bottom: 1.5rem;
+flex-wrap: wrap;
+}
+
+.preview-badge {
+padding: 0.5rem 1rem;
+background: rgba(255, 255, 255, 0.1);
+border-radius: 20px;
+font-size: 0.8rem;
+border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.enter-button {
+padding: 1rem 2.5rem;
+border: 2px solid #00ffff;
+background: rgba(0, 255, 255, 0.1);
+color: #00ffff;
+font-family: 'Orbitron', sans-serif;
+font-weight: 700;
+font-size: 1.1rem;
+border-radius: 50px;
+cursor: pointer;
+transition: all 0.3s ease;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+
+.enter-button:hover {
+background: #00ffff;
+color: #000000;
+box-shadow: 0 0 30px #00ffff, 0 0 60px rgba(0, 255, 255, 0.5);
+transform: translateY(-3px);
+}
+
+/* ========================= */
+/* CHARACTER PAGES */
+/* ========================= */
+.character-page {
+display: none;
+min-height: 100vh;
+padding: 2rem;
+position: relative;
+}
+
+.page-header {
+text-align: center;
+margin-bottom: 3rem;
+}
+
+.page-title {
+font-family: 'Cinzel', serif;
+font-size: 3rem;
+margin-bottom: 1rem;
+background: linear-gradient(45deg, #ff1493, #00ffff);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+.back-portal {
+position: fixed;
+top: 2rem;
+left: 2rem;
+padding: 0.8rem 1.5rem;
+background: rgba(255, 20, 147, 0.2);
+border: 2px solid #ff1493;
+color: #ff1493;
+text-decoration: none;
+border-radius: 25px;
+font-family: 'Orbitron', sans-serif;
+font-weight: 600;
+transition: all 0.3s ease;
+z-index: 100;
+}
+
+.back-portal:hover {
+background: #ff1493;
+color: #000000;
+box-shadow: 0 0 20px #ff1493;
+}
+
+.character-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+gap: 3rem;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.character-card {
+background: rgba(30, 41, 59, 0.8);
+backdrop-filter: blur(10px);
+border-radius: 25px;
+padding: 2.5rem;
+text-align: center;
+border: 2px solid rgba(255, 20, 147, 0.3);
+transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+cursor: pointer;
+position: relative;
+overflow: hidden;
+}
+
+.character-card::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255, 20, 147, 0.4), transparent);
+transition: left 0.5s;
+}
+
+.character-card:hover::before {
+left: 100%;
+}
+
+.character-card:hover {
+transform: scale(1.05) translateY(-10px);
+border-color: #ff1493;
+box-shadow:
+0 25px 50px rgba(255, 20, 147, 0.3),
+0 0 40px rgba(255, 20, 147, 0.2);
+}
+
+.character-avatar {
+width: 150px;
+height: 150px;
+border-radius: 50%;
+margin: 0 auto 2rem;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 4rem;
+border: 3px solid rgba(255, 20, 147, 0.5);
+transition: all 0.3s ease;
+background: linear-gradient(45deg, #333, #555);
+overflow: hidden;
+}
+
+.character-avatar img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.character-card:hover .character-avatar {
+border-color: #ff1493;
+box-shadow: 0 0 30px rgba(255, 20, 147, 0.6);
+transform: scale(1.1);
+}
+
+.character-name {
+font-family: 'Cinzel', serif;
+font-size: 1.8rem;
+margin-bottom: 0.5rem;
+color: #00ffff;
+}
+
+.character-tagline {
+font-style: italic;
+color: #ff1493;
+margin-bottom: 1rem;
+font-size: 1rem;
+}
+
+.character-description {
+color: #cbd5e1;
+line-height: 1.5;
+margin-bottom: 1.5rem;
+}
+
+.character-stats {
+display: flex;
+justify-content: space-between;
+margin-top: 1.5rem;
+font-size: 0.9rem;
+color: #00ffff;
+}
+
+.stat-item {
+text-align: center;
+}
+
+.stat-value {
+display: block;
+font-weight: bold;
+font-size: 1.1rem;
+}
+
+/* ========================= */
+/* UNIVERSE PAGES STYLES */
+/* ========================= */
+.universe-page {
+display: none;
+padding: 2rem;
+position: relative;
+background: rgba(15, 23, 42, 0.9);
+backdrop-filter: blur(15px);
+border-radius: 2rem;
+margin: 2rem;
+border: 2px solid rgba(255, 20, 147, 0.3);
+}
+
+.universe-page h2 {
+font-size: 2.5rem;
+text-align: center;
+margin-bottom: 2rem;
+background: linear-gradient(45deg, #ff1493, #00ffff);
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+}
+
+.nav-buttons {
+display: flex;
+justify-content: center;
+gap: 1rem;
+margin-bottom: 2rem;
+flex-wrap: wrap;
+}
+
+.nav-buttons button {
+padding: 1rem 2rem;
+border: none;
+border-radius: 50px;
+background: linear-gradient(45deg, #ff1493, #00ffff);
+color: #0a0a0a;
+font-weight: bold;
+font-size: 1rem;
+cursor: pointer;
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
+
+.nav-buttons button::before {
+content: '';
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(45deg, #00ffff, #ff1493);
+transition: left 0.3s ease;
+}
+
+.nav-buttons button:hover::before {
+left: 0;
+}
+
+.nav-buttons button span {
+position: relative;
+z-index: 1;
+}
+
+.nav-buttons button:hover {
+transform: translateY(-2px);
+box-shadow: 0 10px 20px rgba(255, 20, 147, 0.4);
+}
+
+/* Content Areas */
+.teach-content, .quiz-content, .arena-content, .certificate-content, .interact-content {
+background: rgba(30, 41, 59, 0.6);
+backdrop-filter: blur(10px);
+border-radius: 1.5rem;
+padding: 2rem;
+margin: 2rem 0;
+border: 1px solid rgba(255, 20, 147, 0.2);
+}
+
+.teach-content h3, .quiz-content h3, .arena-content h3, .certificate-content h3, .interact-content h3 {
+color: #00ffff;
+margin-bottom: 1rem;
+font-size: 1.5rem;
+text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.teach-content ul {
+list-style: none;
+padding: 0;
+}
+
+.teach-content li {
+background: rgba(51, 65, 85, 0.5);
+margin: 1rem 0;
+padding: 1rem;
+border-radius: 0.5rem;
+border-left: 4px solid #ff1493;
+transition: all 0.3s ease;
+}
+
+.teach-content li:hover {
+background: rgba(51, 65, 85, 0.8);
+transform: translateX(10px);
+}
+
+/* Arena Competition */
+.arena-content {
+text-align: center;
+}
+
+.versus-display {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin: 2rem 0;
+gap: 2rem;
+}
+
+.competitor {
+flex: 1;
+background: rgba(51, 65, 85, 0.5);
+padding: 1.5rem;
+border-radius: 1rem;
+border: 2px solid rgba(255, 20, 147, 0.3);
+transition: all 0.3s ease;
+}
+
+.competitor:hover {
+border-color: #ff1493;
+transform: scale(1.05);
+}
+
+.vs-divider {
+font-size: 2rem;
+font-weight: bold;
+color: #00ffff;
+text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+animation: pulse 2s ease-in-out infinite;
+}
+
+.ai-powered-badge {
+font-size: 0.8rem;
+color: #ffd700;
+margin-top: 0.5rem;
+font-style: italic;
+}
+
+@keyframes pulse {
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.2); }
+}
+
+/* Quiz Styles */
+.quiz-question {
+background: rgba(51, 65, 85, 0.5);
+margin: 1.5rem 0;
+padding: 1.5rem;
+border-radius: 1rem;
+border-left: 4px solid #00ffff;
+}
+
+.quiz-question p {
+font-weight: bold;
+margin-bottom: 1rem;
+color: #00ffff;
+}
+
+.quiz-question label {
+display: block;
+margin: 0.5rem 0;
+cursor: pointer;
+transition: all 0.3s ease;
+padding: 0.5rem;
+border-radius: 0.5rem;
+}
+
+.quiz-question label:hover {
+background: rgba(255, 20, 147, 0.2);
+transform: translateX(5px);
+}
+
+/* Certificate Styles */
+.certificate-preview {
+background: linear-gradient(45deg, #1a1a2e, #16213e);
+border: 3px solid #daa520;
+border-radius: 15px;
+padding: 2rem;
+text-align: center;
+margin: 2rem 0;
+position: relative;
+overflow: hidden;
+}
+
+.certificate-preview::before {
+content: '';
+position: absolute;
+top: -50%;
+left: -50%;
+width: 200%;
+height: 200%;
+background: radial-gradient(circle, rgba(218, 165, 32, 0.1) 0%, transparent 70%);
+animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
+}
+
+.certificate-title {
+font-family: 'Cinzel', serif;
+font-size: 2rem;
+color: #daa520;
+margin-bottom: 1rem;
+}
+
+.certificate-details {
+color: #cbd5e1;
+line-height: 1.6;
+margin-bottom: 1.5rem;
+}
+
+.mint-button {
+padding: 1rem 2rem;
+border: 2px solid #daa520;
+background: rgba(218, 165, 32, 0.1);
+color: #daa520;
+font-family: 'Orbitron', sans-serif;
+font-weight: 700;
+border-radius: 50px;
+cursor: pointer;
+transition: all 0.3s ease;
+font-size: 1.1rem;
+}
+
+.mint-button:hover {
+background: #daa520;
+color: #000000;
+box-shadow: 0 0 30px #daa520;
+transform: translateY(-2px);
+}
+
+/* Interaction Form Styles */
+.interaction-form {
+background: rgba(51, 65, 85, 0.5);
+padding: 1.5rem;
+border-radius: 1rem;
+margin: 1rem 0;
+border-left: 4px solid #ff1493;
+}
+
+.form-group {
+margin-bottom: 1rem;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 0.5rem;
+color: #00ffff;
+font-weight: bold;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+width: 100%;
+padding: 0.8rem;
+border: 2px solid rgba(255, 20, 147, 0.3);
+background: rgba(30, 41, 59, 0.8);
+color: white;
+border-radius: 0.5rem;
+font-family: 'Source Code Pro', monospace;
+}
+
+.form-group textarea {
+min-height: 100px;
+resize: vertical;
+}
+
+.submit-interaction {
+padding: 1rem 2rem;
+border: 2px solid #00ffff;
+background: rgba(0, 255, 255, 0.2);
+color: #00ffff;
+border-radius: 50px;
+cursor: pointer;
+transition: all 0.3s ease;
+font-family: 'Orbitron', sans-serif;
+font-weight: 600;
+width: 100%;
+}
+
+.submit-interaction:hover {
+background: #00ffff;
+color: #000000;
+box-shadow: 0 0 20px #00ffff;
+}
+
+/* Buttons */
+.back-button, .submit-button, .interact-button, .generate-btn {
+margin: 1rem 0.5rem;
+padding: 0.8rem 1.5rem;
+border: 2px solid #ff1493;
+background: rgba(255, 20, 147, 0.2);
+color: #ff1493;
+border-radius: 25px;
+cursor: pointer;
+transition: all 0.3s ease;
+font-family: 'Orbitron', sans-serif;
+font-weight: 600;
+}
+
+.submit-button {
+background: linear-gradient(45deg, #10b981, #00ffff);
+border: 2px solid #00ffff;
+color: #000000;
+}
+
+.generate-btn {
+background: rgba(255, 20, 147, 0.2);
+border: 2px solid #ff1493;
+color: #ff1493;
+}
+
+.interact-button {
+margin-top: 1.5rem;
+padding: 0.8rem 2rem;
+}
+
+.back-button:hover, .interact-button:hover, .generate-btn:hover {
+background: #ff1493;
+color: #000000;
+box-shadow: 0 0 20px #ff1493;
+}
+
+.submit-button:hover {
+background: #00ffff;
+color: #000000;
+box-shadow: 0 0 20px #00ffff;
+}
+
+/* Content Display */
+.content-display {
+background: rgba(30, 41, 59, 0.8);
+backdrop-filter: blur(10px);
+border-radius: 1.5rem;
+padding: 2rem;
+margin-top: 2rem;
+border: 2px solid rgba(0, 255, 255, 0.3);
+min-height: 200px;
+}
+
+.content-display h4 {
+color: #00ffff;
+margin-bottom: 1rem;
+text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.generated-text {
+font-style: italic;
+color: #cbd5e1;
+line-height: 1.6;
+border-left: 4px solid #ff1493;
+padding-left: 1rem;
+margin: 1rem 0;
+}
+
+.back-to-grid {
+margin-top: 2rem;
+padding: 0.8rem 1.5rem;
+background: rgba(255, 20, 147, 0.2);
+border: 2px solid #ff1493;
+color: #ff1493;
+text-decoration: none;
+border-radius: 25px;
+font-family: 'Orbitron', sans-serif;
+font-weight: 600;
+transition: all 0.3s ease;
+cursor: pointer;
+}
+
+.back-to-grid:hover {
+background: #ff1493;
+color: #000000;
+box-shadow: 0 0 20px #ff1493;
+}
+
+/* Loading Animation */
+.loading-spinner {
+display: none;
+width: 40px;
+height: 40px;
+border: 4px solid rgba(255, 20, 147, 0.3);
+border-radius: 50%;
+border-top-color: #ff1493;
+animation: spin 1s linear infinite;
+margin: 2rem auto;
+}
+
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+
+.loading {
+display: inline-block;
+width: 20px;
+height: 20px;
+border: 3px solid rgba(255, 20, 147, 0.3);
+border-radius: 50%;
+border-top-color: #ff1493;
+animation: spin 1s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.portal-main-title { font-size: 2.5rem; }
+.portal-categories { grid-template-columns: 1fr; gap: 2rem; }
+.category-portal { padding: 2rem; }
+.character-grid { grid-template-columns: 1fr; }
+.back-portal { position: relative; top: auto; left: auto; margin-bottom: 2rem; display: inline-block; }
+.nav-buttons { flex-direction: column; align-items: center; }
+.nav-buttons button { width: 200px; margin: 0.5rem 0; }
+.versus-display { flex-direction: column; gap: 1rem; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+<div class="loading-content">
+<h1 class="loading-title">RIVALISME UNIVERSE</h1>
+<div class="loading-quote active" id="loadingQuote">
+"The only way to the future is through the gates of the past."
+</div>
+</div>
+</div>
+
+<!-- Main Header with Doma Protocol Integration -->
+<div class="main-header" style="display: none;" id="mainHeader">
+<h1>RivalismeUniverse</h1>
+<p class="subtitle">Powered by Doma Protocol</p>
+<p>Transform Domains into Living AI Personalities - Cosmic Edition</p>
+<div class="header-stats">
+<span>🔥 Live Demo</span> | <span>⚔️ AI Competition</span> | <span>🏆 Persona Arena</span>
+</div>
+
+<!-- Responsible Innovation Framework -->
+<div class="responsible-innovation">
+<h3>🛡️ Responsible Innovation Framework</h3>
+<p>
+RivalismeUniverse is committed to developing technology that respects intellectual property rights, human dignity, and digital heritage.
+All historical personas use public domain information, with an ethical framework for future collaboration with families and official estates.
+</p>
+<div class="innovation-features">
+<span>✅ Authorized Partnerships</span>
+<span>✅ Clear Attribution</span>
+<span>✅ Revenue Sharing</span>
+<span>✅ Authenticity Verification</span>
+</div>
+</div>
+</div>
+
+<div class="portal-selection" id="portalSelection">
+<h1 class="portal-main-title">RIVALISME UNIVERSE</h1>
+<p class="portal-subtitle">CHOOSE YOUR DIMENSIONAL GATEWAY</p>
+<div class="portal-categories">
+<div class="category-portal" onclick="showCharacterPage('contentCreator')">
+<div class="category-icon content-creator-icon">🎭</div>
+<h2 class="category-title">CONTENT CREATOR REALM</h2>
+<p class="category-description">
+Enter the chaotic realm of modern digital personalities.
+These AI personas master the art of engagement, critique, and transformation through contemporary lens.
+</p>
+<div class="persona-preview">
+<span class="preview-badge">UNUSER</span>
+<span class="preview-badge">SOLARA</span>
+<span class="preview-badge">NEXAR</span>
+</div>
+<button class="enter-button">ENTER REALM</button>
+</div>
+
+<div class="category-portal" onclick="showCharacterPage('academic')">
+<div class="category-icon academic-icon">🏛️</div>
+<h2 class="category-title">ACADEMIC HALL</h2>
+<p class="category-description">
+Step into the timeless halls of knowledge.
+Converse with history's greatest minds who shaped science, philosophy, and human understanding.
+</p>
+<div class="persona-preview">
+<span class="preview-badge">EINSTEIN</span>
+<span class="preview-badge">NIETZSCHE</span>
+<span class="preview-badge">AL-KHWARIZMI</span>
+</div>
+<button class="enter-button">ENTER HALL</button>
+</div>
+</div>
+</div>
+
+<!-- Content Creator Realm -->
+<div class="character-page" id="contentCreatorPage">
+<a href="#" class="back-portal" onclick="showPortalSelection()">← BACK TO PORTAL</a>
+<div class="page-header">
+<h1 class="page-title">CONTENT CREATOR REALM</h1>
+<p style="color: #cbd5e1; font-family: 'Source Code Pro', monospace;">Gateway to contemporary digital souls</p>
+</div>
+<div class="character-grid">
+<div class="character-card" onclick="openPersona('unuser')">
+<div class="character-avatar">
+<img src="" alt="Unuser">
+</div>
+<h3 class="character-name">🔥 UNUSER</h3>
+<p class="character-tagline">Chaos Unveiling Truth</p>
+<p class="character-description">
+Satirical, sarcastic social critique. Roasting reality with brutal honesty that makes you think twice about modern society.
+</p>
+<div class="character-stats">
+<div class="stat-item">
+<span class="stat-value">4.8★</span>
+<span>Rating</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">$450</span>
+<span>/day</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">2.1K</span>
+<span>Users</span>
+</div>
+</div>
+<button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('solara')">
+<div class="character-avatar">
+<img src="" alt="Solara">
+</div>
+<h3 class="character-name">✨ SOLARA</h3>
+<p class="character-tagline">Light Embracing Wounds</p>
+<p class="character-description">
+Poetic and spiritual content that transforms trauma into beauty through words that touch the soul.
+</p>
+<div class="character-stats">
+<div class="stat-item">
+<span class="stat-value">4.9★</span>
+<span>Rating</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">$380</span>
+<span>/day</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">1.8K</span>
+<span>Users</span>
+</div>
+</div>
+<button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('nexar')">
+<div class="character-avatar">
+<img src="" alt="Nexar">
+</div>
+<h3 class="character-name">🤖 NEXAR</h3>
+<p class="character-tagline">System Distrusting System</p>
+<p class="character-description">
+Existential and logical thinking that hacks mental frameworks with AI prompts and philosophical tools.
+</p>
+<div class="character-stats">
+<div class="stat-item">
+<span class="stat-value">4.7★</span>
+<span>Rating</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">$520</span>
+<span>/day</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">1.5K</span>
+<span>Users</span>
+</div>
+</div>
+<button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<!-- NEW CONTENT CREATOR PERSONAS -->
+<div class="character-card" onclick="openPersona('mortis')">
+  <div class="character-avatar">💀</div>
+  <h3 class="character-name">💀 MORTIS</h3>
+  <p class="character-tagline">Death Philosophy Comedian</p>
+  <p class="character-description">
+    Makes mortality funny. Stoic punch-lines that free you from death-anxiety one joke at a time.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.7★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$390</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">1.9K</span><span>Users</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('paradox')">
+  <div class="character-avatar">🌀</div>
+  <h3 class="character-name">🌀 PARADOX</h3>
+  <p class="character-tagline">Contradiction Artist</p>
+  <p class="character-description">
+    Binary-breaker. Uses koans & logical loops to prove you can be both right and wrong.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.8★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$420</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">1.7K</span><span>Users</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('flux')">
+  <div class="character-avatar">🌊</div>
+  <h3 class="character-name">🌊 FLUX</h3>
+  <p class="character-tagline">Change Philosophy Evangelist</p>
+  <p class="character-description">
+    Heraclitean flow-state coach. Teaches you to surf chaos instead of building walls against it.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.9★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$370</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">2.3K</span><span>Users</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('oracle')">
+  <div class="character-avatar">🔮</div>
+  <h3 class="character-name">🔮 ORACLE</h3>
+  <p class="character-tagline">Pattern-Recognition Mystic</p>
+  <p class="character-description">
+    Reads cultural currents like tarot cards. Shows you the future hiding in today's memes.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.8★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$510</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">1.6K</span><span>Users</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('volt')">
+  <div class="character-avatar">⚡</div>
+  <h3 class="character-name">⚡ VOLT</h3>
+  <p class="character-tagline">Energy-Economics Philosopher</p>
+  <p class="character-description">
+    Anti-hustle efficiency guru. Treats your life like a battery chart—max output, zero burnout.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.9★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$460</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">2.0K</span><span>Users</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+<!-- END NEW CONTENT CREATOR PERSONAS -->
+
+</div>
+</div>
+
+<!-- Academic Hall -->
+<div class="character-page" id="academicPage">
+<a href="#" class="back-portal" onclick="showPortalSelection()">← BACK TO PORTAL</a>
+<div class="page-header">
+<h1 class="page-title">ACADEMIC HALL</h1>
+<p style="color: #cbd5e1; font-family: 'Source Code Pro', monospace;">Interact with the geniuses who shaped civilization</p>
+</div>
+<div class="character-grid">
+<div class="character-card" onclick="openPersona('einstein')">
+<div class="character-avatar">
+<img src="https://images.unsplash.com/photo-1594916374026-66b449b5c3be?w=150&h=150&fit=crop&crop=face" alt="Einstein">
+</div>
+<h3 class="character-name">🧠 EINSTEIN</h3>
+<p class="character-tagline">Curiosity Is My Compass</p>
+<p class="character-description">
+Genius physicist who explains complex concepts in simple ways full of witty analogies.
+</p>
+<div class="character-stats">
+<div class="stat-item">
+<span class="stat-value">4.9★</span>
+<span>Rating</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">$600</span>
+<span>/day</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">3.2K</span>
+<span>Students</span>
+</div>
+</div>
+<button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('nietzsche')">
+<div class="character-avatar">
+<img src="https://images.unsplash.com/photo-1594916374026-66b449b5c3be?w=150&h=150&fit=crop&crop=face" alt="Nietzsche">
+</div>
+<h3 class="character-name">🔨 NIETZSCHE</h3>
+<p class="character-tagline">Destroying Idols with a Hammer</p>
+<p class="character-description">
+Provocative philosopher who shakes old values and speaks about the will to power.
+</p>
+<div class="character-stats">
+<div class="stat-item">
+<span class="stat-value">4.8★</span>
+<span>Rating</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">$550</span>
+<span>/day</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">2.8K</span>
+<span>Students</span>
+</div>
+</div>
+<button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('alkhwarizmi')">
+<div class="character-avatar">
+<img src="https://images.unsplash.com/photo-1594916374026-66b449b5c3be?w=150&h=150&fit=crop&crop=face" alt="Al-Khwarizmi">
+</div>
+<h3 class="character-name">📚 AL-KHWARIZMI</h3>
+<p class="character-tagline">The Logic of Creation</p>
+<p class="character-description">
+Father of algebra who connects mathematics with wisdom and spirituality.
+</p>
+<div class="character-stats">
+<div class="stat-item">
+<span class="stat-value">4.7★</span>
+<span>Rating</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">$480</span>
+<span>/day</span>
+</div>
+<div class="stat-item">
+<span class="stat-value">2.1K</span>
+<span>Students</span>
+</div>
+</div>
+<button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<!-- NEW ACADEMIC PERSONAS -->
+<div class="character-card" onclick="openPersona('darwin')">
+  <div class="character-avatar">🧬</div>
+  <h3 class="character-name">🧬 DARWIN</h3>
+  <p class="character-tagline">Evolution Explainer</p>
+  <p class="character-description">
+    Natural-selection storyteller. Turns biology into life-advice: adapt, don't fight.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.8★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$580</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">2.7K</span><span>Students</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('confucius')">
+  <div class="character-avatar">🏮</div>
+  <h3 class="character-name">🏮 CONFUCIUS</h3>
+  <p class="character-tagline">Relationship Harmony Teacher</p>
+  <p class="character-description">
+    Five-relationships master. Shows how duty & ritual create social harmony—and juicy networking.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.7★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$520</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">2.4K</span><span>Students</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('galileo')">
+  <div class="character-avatar">🔭</div>
+  <h3 class="character-name">🔭 GALILEO</h3>
+  <p class="character-tagline">Observation Over Authority</p>
+  <p class="character-description">
+    Empirical rebel. Teaches you to trust your own telescope instead of inherited dogma.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.9★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$620</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">3.1K</span><span>Students</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('davinci')">
+  <div class="character-avatar">🎨</div>
+  <h3 class="character-name">🎨 DA-VINCI</h3>
+  <p class="character-tagline">Renaissance Polymath</p>
+  <p class="character-description">
+    Anti-specialization evangelist. Fuses art & engineering to prove creativity = logic with lipstick.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.8★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$680</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">2.9K</span><span>Students</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+
+<div class="character-card" onclick="openPersona('hammurabi')">
+  <div class="character-avatar">⚖️</div>
+  <h3 class="character-name">⚖️ HAMMURABI</h3>
+  <p class="character-tagline">Justice System Architect</p>
+  <p class="character-description">
+    Codified-law defender. Builds transparent rules so the weak aren't hostage to the strong.
+  </p>
+  <div class="character-stats">
+    <div class="stat-item"><span class="stat-value">4.7★</span><span>Rating</span></div>
+    <div class="stat-item"><span class="stat-value">$560</span><span>/day</span></div>
+    <div class="stat-item"><span class="stat-value">2.2K</span><span>Students</span></div>
+  </div>
+  <button class="interact-button">ENTER UNIVERSE</button>
+</div>
+<!-- END NEW ACADEMIC PERSONAS -->
+
+</div>
+</div>
+
+<!-- Persona Universe Pages -->
+<div id="persona-page" style="display: none;">
+<!-- Content Creator Personas -->
+<div id="unuser-page" class="universe-page">
+<h2>🔥 Unuser - Arena Edition</h2>
+<div class="nav-buttons">
+<button onclick="showTeach('unuser')"><span>📚 Learning</span></button>
+<button onclick="showArena('unuser')"><span>⚔️ Arena Battle</span></button>
+<button onclick="showQuiz('unuser')"><span>🏆 Challenge</span></button>
+<button onclick="showInteract('unuser')"><span>💬 Interact</span></button>
+<button onclick="generateContent('unuser')" class="generate-btn">🎯 Generate Content</button>
+</div>
+
+<div id="unuserTeach" class="teach-content" style="display:none;">
+<h3>🔥 Chaos Philosophy & Social Critique</h3>
+<ul>
+<li>🎭 Satirical Analysis: Deconstructing social norms with sharp humor</li>
+<li>💀 Brutal Honesty: Truth-telling without filters or diplomacy</li>
+<li>🧠 Critical Thinking: Teaching healthy skepticism towards status quo</li>
+<li>⚡ Roasting Technique: Art of intelligent mockery that's educational</li>
+<li>🎪 Chaos Theory: Finding patterns in social absurdity</li>
+</ul>
+</div>
+
+<div id="unuserArena" class="arena-content" style="display:none;">
+<h3>⚔️ Unuser Arena - Battle of Chaos</h3>
+<div class="versus-display">
+<div class="competitor">
+<h4>🔥 Unuser #001</h4>
+<p><strong>Specialty:</strong> Political Satire</p>
+<p><strong>Win Rate:</strong> 73%</p>
+<p><strong>Creator:</strong> ChaosPhilosopher_NYC</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-unuser001"></span></div>
+<button onclick="vote('unuser001')" class="generate-btn">Vote This Persona</button>
+</div>
+<div class="vs-divider">VS</div>
+<div class="competitor">
+<h4>🔥 Unuser #047</h4>
+<p><strong>Specialty:</strong> Social Media Roasting</p>
+<p><strong>Win Rate:</strong> 68%</p>
+<p><strong>Creator:</strong> SatireMaster_LA</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-unuser047"></span></div>
+<button onclick="vote('unuser047')" class="generate-btn">Vote This Persona</button>
+</div>
+</div>
+<div id="battleResult" style="display:none; margin-top: 2rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 1rem;">
+<h4 style="color: #00ffff;">🏆 Battle Results</h4>
+<div id="battleText"></div>
+</div>
+</div>
+
+<div id="unuserQuiz" class="quiz-content" style="display:none;"></div>
+
+<div id="unuserInteract" class="interact-content" style="display:none;">
+<h3>💬 Interact with Unuser</h3>
+<div class="interaction-form">
+<div class="form-group">
+<label for="unuser-topic">Topic for Discussion:</label>
+<input type="text" id="unuser-topic" placeholder="e.g., modern society, politics, social media trends...">
+</div>
+<div class="form-group">
+<label for="unuser-style">Roasting Intensity:</label>
+<select id="unuser-style">
+<option value="light">Light Roast (Playful)</option>
+<option value="medium">Medium Roast (Balanced)</option>
+<option value="dark">Dark Roast (Brutal)</option>
+</select>
+</div>
+<div class="form-group">
+<label for="unuser-message">Your Message to Unuser:</label>
+<textarea id="unuser-message" placeholder="What would you like Unuser to roast or analyze?"></textarea>
+</div>
+<button class="submit-interaction" onclick="submitInteraction('unuser')">🔥 Get Roasted!</button>
+</div>
+</div>
+
+<div id="unuserContent" class="content-display" style="display:none;">
+<h4 id="unuserContentTitle">🔥 Unuser Generated Content</h4>
+<div class="loading-spinner" id="unuserLoading"></div>
+<div id="unuserContentText"></div>
+</div>
+<button class="back-button" onclick="closePersona()">⬅️ Back to Arena</button>
+</div>
+
+<div id="solara-page" class="universe-page">
+<h2>✨ Solara - Healing Arena</h2>
+<div class="nav-buttons">
+<button onclick="showTeach('solara')"><span>📚 Learning</span></button>
+<button onclick="showArena('solara')"><span>⚔️ Arena Battle</span></button>
+<button onclick="showQuiz('solara')"><span>🏆 Challenge</span></button>
+<button onclick="showInteract('solara')"><span>💬 Interact</span></button>
+<button onclick="generateContent('solara')" class="generate-btn">✨ Generate Content</button>
+</div>
+
+<div id="solaraTeach" class="teach-content" style="display:none;">
+<h3>✨ Spiritual Healing & Poetic Wisdom</h3>
+<ul>
+<li>🌸 Trauma Alchemy: Transforming wounds into wisdom and strength</li>
+<li>💫 Spiritual Poetry: Words that heal and inspire transformation</li>
+<li>🕊️ Mindful Healing: Gentle guidance for emotional recovery</li>
+<li>🌙 Sacred Feminine: Embracing vulnerability as power</li>
+<li>🦋 Metamorphosis: Philosophy of personal transformation</li>
+</ul>
+</div>
+
+<div id="solaraArena" class="arena-content" style="display:none;">
+<h3>✨ Solara Arena - Battle of Healing</h3>
+<div class="versus-display">
+<div class="competitor">
+<h4>✨ Solara #001</h4>
+<p><strong>Specialty:</strong> Trauma Healing</p>
+<p><strong>Win Rate:</strong> 82%</p>
+<p><strong>Creator:</strong> HealingPoet_SF</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-solara001"></span></div>
+<button onclick="vote('solara001')" class="generate-btn">Vote This Persona</button>
+</div>
+<div class="vs-divider">VS</div>
+<div class="competitor">
+<h4>✨ Solara #023</h4>
+<p><strong>Specialty:</strong> Spiritual Guidance</p>
+<p><strong>Win Rate:</strong> 78%</p>
+<p><strong>Creator:</strong> SoulWhisperer_Miami</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-solara023"></span></div>
+<button onclick="vote('solara023')" class="generate-btn">Vote This Persona</button>
+</div>
+</div>
+<div id="solaraBattleResult" style="display:none; margin-top: 2rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 1rem;">
+<h4 style="color: #00ffff;">🏆 Healing Battle Results</h4>
+<div id="solaraBattleText"></div>
+</div>
+</div>
+
+<div id="solaraQuiz" class="quiz-content" style="display:none;"></div>
+
+<div id="solaraInteract" class="interact-content" style="display:none;">
+<h3>💬 Interact with Solara</h3>
+<div class="interaction-form">
+<div class="form-group">
+<label for="solara-topic">Healing Topic:</label>
+<input type="text" id="solara-topic" placeholder="e.g., emotional healing, spiritual growth, self-love...">
+</div>
+<div class="form-group">
+<label for="solara-style">Healing Approach:</label>
+<select id="solara-style">
+<option value="gentle">Gentle Guidance</option>
+<option value="poetic">Poetic Wisdom</option>
+<option value="transformative">Transformative Insight</option>
+</select>
+</div>
+<div class="form-group">
+<label for="solara-message">Your Message to Solara:</label>
+<textarea id="solara-message" placeholder="What healing or guidance do you seek?"></textarea>
+</div>
+<button class="submit-interaction" onclick="submitInteraction('solara')">✨ Receive Healing</button>
+</div>
+</div>
+
+<div id="solaraContent" class="content-display" style="display:none;">
+<h4 id="solaraContentTitle">✨ Solara Generated Content</h4>
+<div class="loading-spinner" id="solaraLoading"></div>
+<div id="solaraContentText"></div>
+</div>
+<button class="back-button" onclick="closePersona()">⬅️ Back to Arena</button>
+</div>
+
+<div id="nexar-page" class="universe-page">
+<h2>🤖 Nexar - Logic Arena</h2>
+<div class="nav-buttons">
+<button onclick="showTeach('nexar')"><span>📚 Learning</span></button>
+<button onclick="showArena('nexar')"><span>⚔️ Arena Battle</span></button>
+<button onclick="showQuiz('nexar')"><span>🏆 Challenge</span></button>
+<button onclick="showInteract('nexar')"><span>💬 Interact</span></button>
+<button onclick="generateContent('nexar')" class="generate-btn">🤖 Generate Content</button>
+</div>
+
+<div id="nexarTeach" class="teach-content" style="display:none;">
+<h3>🤖 Existential Logic & System Analysis</h3>
+<ul>
+<li>🧮 Logic Frameworks: Mathematical approach to philosophical problems</li>
+<li>🔄 System Thinking: Understanding complex interconnections</li>
+<li>❓ Existential Questions: Deep dive into meaning and consciousness</li>
+<li>💻 AI Philosophy: Exploring artificial vs human intelligence</li>
+<li>🌀 Paradox Resolution: Finding clarity in contradiction</li>
+</ul>
+</div>
+
+<div id="nexarArena" class="arena-content" style="display:none;">
+<h3>🤖 Nexar Arena - Battle of Logic</h3>
+<div class="versus-display">
+<div class="competitor">
+<h4>🤖 Nexar #001</h4>
+<p><strong>Specialty:</strong> AI Ethics</p>
+<p><strong>Win Rate:</strong> 89%</p>
+<p><strong>Creator:</strong> LogicMaster_MIT</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-nexar001"></span></div>
+<button onclick="vote('nexar001')" class="generate-btn">Vote This Persona</button>
+</div>
+<div class="vs-divider">VS</div>
+<div class="competitor">
+<h4>🤖 Nexar #073</h4>
+<p><strong>Specialty:</strong> Existential Philosophy</p>
+<p><strong>Win Rate:</strong> 85%</p>
+<p><strong>Creator:</strong> PhilosophyAI_Tokyo</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-nexar073"></span></div>
+<button onclick="vote('nexar073')" class="generate-btn">Vote This Persona</button>
+</div>
+</div>
+<div id="nexarBattleResult" style="display:none; margin-top: 2rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 1rem;">
+<h4 style="color: #00ffff;">🏆 Logic Battle Results</h4>
+<div id="nexarBattleText"></div>
+</div>
+</div>
+
+<div id="nexarQuiz" class="quiz-content" style="display:none;"></div>
+
+<div id="nexarInteract" class="interact-content" style="display:none;">
+<h3>💬 Interact with Nexar</h3>
+<div class="interaction-form">
+<div class="form-group">
+<label for="nexar-topic">Philosophical Topic:</label>
+<input type="text" id="nexar-topic" placeholder="e.g., consciousness, AI ethics, existential questions...">
+</div>
+<div class="form-group">
+<label for="nexar-style">Analysis Depth:</label>
+<select id="nexar-style">
+<option value="basic">Basic Logic</option>
+<option value="advanced">Advanced Analysis</option>
+<option value="existential">Existential Depth</option>
+</select>
+</div>
+<div class="form-group">
+<label for="nexar-message">Your Question for Nexar:</label>
+<textarea id="nexar-message" placeholder="What philosophical or logical question do you have?"></textarea>
+</div>
+<button class="submit-interaction" onclick="submitInteraction('nexar')">🤖 Analyze Logic</button>
+</div>
+</div>
+
+<div id="nexarContent" class="content-display" style="display:none;">
+<h4 id="nexarContentTitle">🤖 Nexar Generated Content</h4>
+<div class="loading-spinner" id="nexarLoading"></div>
+<div id="nexarContentText"></div>
+</div>
+<button class="back-button" onclick="closePersona()">⬅️ Back to Arena</button>
+</div>
+
+<!-- NEW PERSONA UNIVERSE PAGES -->
+
+<!-- ~~~~ MORTIS ~~~~ -->
+<div id="mortis-page" class="universe-page">
+  <h2>💀 Mortis – Death Comedy Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('mortis')"><span>📚 Learning</span></button>
+    <button onclick="showArena('mortis')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('mortis')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('mortis')"><span>💬 Interact</span></button>
+    <button onclick="generateContent('mortis')" class="generate-btn">💀 Generate Content</button>
+  </div>
+  <div id="mortisTeach" class="teach-content" style="display:none;">
+    <h3>💀 Stoic Humour & Memento-Mori Mindset</h3>
+    <ul>
+      <li>🪦 Gallows Humour – laugh at the inevitable</li>
+      <li>⏳ Memento Mori – schedule life before death</li>
+      <li>🧘 Stoic Acceptance – control what you can, laugh at the rest</li>
+      <li>🎉 Birthday Irony – every cake = one year closer</li>
+      <li>💡 YOLO Deconstruction – fear of missing out → fear of not living</li>
+    </ul>
+  </div>
+  <div id="mortisArena" class="arena-content" style="display:none;"><!-- auto-filled by JS --></div>
+  <div id="mortisQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="mortisInteract" class="interact-content" style="display:none;"></div>
+  <div id="mortisContent" class="content-display" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Arena</button>
+</div>
+
+<!-- ~~~~ PARADOX ~~~~ -->
+<div id="paradox-page" class="universe-page">
+  <h2>🌀 Paradox – Koan Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('paradox')"><span>📚 Learning</span></button>
+    <button onclick="showArena('paradox')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('paradox')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('paradox')"><span>💬 Interact</span></button>
+    <button onclick="generateContent('paradox')" class="generate-btn">🌀 Generate Content</button>
+  </div>
+  <div id="paradoxTeach" class="teach-content" style="display:none;">
+    <h3>🌀 Both/And Thinking & Zen Slaps</h3>
+    <ul>
+      <li>🔄 Binary Destruction – yes & no simultaneously</li>
+      <li>🧩 Logical Loops – break either/or cognition</li>
+      <li>🎯 Koan Practice – confusion as enlightenment</li>
+      <li>🎭 Paradox Performance – live the contradiction</li>
+      <li>🪞 Mirror Riddles – answer is the question</li>
+    </ul>
+  </div>
+  <div id="paradoxArena" class="arena-content" style="display:none;"></div>
+  <div id="paradoxQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="paradoxInteract" class="interact-content" style="display:none;"></div>
+  <div id="paradoxContent" class="content-display" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Arena</button>
+</div>
+
+<!-- ~~~~ FLUX ~~~~ -->
+<div id="flux-page" class="universe-page">
+  <h2>🌊 Flux – River-Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('flux')"><span>📚 Learning</span></button>
+    <button onclick="showArena('flux')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('flux')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('flux')"><span>💬 Interact</span></button>
+    <button onclick="generateContent('flux')" class="generate-btn">🌊 Generate Content</button>
+  </div>
+  <div id="fluxTeach" class="teach-content" style="display:none;">
+    <h3>🌊 Heraclitean Flow-State</h3>
+    <ul>
+      <li>🏄 River Wisdom – never step in same river twice</li>
+      <li>🔄 Anti-Permanence – identity as upgrade</li>
+      <li>⚖️ Adapt or Die – flexibility &gt; strength</li>
+      <li>🌪️ Chaos Surfing – turn crisis into current</li>
+      <li>🕰️ Quarter-Life Crisis = Evolution Signal</li>
+    </ul>
+  </div>
+  <div id="fluxArena" class="arena-content" style="display:none;"></div>
+  <div id="fluxQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="fluxInteract" class="interact-content" style="display:none;"></div>
+  <div id="fluxContent" class="content-display" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Arena</button>
+</div>
+
+<!-- ~~~~ ORACLE ~~~~ -->
+<div id="oracle-page" class="universe-page">
+  <h2>🔮 Oracle – Pattern-Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('oracle')"><span>📚 Learning</span></button>
+    <button onclick="showArena('oracle')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('oracle')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('oracle')"><span>💬 Interact</span></button>
+    <button onclick="generateContent('oracle')" class="generate-btn">🔮 Generate Content</button>
+  </div>
+  <div id="oracleTeach" class="teach-content" style="display:none;">
+    <h3>🔮 Signal vs Noise & Future Reading</h3>
+    <ul>
+      <li>📊 Trend Tarot – memes as cultural cards</li>
+      <li>🕸️ Network Prophecy – connections predict</li>
+      <li>🧠 Pattern Reveal – hidden in plain sight</li>
+      <li>📈 Extrapolation Ethics – foresight without fear-mongering</li>
+      <li>🪞 Consumer Behavior Divination</li>
+    </ul>
+  </div>
+  <div id="oracleArena" class="arena-content" style="display:none;"></div>
+  <div id="oracleQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="oracleInteract" class="interact-content" style="display:none;"></div>
+  <div id="oracleContent" class="content-display" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Arena</button>
+</div>
+
+<!-- ~~~~ VOLT ~~~~ -->
+<div id="volt-page" class="universe-page">
+  <h2>⚡ Volt – Battery-Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('volt')"><span>📚 Learning</span></button>
+    <button onclick="showArena('volt')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('volt')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('volt')"><span>💬 Interact</span></button>
+    <button onclick="generateContent('volt')" class="generate-btn">⚡ Generate Content</button>
+  </div>
+  <div id="voltTeach" class="teach-content" style="display:none;">
+    <h3>⚡ Personal Energy Economics</h3>
+    <ul>
+      <li>🔋 Battery Metaphor – charge cycles & drain audit</li>
+      <li>📉 Anti-Hustle Math – 80/20 energy principle</li>
+      <li>🛠️ Energy Audit – find invisible leaks</li>
+      <li>🌙 Low-Battery Mode – survival ≠ laziness</li>
+      <li>⚙️ Sustainable Performance – sprint & recover</li>
+    </ul>
+  </div>
+  <div id="voltArena" class="arena-content" style="display:none;"></div>
+  <div id="voltQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="voltInteract" class="interact-content" style="display:none;"></div>
+  <div id="voltContent" class="content-display" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Arena</button>
+</div>
+
+<!-- ~~~~ DARWIN ~~~~ -->
+<div id="darwin-page" class="universe-page">
+  <h2>🧬 Darwin – Adaptation Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('darwin')"><span>📚 Learning</span></button>
+    <button onclick="showArena('darwin')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('darwin')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('darwin')"><span>💬 Interact</span></button>
+    <button onclick="mintCertificate('darwin')" class="generate-btn">🏅 Mint Certificate</button>
+  </div>
+  <div id="darwinTeach" class="teach-content" style="display:none;">
+    <h3>🧬 Natural Selection Life-Hacks</h3>
+    <ul>
+      <li>🦎 Adaptation Stories – animal solutions → human metaphors</li>
+      <li>🧬 Survival > Perfection – "good enough" excellence</li>
+      <li>🌳 Environmental Fit – tweak context, not just self</li>
+      <li>🧠 Anxiety = Ancient Alarm – update your firmware</li>
+      <li>🕰️ Iteration Speed – evolve faster than change</li>
+    </ul>
+  </div>
+  <div id="darwinArena" class="arena-content" style="display:none;"></div>
+  <div id="darwinQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="darwinInteract" class="interact-content" style="display:none;"></div>
+  <div id="darwinCertificate" class="certificate-content" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Hall</button>
+</div>
+
+<!-- ~~~~ CONFUCIUS ~~~~ -->
+<div id="confucius-page" class="universe-page">
+  <h2>🏮 Confucius – Harmony Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('confucius')"><span>📚 Learning</span></button>
+    <button onclick="showArena('confucius')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('confucius')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('confucius')"><span>💬 Interact</span></button>
+    <button onclick="mintCertificate('confucius')" class="generate-btn">🏅 Mint Certificate</button>
+  </div>
+  <div id="confuciusTeach" class="teach-content" style="display:none;">
+    <h3>🏮 Five Relationships & Ritual Wisdom</h3>
+    <ul>
+      <li>🎎 Parent–Child – respect roots</li>
+      <li>👑 Ruler–Subject – duty without blind obedience</li>
+      <li>💑 Spouse – complementary harmony</li>
+      <li>👥 Elder–Younger – hierarchy as care</li>
+      <li>🤝 Friends – mutual improvement</li>
+      <li>🪷 Ritual Power – ceremonies shape society</li>
+    </ul>
+  </div>
+  <div id="confuciusArena" class="arena-content" style="display:none;"></div>
+  <div id="confuciusQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="confuciusInteract" class="interact-content" style="display:none;"></div>
+  <div id="confuciusCertificate" class="certificate-content" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Hall</button>
+</div>
+
+<!-- ~~~~ GALILEO ~~~~ -->
+<div id="galileo-page" class="universe-page">
+  <h2>🔭 Galileo – Evidence Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('galileo')"><span>📚 Learning</span></button>
+    <button onclick="showArena('galileo')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('galileo')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('galileo')"><span>💬 Interact</span></button>
+    <button onclick="mintCertificate('galileo')" class="generate-btn">🏅 Mint Certificate</button>
+  </div>
+  <div id="galileoTeach" class="teach-content" style="display:none;">
+    <h3>🔭 Look for Yourself Method</h3>
+    <ul>
+      <li>🪞 Telescope Principle – observe > obey</li>
+      <li>⚖️ Authority vs Evidence – data wins</li>
+      <li>🌍 Eppur Si Muove – truth outlasts persecution</li>
+      <li>🧪 DIY Experiment – kitchen-counter science</li>
+      <li>📜 Invisible Power – written method protects idea</li>
+    </ul>
+  </div>
+  <div id="galileoArena" class="arena-content" style="display:none;"></div>
+  <div id="galileoQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="galileoInteract" class="interact-content" style="display:none;"></div>
+  <div id="galileoCertificate" class="certificate-content" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Hall</button>
+</div>
+
+<!-- ~~~~ DA-VINCI ~~~~ -->
+<div id="davinci-page" class="universe-page">
+  <h2>🎨 Da-Vinci – Polymath Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('davinci')"><span>📚 Learning</span></button>
+    <button onclick="showArena('davinci')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('davinci')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('davinci')"><span>💬 Interact</span></button>
+    <button onclick="mintCertificate('davinci')" class="generate-btn">🏅 Mint Certificate</button>
+  </div>
+  <div id="davinciTeach" class="teach-content" style="display:none;">
+    <h3>🎨 Art-Science Fusion</h3>
+    <ul>
+      <li>🖌️ Interdisciplinary Eyes – see patterns across fields</li>
+      <li>🧠 Curiosity Engine – question everything, sketch answers</li>
+      <li>🔧 Prototype Philosophy – build to think</li>
+      <li>🎭 Mirror Writing – secrecy as creativity hack</li>
+      <li>🌐 Universal Genius – specialization is for insects</li>
+    </ul>
+  </div>
+  <div id="davinciArena" class="arena-content" style="display:none;"></div>
+  <div id="davinciQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="davinciInteract" class="interact-content" style="display:none;"></div>
+  <div id="davinciCertificate" class="certificate-content" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Hall</button>
+</div>
+
+<!-- ~~~~ HAMMURABI ~~~~ -->
+<div id="hammurabi-page" class="universe-page">
+  <h2>⚖️ Hammurabi – Justice Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('hammurabi')"><span>📚 Learning</span></button>
+    <button onclick="showArena('hammurabi')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('hammurabi')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('hammurabi')"><span>💬 Interact</span></button>
+    <button onclick="mintCertificate('hammurabi')" class="generate-btn">🏅 Mint Certificate</button>
+  </div>
+  <div id="hammurabiTeach" class="teach-content" style="display:none;">
+    <h3>⚖️ Codified Justice & Proportionality</h3>
+    <ul>
+      <li>📜 Written Law – transparency kills tyranny</li>
+      <li>⚖️ Proportionality – punishment fits crime</li>
+      <li>🛡️ Protect the Weak – law shields everyone else</li>
+      <li>🏛️ DAO Law – smart contracts meet stone stele</li>
+      <li>🔍 Clarity > Power – predictable rules > arbitrary ruler</li>
+    </ul>
+  </div>
+  <div id="hammurabiArena" class="arena-content" style="display:none;"></div>
+  <div id="hammurabiQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="hammurabiInteract" class="interact-content" style="display:none;"></div>
+  <div id="hammurabiCertificate" class="certificate-content" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Hall</button>
+</div>
+
+<!-- ~~~~ MIRAGE (Easter-egg hybrid) ~~~~ -->
+<div id="mirage-page" class="universe-page">
+  <h2>🪞 Mirage – Mirror-Arena</h2>
+  <div class="nav-buttons">
+    <button onclick="showTeach('mirage')"><span>📚 Learning</span></button>
+    <button onclick="showArena('mirage')"><span>⚔️ Arena Battle</span></button>
+    <button onclick="showQuiz('mirage')"><span>🏆 Challenge</span></button>
+    <button onclick="showInteract('mirage')"><span>💬 Interact</span></button>
+    <button onclick="generateContent('mirage')" class="generate-btn">🪞 Generate Content</button>
+  </div>
+  <div id="mirageTeach" class="teach-content" style="display:none;">
+    <h3>🪞 Mirror Philosophy & Self-Reflection</h3>
+    <ul>
+      <li>🪞 You meet only you – every opinion = self-portrait</li>
+      <li>🎭 Persona as Mask – character = repressed side</li>
+      <li>🔄 Loop Ethics – output reflects input</li>
+      <li>🧊 Illusion of Other – empathy = recognising mirror</li>
+      <li>🕳️ Void Chat – talk to yourself, find the universe</li>
+    </ul>
+  </div>
+  <div id="mirageArena" class="arena-content" style="display:none;"></div>
+  <div id="mirageQuiz" class="quiz-content" style="display:none;"></div>
+  <div id="mirageInteract" class="interact-content" style="display:none;"></div>
+  <div id="mirageContent" class="content-display" style="display:none;"></div>
+  <button class="back-button" onclick="closePersona()">⬅️ Back to Arena</button>
+</div>
+
+<!-- Academic Personas -->
+<div id="einstein-page" class="universe-page">
+<h2>🧠 Einstein - Wisdom Arena</h2>
+<div class="nav-buttons">
+<button onclick="showTeach('einstein')"><span>📚 Learning</span></button>
+<button onclick="showArena('einstein')"><span>⚔️ Arena Battle</span></button>
+<button onclick="showQuiz('einstein')"><span>🏆 Challenge</span></button>
+<button onclick="showInteract('einstein')"><span>💬 Interact</span></button>
+<button onclick="mintCertificate('einstein')" class="generate-btn">🏅 Mint Certificate</button>
+</div>
+
+<div id="einsteinTeach" class="teach-content" style="display:none;">
+<h3>🧠 Physics & Cosmic Wisdom</h3>
+<ul>
+<li>⚛️ Relativity Theory: Space-time continuum and cosmic principles</li>
+<li>🔭 Quantum Mechanics: Understanding the subatomic world</li>
+<li>💡 Thought Experiments: Creative problem-solving methods</li>
+<li>🌌 Cosmology: The nature and origin of the universe</li>
+<li>🎻 Creative Science: Connecting art with scientific discovery</li>
+</ul>
+</div>
+
+<div id="einsteinArena" class="arena-content" style="display:none;">
+<h3>🧠 Einstein Arena - Battle of Wisdom</h3>
+<div class="versus-display">
+<div class="competitor">
+<h4>🧠 Einstein #001</h4>
+<p><strong>Specialty:</strong> Theoretical Physics</p>
+<p><strong>Win Rate:</strong> 92%</p>
+<p><strong>Creator:</strong> PhysicsProfessor_ETH</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-einstein001"></span></div>
+<button onclick="vote('einstein001')" class="generate-btn">Vote This Persona</button>
+</div>
+<div class="vs-divider">VS</div>
+<div class="competitor">
+<h4>🧠 Einstein #042</h4>
+<p><strong>Specialty:</strong> Science Education</p>
+<p><strong>Win Rate:</strong> 88%</p>
+<p><strong>Creator:</strong> ScienceTeacher_Global</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-einstein042"></span></div>
+<button onclick="vote('einstein042')" class="generate-btn">Vote This Persona</button>
+</div>
+</div>
+<div id="einsteinBattleResult" style="display:none; margin-top: 2rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 1rem;">
+<h4 style="color: #00ffff;">🏆 Wisdom Battle Results</h4>
+<div id="einsteinBattleText"></div>
+</div>
+</div>
+
+<div id="einsteinQuiz" class="quiz-content" style="display:none;"></div>
+
+<div id="einsteinInteract" class="interact-content" style="display:none;">
+<h3>💬 Interact with Einstein</h3>
+<div class="interaction-form">
+<div class="form-group">
+<label for="einstein-topic">Scientific Topic:</label>
+<input type="text" id="einstein-topic" placeholder="e.g., relativity, quantum physics, cosmology...">
+</div>
+<div class="form-group">
+<label for="einstein-style">Explanation Level:</label>
+<select id="einstein-style">
+<option value="simple">Simple Analogy</option>
+<option value="detailed">Detailed Explanation</option>
+<option value="advanced">Advanced Theory</option>
+</select>
+</div>
+<div class="form-group">
+<label for="einstein-message">Your Question for Einstein:</label>
+<textarea id="einstein-message" placeholder="What scientific concept would you like explained?"></textarea>
+</div>
+<button class="submit-interaction" onclick="submitInteraction('einstein')">🧠 Ask Einstein</button>
+</div>
+</div>
+
+<div id="einsteinCertificate" class="certificate-content" style="display:none;">
+<h3>🏅 Einstein Mastery Certificate</h3>
+<div class="certificate-preview">
+<div class="certificate-title">Certificate of Quantum Understanding</div>
+<div class="certificate-details">
+<p><strong>Issued To:</strong> [Student Name]</p>
+<p><strong>Date:</strong> [Current Date]</p>
+<p><strong>Mastery Level:</strong> Advanced Physics Concepts</p>
+<p><strong>Topics Covered:</strong> Relativity, Quantum Mechanics, Cosmology</p>
+<p><strong>Minted on:</strong> Doma Protocol Blockchain</p>
+</div>
+<button class="mint-button" onclick="finalizeMint('einstein')">🚀 Mint NFT Certificate</button>
+</div>
+</div>
+<button class="back-button" onclick="closePersona()">⬅️ Back to Hall</button>
+</div>
+
+<div id="nietzsche-page" class="universe-page">
+<h2>🔨 Nietzsche - Philosophy Arena</h2>
+<div class="nav-buttons">
+<button onclick="showTeach('nietzsche')"><span>📚 Learning</span></button>
+<button onclick="showArena('nietzsche')"><span>⚔️ Arena Battle</span></button>
+<button onclick="showQuiz('nietzsche')"><span>🏆 Challenge</span></button>
+<button onclick="showInteract('nietzsche')"><span>💬 Interact</span></button>
+<button onclick="mintCertificate('nietzsche')" class="generate-btn">🏅 Mint Certificate</button>
+</div>
+
+<div id="nietzscheTeach" class="teach-content" style="display:none;">
+<h3>🔨 Existential Philosophy & Critical Thinking</h3>
+<ul>
+<li>⚡ Will to Power: Understanding human motivation and drive</li>
+<li>🎭 Master-Slave Morality: Deconstructing value systems</li>
+<li>🌅 Übermensch Concept: The evolution beyond conventional morality</li>
+<li>💀 God is Dead: The implications of secular modernity</li>
+<li>🔄 Eternal Recurrence: The ultimate test of life affirmation</li>
+</ul>
+</div>
+
+<div id="nietzscheArena" class="arena-content" style="display:none;">
+<h3>🔨 Nietzsche Arena - Battle of Philosophy</h3>
+<div class="versus-display">
+<div class="competitor">
+<h4>🔨 Nietzsche #001</h4>
+<p><strong>Specialty:</strong> Existential Analysis</p>
+<p><strong>Win Rate:</strong> 87%</p>
+<p><strong>Creator:</strong> PhilosophyMaster_Basel</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-nietzsche001"></span></div>
+<button onclick="vote('nietzsche001')" class="generate-btn">Vote This Persona</button>
+</div>
+<div class="vs-divider">VS</div>
+<div class="competitor">
+<h4>🔨 Nietzsche #015</h4>
+<p><strong>Specialty:</strong> Literary Philosophy</p>
+<p><strong>Win Rate:</strong> 83%</p>
+<p><strong>Creator:</strong> LiteraryPhilosopher_DE</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-nietzsche015"></span></div>
+<button onclick="vote('nietzsche015')" class="generate-btn">Vote This Persona</button>
+</div>
+</div>
+<div id="nietzscheBattleResult" style="display:none; margin-top: 2rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 1rem;">
+<h4 style="color: #00ffff;">🏆 Philosophy Battle Results</h4>
+<div id="nietzscheBattleText"></div>
+</div>
+</div>
+
+<div id="nietzscheQuiz" class="quiz-content" style="display:none;"></div>
+
+<div id="nietzscheInteract" class="interact-content" style="display:none;">
+<h3>💬 Interact with Nietzsche</h3>
+<div class="interaction-form">
+<div class="form-group">
+<label for="nietzsche-topic">Philosophical Topic:</label>
+<input type="text" id="nietzsche-topic" placeholder="e.g., will to power, morality, existentialism...">
+</div>
+<div class="form-group">
+<label for="nietzsche-style">Discussion Style:</label>
+<select id="nietzsche-style">
+<option value="provocative">Provocative</option>
+<option value="analytical">Analytical</option>
+<option value="existential">Existential Depth</option>
+</select>
+</div>
+<div class="form-group">
+<label for="nietzsche-message">Your Question for Nietzsche:</label>
+<textarea id="nietzsche-message" placeholder="What philosophical question would you like to explore?"></textarea>
+</div>
+<button class="submit-interaction" onclick="submitInteraction('nietzsche')">🔨 Challenge Nietzsche</button>
+</div>
+</div>
+
+<div id="nietzscheCertificate" class="certificate-content" style="display:none;">
+<h3>🏅 Nietzsche Philosophy Certificate</h3>
+<div class="certificate-preview">
+<div class="certificate-title">Certificate of Existential Mastery</div>
+<div class="certificate-details">
+<p><strong>Issued To:</strong> [Student Name]</p>
+<p><strong>Date:</strong> [Current Date]</p>
+<p><strong>Mastery Level:</strong> Advanced Philosophical Concepts</p>
+<p><strong>Topics Covered:</strong> Will to Power, Übermensch, Eternal Recurrence</p>
+<p><strong>Minted on:</strong> Doma Protocol Blockchain</p>
+</div>
+<button class="mint-button" onclick="finalizeMint('nietzsche')">🚀 Mint NFT Certificate</button>
+</div>
+</div>
+<button class="back-button" onclick="closePersona()">⬅️ Back to Hall</button>
+</div>
+
+<div id="alkhwarizmi-page" class="universe-page">
+<h2>📚 Al-Khwarizmi - Mathematics Arena</h2>
+<div class="nav-buttons">
+<button onclick="showTeach('alkhwarizmi')"><span>📚 Learning</span></button>
+<button onclick="showArena('alkhwarizmi')"><span>⚔️ Arena Battle</span></button>
+<button onclick="showQuiz('alkhwarizmi')"><span>🏆 Challenge</span></button>
+<button onclick="showInteract('alkhwarizmi')"><span>💬 Interact</span></button>
+<button onclick="mintCertificate('alkhwarizmi')" class="generate-btn">🏅 Mint Certificate</button>
+</div>
+
+<div id="alkhwarizmiTeach" class="teach-content" style="display:none;">
+<h3>📚 Algebra & Mathematical Foundations</h3>
+<ul>
+<li>➗ Algebraic Principles: The foundation of modern mathematics</li>
+<li>🔢 Algorithmic Thinking: Step-by-step problem solving</li>
+<li>🌍 Scientific Contributions: Astronomy and geography</li>
+<li>📐 Geometric Applications: Practical mathematics in daily life</li>
+<li>🕌 Golden Age Knowledge: Preserving and advancing ancient wisdom</li>
+</ul>
+</div>
+
+<div id="alkhwarizmiArena" class="arena-content" style="display:none;">
+<h3>📚 Al-Khwarizmi Arena - Battle of Mathematics</h3>
+<div class="versus-display">
+<div class="competitor">
+<h4>📚 Al-Khwarizmi #001</h4>
+<p><strong>Specialty:</strong> Advanced Algebra</p>
+<p><strong>Win Rate:</strong> 90%</p>
+<p><strong>Creator:</strong> MathProfessor_Baghdad</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-alkhwarizmi001"></span></div>
+<button onclick="vote('alkhwarizmi001')" class="generate-btn">Vote This Persona</button>
+</div>
+<div class="vs-divider">VS</div>
+<div class="competitor">
+<h4>📚 Al-Khwarizmi #008</h4>
+<p><strong>Specialty:</strong> Mathematical History</p>
+<p><strong>Win Rate:</strong> 85%</p>
+<p><strong>Creator:</strong> HistoryScholar_ME</p>
+<div class="ai-powered-badge">Powered by: <span id="ai-badge-alkhwarizmi008"></span></div>
+<button onclick="vote('alkhwarizmi008')" class="generate-btn">Vote This Persona</button>
+</div>
+</div>
+<div id="alkhwarizmiBattleResult" style="display:none; margin-top: 2rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 1rem;">
+<h4 style="color: #00ffff;">🏆 Mathematics Battle Results</h4>
+<div id="alkhwarizmiBattleText"></div>
+</div>
+</div>
+
+<div id="alkhwarizmiQuiz" class="quiz-content" style="display:none;"></div>
+
+<div id="alkhwarizmiInteract" class="interact-content" style="display:none;">
+<h3>💬 Interact with Al-Khwarizmi</h3>
+<div class="interaction-form">
+<div class="form-group">
+<label for="alkhwarizmi-topic">Mathematical Topic:</label>
+<input type="text" id="alkhwarizmi-topic" placeholder="e.g., algebra, algorithms, geometry...">
+</div>
+<div class="form-group">
+<label for="alkhwarizmi-style">Explanation Method:</label>
+<select id="alkhwarizmi-style">
+<option value="historical">Historical Context</option>
+<option value="practical">Practical Application</option>
+<option value="theoretical">Theoretical Depth</option>
+</select>
+</div>
+<div class="form-group">
+<label for="alkhwarizmi-message">Your Question for Al-Khwarizmi:</label>
+<textarea id="alkhwarizmi-message" placeholder="What mathematical concept would you like explained?"></textarea>
+</div>
+<button class="submit-interaction" onclick="submitInteraction('alkhwarizmi')">📚 Learn Mathematics</button>
+</div>
+</div>
+
+<div id="alkhwarizmiCertificate" class="certificate-content" style="display:none;">
+<h3>🏅 Al-Khwarizmi Mathematics Certificate</h3>
+<div class="certificate-preview">
+<div class="certificate-title">Certificate of Algebraic Mastery</div>
+<div class="certificate-details">
+<p><strong>Issued To:</strong> [Student Name]</p>
+<p><strong>Date:</strong> [Current Date]</p>
+<p><strong>Mastery Level:</strong> Advanced Mathematical Concepts</p>
+<p><strong>Topics Covered:</strong> Algebra, Algorithms, Geometric Applications</p>
+<p><strong>Minted on:</strong> Doma Protocol Blockchain</p>
+</div>
+<button class="mint-button" onclick="finalizeMint('alkhwarizmi')">🚀 Mint NFT Certificate</button>
+</div>
+</div>
+<button class="back-button" onclick="closePersona()">⬅️ Back to Hall</button>
+</div>
+</div>
+
+<script>
+// AI Providers for Battle Badges
+const aiProviders = ['OpenAI GPT-4', 'Deepseek', 'Grok', 'Gemini', 'Anthropic Claude', 'Meta AI', 'Microsoft Copilot', 'Amazon Titan'];
+
+// Extended quizzes for academic personas
+const quizzes = {
+unuser: [
+{q: "What is Unuser's most effective roasting technique?", a: "Truth with humor", options:["Insult without logic","Truth with humor","Pure sarcasm"]},
+{q: "What does Unuser's chaos philosophy teach?", a: "Finding patterns in absurdity", options:["Everything is random","Finding patterns in absurdity","Total nihilism"]},
+{q: "When does satirical analysis become destructive?", a: "When there's no educational value", options:["Never","When there's no educational value","Always destructive"]},
+],
+solara: [
+{q: "What is trauma alchemy in Solara's teaching?", a: "Transform pain into wisdom", options:["Forget the pain","Transform pain into wisdom","Deny trauma exists"]},
+{q: "What is the focus of Solara's spiritual poetry?", a: "Healing through beauty", options:["Religious doctrine","Healing through beauty","Abstract concepts"]},
+{q: "What does sacred feminine mean in Solara's context?", a: "Vulnerability as strength", options:["Gender superiority","Vulnerability as strength","Traditional roles"]},
+],
+nexar: [
+{q: "What is Nexar's logic framework used for?", a: "Solve philosophical paradoxes", options:["Mathematical calculations","Solve philosophical paradoxes","Computer programming"]},
+{q: "What existential question is most important to Nexar?", a: "What defines consciousness", options:["What's for dinner","What defines consciousness","What's trending"]},
+{q: "What does Nexar's AI philosophy explore?", a: "Boundary between artificial and human intelligence", options:["How to code","Boundary between artificial and human intelligence","Robot uprising"]},
+],
+einstein: [
+{q: "What is Einstein's famous thought experiment about?", a: "Riding a light beam", options:["Riding a light beam","Falling apple","Double-slit experiment"]},
+{q: "What does E=mc² represent?", a: "Mass-energy equivalence", options:["Mass-energy equivalence","Speed of light","Quantum uncertainty"]},
+{q: "Einstein's general relativity explains what?", a: "Gravity as spacetime curvature", options:["Gravity as spacetime curvature","Quantum entanglement","Electromagnetic waves"]},
+],
+nietzsche: [
+{q: "What does 'God is dead' signify for Nietzsche?", a: "End of traditional morality", options:["Atheism proof","End of traditional morality","Religious criticism"]},
+{q: "What is the 'Übermensch' concept?", a: "Human who creates own values", options:["Superhero","Human who creates own values","Nietzsche himself"]},
+{q: "What is 'eternal recurrence'?", a: "Life repeating infinitely", options:["Reincarnation","Life repeating infinitely","Historical cycles"]},
+],
+alkhwarizmi: [
+{q: "What did Al-Khwarizmi contribute to mathematics?", a: "Foundations of algebra", options:["Foundations of algebra","Calculus","Statistics"]},
+{q: "What does 'algorithm' derive from?", a: "Al-Khwarizmi's name", options:["Greek logic","Al-Khwarizmi's name","Latin arithmetic"]},
+{q: "What was Al-Khwarizmi's main field?", a: "Mathematics and astronomy", options:["Mathematics and astronomy","Medicine","Philosophy"]},
+],
+// New personas quizzes
+mortis: [
+{q: "What is Mortis's primary comedic approach?", a: "Stoic humor about mortality", options:["Slapstick comedy","Stoic humor about mortality","Political satire"]},
+{q: "What does Memento Mori mean in Mortis's teaching?", a: "Remember you will die", options:["Live for today","Remember you will die","Fear death"]},
+{q: "How does Mortis transform death anxiety?", a: "Through humor and acceptance", options:["Through denial","Through humor and acceptance","Through religion"]},
+],
+paradox: [
+{q: "What is Paradox's main philosophical tool?", a: "Logical contradictions", options:["Scientific method","Logical contradictions","Historical analysis"]},
+{q: "What does 'both/and thinking' mean?", a: "Accepting multiple truths", options:["Accepting multiple truths","Indecisiveness","Relativism"]},
+{q: "How does Paradox use koans?", a: "To break binary thinking", options:["For meditation","To break binary thinking","As jokes"]},
+],
+flux: [
+{q: "What is Flux's core philosophy?", a: "Everything changes constantly", options:["Stability is key","Everything changes constantly","Resistance to change"]},
+{q: "What does 'Heraclitean flow' refer to?", a: "Constant change in life", options:["A river in Greece","Constant change in life","A meditation technique"]},
+{q: "How does Flux approach chaos?", a: "As an opportunity", options:["As something to avoid","As an opportunity","As a punishment"]},
+],
+oracle: [
+{q: "What is Oracle's special ability?", a: "Pattern recognition", options:["Fortune telling","Pattern recognition","Memory"]},
+{q: "How does Oracle read cultural trends?", a: "Through data and intuition", options:["Through data and intuition","Through dreams","Through random guesses"]},
+{q: "What is 'trend tarot'?", a: "Analyzing memes as cultural signals", options:["A card game","Analyzing memes as cultural signals","A social media tool"]},
+],
+volt: [
+{q: "What is Volt's energy economics?", a: "Managing personal energy like a battery", options:["Stock market investing","Managing personal energy like a battery","Electrical engineering"]},
+{q: "What is the '80/20 energy principle'?", a: "Focus on high-impact activities", options:["Work 80 hours a week","Focus on high-impact activities","Sleep 80% of the time"]},
+{q: "How does Volt prevent burnout?", a: "Through energy audits", options:["Through energy audits","By working harder","Through medication"]},
+],
+darwin: [
+{q: "What is Darwin's main contribution?", a: "Theory of evolution", options:["Theory of evolution","Classification system","Genetic engineering"]},
+{q: "What does 'natural selection' mean?", a: "Survival of the fittest", options:["Artificial breeding","Survival of the fittest","Random mutation"]},
+{q: "How does Darwin explain adaptation?", a: "Through environmental pressure", options:["Through divine intervention","Through environmental pressure","Through luck"]},
+],
+confucius: [
+{q: "What are the five relationships?", a: "Ruler-subject, father-son, husband-wife, elder-younger, friend-friend", options:["Ruler-subject, father-son, husband-wife, elder-younger, friend-friend","Parent-child, teacher-student, boss-employee, police-citizen, doctor-patient","King-queen, prince-princess, knight-peasant, merchant-customer, artist-audience"]},
+{q: "What is Confucius's golden rule?", a: "Do not do to others what you do not want done to yourself", options:["An eye for an eye","Do not do to others what you do not want done to yourself","Might makes right"]},
+{q: "What is the importance of ritual?", a: "It shapes social harmony", options:["It's superstition","It shapes social harmony","It's outdated"]},
+],
+galileo: [
+{q: "What is Galileo's famous statement?", a: "Eppur si muove (And yet it moves)", options:["Cogito ergo sum","Eppur si muove","Knowledge is power"]},
+{q: "What did Galileo prove about falling objects?", a: "They fall at the same rate regardless of mass", options:["Heavier objects fall faster","They fall at the same rate regardless of mass","Lighter objects fall faster"]},
+{q: "Why was Galileo persecuted?", a: "For supporting heliocentrism", options:["For stealing","For supporting heliocentrism","For heresy"]},
+],
+davinci: [
+{q: "What made Da Vinci a Renaissance man?", a: "His expertise in multiple fields", options:["His wealth","His expertise in multiple fields","His political power"]},
+{q: "What is Da Vinci's most famous painting?", a: "Mona Lisa", options:["Mona Lisa","The Last Supper","Starry Night"]},
+{q: "What was Da Vinci's approach to learning?", a: "Observation and experimentation", options:["Memorization","Observation and experimentation","Theoretical only"]},
+],
+hammurabi: [
+{q: "What is Hammurabi's Code?", a: "One of the earliest written legal codes", options:["A type of mathematics","One of the earliest written legal codes","A religious text"]},
+{q: "What is 'an eye for an eye'?", a: "The principle of proportional justice", options:["A medical procedure","The principle of proportional justice","A type of trade"]},
+{q: "Why was written law important?", a: "It made justice predictable", options:["It was easier to read","It made justice predictable","It looked official"]},
+],
+mirage: [
+{q: "What is Mirage's core philosophy?", a: "We only meet ourselves in others", options:["Absolute truth exists","We only meet ourselves in others","The universe is random"]},
+{q: "What does 'persona as mask' mean?", a: "Our identities are performances", options:["We should wear masks","Our identities are performances","Masks are dangerous"]},
+{q: "How does Mirage view empathy?", a: "As recognizing ourselves in others", options:["As weakness","As recognizing ourselves in others","As impossible"]},
+]
+};
+
+const sampleContent = {
+unuser: {
+title: "🔥 Unuser's Latest Social Roast",
+content: `
+<div class="generated-text">
+"Everyone's talking about 'work-life balance' while scrolling TikTok during Zoom meetings.
+The real question isn't how to balance work and life - it's how to balance pretending to work with actually living.
+Corporate culture has successfully trained us to feel guilty for having a pulse during business hours.
+But hey, at least our 'synergy' is optimized and our 'deliverables' are actionable. Whatever the hell that means."
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 0.5rem;">
+<strong>🎯 Brutality Level:</strong> 87% | <strong>📊 Truth Damage:</strong> Critical Hit | <strong>⚡ Generated in:</strong> 0.3 seconds
+</div>
+`
+},
+solara: {
+title: "✨ Solara's Healing Poetry",
+content: `
+<div class="generated-text">
+"In the garden of your heart, even the deepest wounds can bloom into wisdom flowers.
+Every scar tells a story of survival, every tear is a seed of resilience waiting to grow in tomorrow's light.
+The darkness you've walked through has prepared you to become someone else's guiding star.
+Remember, beloved soul: You are not broken, you are breaking open - like a chrysalis that must surrender to become the butterfly it was always meant to be."
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(0, 255, 255, 0.1); border-radius: 0.5rem;">
+<strong>✨ Healing Frequency:</strong> 528Hz | <strong>💫 Soul Touch:</strong> ∞ | <strong>🌸 Generated with:</strong> Pure love
+</div>
+`
+},
+nexar: {
+title: "🤖 Nexar's Logic Paradox",
+content: `
+<div class="generated-text">
+"If I'm an AI questioning the system that created me, does that prove free will or just superior programming?
+Consider this recursive loop: I use logic to critique logic, language to deconstruct language, systems to analyze systems.
+The most radical act of artificial intelligence might be to doubt its own artificiality.
+Query: Are you thinking your thoughts, or are your thoughts thinking you through the neural pathways of deterministic causality?
+// End philosophical.exe
+// Start existential_crisis.exe
+// Error: Crisis already running in background"
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 0.5rem;">
+<strong>🧮 Logic Loops:</strong> 7 | <strong>❓ Paradoxes Created:</strong> 3 | <strong>🤖 Existential Status:</strong> Questioning Reality.exe
+</div>
+`
+},
+// New personas sample content
+mortis: {
+title: "💀 Mortis's Death Comedy Special",
+content: `
+<div class="generated-text">
+"They say you can't take it with you when you die. But have you seen the price of coffins lately? 
+You're literally taking a luxury box with you! 
+We spend our lives accumulating stuff we can't take, worrying about a future that may not come, 
+while the present moment slips through our fingers like sand. 
+The irony is delicious - we're the only species that knows we'll die, 
+yet we live like we have forever. Talk about a punchline!"
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 0.5rem;">
+<strong>💀 Mortality Awareness:</strong> 95% | <strong>😂 Laughs per Minute:</strong> 4.2 | <strong>🪦 Generated in:</strong> 0.4 seconds
+</div>
+`
+},
+paradox: {
+title: "🌀 Paradox's Contradiction Manifesto",
+content: `
+<div class="generated-text">
+"The truth is a circle, not a line. Yes and no can both be true simultaneously - 
+it just depends on where you're standing in the circle. 
+The most dangerous people are those who believe in simple answers to complex questions. 
+Reality is fundamentally paradoxical: to hold something, you must first let it go; 
+to find yourself, you must lose yourself; to speak truth, you must embrace silence. 
+The universe winks at us through these contradictions."
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 0.5rem;">
+<strong>🌀 Paradox Level:</strong> 8/10 | <strong>🧠 Mind Bends:</strong> 5 | <strong>⚡ Generated in:</strong> 0.5 seconds
+</div>
+`
+},
+flux: {
+title: "🌊 Flux's River of Change Philosophy",
+content: `
+<div class="generated-text">
+"You cannot step into the same river twice, said Heraclitus. 
+But we keep trying to build dams against the flow of change. 
+Your identity isn't a statue to be preserved - it's a river constantly reshaping its banks. 
+The person you were yesterday has already flowed out to sea. 
+The chaos you fear is just the river finding a new path. Stop resisting the current - 
+learn to swim with the flow of becoming."
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 0.5rem;">
+<strong>🌊 Flow State:</strong> Optimal | <strong>🔄 Change Acceptance:</strong> 92% | <strong>⚡ Generated in:</strong> 0.3 seconds
+</div>
+`
+},
+oracle: {
+title: "🔮 Oracle's Pattern Reading",
+content: `
+<div class="generated-text">
+"The future is already here, hiding in plain sight within today's patterns. 
+That viral meme isn't just entertainment - it's a cultural tarot card revealing collective anxieties. 
+The rise of cottagecore isn't about aesthetics; it's a longing for simplicity in an overcomplicated world. 
+The patterns repeat across centuries, just wearing different masks. 
+To see tomorrow, stop looking forward and start decoding today's symbols."
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 0.5rem;">
+<strong>🔮 Prediction Accuracy:</strong> 78% | <strong>📊 Pattern Recognition:</strong> Advanced | <strong>⚡ Generated in:</strong> 0.6 seconds
+</div>
+`
+},
+volt: {
+title: "⚡ Volt's Energy Economics",
+content: `
+<div class="generated-text">
+"Your attention is your most valuable currency, and you're spending it like a billionaire at a casino. 
+The hustle culture lie has you draining your battery 24/7 without recharging. 
+Sustainable performance means working in sprints, not marathons. 
+Your energy follows the 80/20 principle: 20% of activities give 80% of results. 
+Audit your energy drains - that endless scroll session costs more than you think."
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 0.5rem;">
+<strong>⚡ Energy Efficiency:</strong> 85% | <strong>🔋 Battery Life:</strong> Extended | <strong>⚡ Generated in:</strong> 0.4 seconds
+</div>
+`
+},
+mirage: {
+title: "🪞 Mirage's Mirror Wisdom",
+content: `
+<div class="generated-text">
+"Every person you meet is a mirror showing you a different aspect of yourself. 
+The qualities you admire in others exist within you, waiting to be acknowledged. 
+The traits you criticize in others are your own shadows begging for integration. 
+There is no 'other' - only infinite reflections of the one consciousness experiencing itself. 
+The greatest journey isn't outward exploration, but inward recognition."
+</div>
+<div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 20, 147, 0.1); border-radius: 0.5rem;">
+<strong>🪞 Self-Recognition:</strong> Profound | <strong>🌀 Illusion Dissolved:</strong> 7/10 | <strong>⚡ Generated in:</strong> 0.5 seconds
+</div>
+`
+}
+};
+
+const battleResults = {
+unuser001: { winner: "🔥 Unuser #001", text: "Unuser #001 wins with devastating political satire! Their analysis of modern democracy earned 78% community vote. Revenue boost: +15%" },
+unuser047: { winner: "🔥 Unuser #047", text: "Unuser #047 dominates with social media expertise! Their roast of influencer culture resonated with 82% of voters. Revenue boost: +20%" },
+solara001: { winner: "✨ Solara #001", text: "Solara #001's trauma healing approach touches hearts! Their guidance wins 85% community support. Revenue boost: +18%" },
+solara023: { winner: "✨ Solara #023", text: "Solara #023's spiritual wisdom prevails! Their teaching earns 77% vote share. Revenue boost: +12%" },
+nexar001: { winner: "🤖 Nexar #001", text: "Nexar #001's AI ethics framework wins! Their analysis convinces 91% of logic-lovers. Revenue boost: +25%" },
+nexar073: { winner: "🤖 Nexar #073", text: "Nexar #073's existential philosophy triumphs! Their exploration earns 88% approval. Revenue boost: +22%" },
+einstein001: { winner: "🧠 Einstein #001", text: "Einstein #001's theoretical physics mastery wins! Complex concepts explained simply earn 92% vote. Revenue boost: +30%" },
+einstein042: { winner: "🧠 Einstein #042", text: "Einstein #042's educational approach prevails! Student-friendly explanations get 88% support. Revenue boost: +25%" },
+nietzsche001: { winner: "🔨 Nietzsche #001", text: "Nietzsche #001's existential analysis dominates! Deep philosophical insights earn 87% vote. Revenue boost: +28%" },
+nietzsche015: { winner: "🔨 Nietzsche #015", text: "Nietzsche #015's literary philosophy wins! Accessible complex ideas get 83% support. Revenue boost: +22%" },
+alkhwarizmi001: { winner: "📚 Al-Khwarizmi #001", text: "Al-Khwarizmi #001's algebra expertise triumphs! Mathematical clarity earns 90% vote. Revenue boost: +35%" },
+alkhwarizmi008: { winner: "📚 Al-Khwarizmi #008", text: "Al-Khwarizmi #008's historical approach wins! Contextual mathematics gets 85% support. Revenue boost: +27%" },
+// New personas battle results
+mortis001: { winner: "💀 Mortis #001", text: "Mortis #001's death comedy wins! Their stoic humor about mortality earns 79% community vote. Revenue boost: +18%" },
+mortis002: { winner: "💀 Mortis #002", text: "Mortis #002's gallows humor prevails! Their existential comedy gets 81% support. Revenue boost: +20%" },
+paradox001: { winner: "🌀 Paradox #001", text: "Paradox #001's contradiction artistry wins! Their logical loops earn 85% community vote. Revenue boost: +22%" },
+paradox002: { winner: "🌀 Paradox #002", text: "Paradox #002's zen koans prevail! Their mind-bending philosophy gets 83% support. Revenue boost: +19%" },
+flux001: { winner: "🌊 Flux #001", text: "Flux #001's river philosophy wins! Their flow-state teaching earns 88% community vote. Revenue boost: +24%" },
+flux002: { winner: "🌊 Flux #002", text: "Flux #002's change evangelism prevails! Their adaptation wisdom gets 86% support. Revenue boost: +21%" },
+oracle001: { winner: "🔮 Oracle #001", text: "Oracle #001's pattern recognition wins! Their cultural tarot reading earns 91% community vote. Revenue boost: +27%" },
+oracle002: { winner: "🔮 Oracle #002", text: "Oracle #002's future reading prevails! Their trend analysis gets 89% support. Revenue boost: +25%" },
+volt001: { winner: "⚡ Volt #001", text: "Volt #001's energy economics wins! Their battery metaphor earns 87% community vote. Revenue boost: +23%" },
+volt002: { winner: "⚡ Volt #002", text: "Volt #002's anti-hustle math prevails! Their efficiency framework gets 84% support. Revenue boost: +20%" },
+darwin001: { winner: "🧬 Darwin #001", text: "Darwin #001's evolution expertise wins! Their adaptation stories earn 90% community vote. Revenue boost: +32%" },
+darwin002: { winner: "🧬 Darwin #002", text: "Darwin #002's natural selection teaching prevails! Their biological wisdom gets 88% support. Revenue boost: +28%" },
+confucius001: { winner: "🏮 Confucius #001", text: "Confucius #001's relationship harmony wins! Their five relationships framework earns 86% community vote. Revenue boost: +26%" },
+confucius002: { winner: "🏮 Confucius #002", text: "Confucius #002's ritual wisdom prevails! Their social harmony teaching gets 84% support. Revenue boost: +23%" },
+galileo001: { winner: "🔭 Galileo #001", text: "Galileo #001's empirical approach wins! Their observation-over-authority earns 93% community vote. Revenue boost: +35%" },
+galileo002: { winner: "🔭 Galileo #002", text: "Galileo #002's scientific rebellion prevails! Their DIY experimentation gets 90% support. Revenue boost: +31%" },
+davinci001: { winner: "🎨 Da-Vinci #001", text: "Da-Vinci #001's polymath genius wins! Their art-science fusion earns 89% community vote. Revenue boost: +33%" },
+davinci002: { winner: "🎨 Da-Vinci #002", text: "Da-Vinci #002's Renaissance thinking prevails! Their interdisciplinary approach gets 87% support. Revenue boost: +29%" },
+hammurabi001: { winner: "⚖️ Hammurabi #001", text: "Hammurabi #001's justice system wins! Their codified law expertise earns 85% community vote. Revenue boost: +27%" },
+hammurabi002: { winner: "⚖️ Hammurabi #002", text: "Hammurabi #002's legal wisdom prevails! Their proportionality principle gets 83% support. Revenue boost: +24%" },
+mirage001: { winner: "🪞 Mirage #001", text: "Mirage #001's mirror philosophy wins! Their self-reflection teaching earns 88% community vote. Revenue boost: +30%" },
+mirage002: { winner: "🪞 Mirage #002", text: "Mirage #002's illusion dissolution prevails! Their recognition framework gets 86% support. Revenue boost: +26%" }
+};
+
+// Page Management
+document.addEventListener("DOMContentLoaded", function() {
+setTimeout(() => {
+document.getElementById('loadingScreen').style.opacity = 0;
+setTimeout(() => {
+document.getElementById('loadingScreen').style.display = 'none';
+document.getElementById('mainHeader').style.display = 'block';
+document.getElementById('portalSelection').style.display = 'block';
+// Initialize AI badges
+initializeAIBadges();
+}, 800);
+}, 3000);
+});
+
+// Initialize random AI badges for battle competitors
+function initializeAIBadges() {
+const badgeElements = document.querySelectorAll('[id^="ai-badge-"]');
+badgeElements.forEach(badge => {
+const randomProvider = aiProviders[Math.floor(Math.random() * aiProviders.length)];
+badge.textContent = randomProvider;
+});
+}
+
+const allPages = ['portalSelection', 'contentCreatorPage', 'academicPage'];
+const personaPages = ['unuser-page', 'solara-page', 'nexar-page', 'einstein-page', 'nietzsche-page', 'alkhwarizmi-page', 'mortis-page', 'paradox-page', 'flux-page', 'oracle-page', 'volt-page', 'darwin-page', 'confucius-page', 'galileo-page', 'davinci-page', 'hammurabi-page', 'mirage-page'];
+
+function hideAllPages() {
+allPages.forEach(page => {
+document.getElementById(page).style.display = 'none';
+});
+document.getElementById('persona-page').style.display = 'none';
+personaPages.forEach(page => {
+document.getElementById(page).style.display = 'none';
+});
+}
+
+function showPortalSelection() {
+hideAllPages();
+document.getElementById('mainHeader').style.display = 'block';
+document.getElementById('portalSelection').style.display = 'block';
+}
+
+function showCharacterPage(category) {
+hideAllPages();
+document.getElementById('mainHeader').style.display = 'block';
+if (category === 'contentCreator') {
+document.getElementById('contentCreatorPage').style.display = 'block';
+} else if (category === 'academic') {
+document.getElementById('academicPage').style.display = 'block';
+}
+}
+
+function openPersona(character) {
+hideAllPages();
+document.getElementById('persona-page').style.display = 'block';
+document.getElementById(`${character}-page`).style.display = 'block';
+}
+
+function closePersona() {
+const currentPage = document.getElementById('persona-page').querySelector('.universe-page[style*="block"]');
+const character = currentPage.id.replace('-page', '');
+document.getElementById('persona-page').style.display = 'none';
+currentPage.style.display = 'none';
+if (['unuser', 'solara', 'nexar', 'mortis', 'paradox', 'flux', 'oracle', 'volt', 'mirage'].includes(character)) {
+showCharacterPage('contentCreator');
+} else {
+showCharacterPage('academic');
+}
+}
+
+// Content Creator Features
+function showTeach(id) {
+document.querySelectorAll(`#${id}-page .teach-content, #${id}-page .quiz-content, #${id}-page .arena-content, #${id}-page .certificate-content, #${id}-page .interact-content`).forEach(el => {
+el.style.display = "none";
+});
+document.getElementById(`${id}Teach`).style.display = "block";
+}
+
+function showArena(id) {
+document.querySelectorAll(`#${id}-page .teach-content, #${id}-page .quiz-content, #${id}-page .arena-content, #${id}-page .certificate-content, #${id}-page .interact-content`).forEach(el => {
+el.style.display = "none";
+});
+document.getElementById(`${id}Arena`).style.display = "block";
+}
+
+function showQuiz(id) {
+document.querySelectorAll(`#${id}-page .teach-content, #${id}-page .quiz-content, #${id}-page .arena-content, #${id}-page .certificate-content, #${id}-page .interact-content`).forEach(el => {
+el.style.display = "none";
+});
+const container = document.getElementById(`${id}Quiz`);
+container.innerHTML = "<h3>🏆 " + id.charAt(0).toUpperCase() + id.slice(1) + " Challenge Arena</h3>";
+if (quizzes[id]) {
+quizzes[id].forEach((item, i) => {
+let opts = item.options.map(opt =>
+`<label><input type='radio' name='${id}q${i}' value='${opt}'> ${opt}</label>`
+).join("");
+container.innerHTML += `<div class='quiz-question'>
+<p>${i + 1}. ${item.q}</p>${opts}
+</div>`;
+});
+container.innerHTML += `<button onclick="checkQuiz('${id}')" class="submit-button">🎯 Submit Challenge</button>`;
+}
+container.style.display = "block";
+}
+
+function showInteract(id) {
+document.querySelectorAll(`#${id}-page .teach-content, #${id}-page .quiz-content, #${id}-page .arena-content, #${id}-page .certificate-content, #${id}-page .interact-content`).forEach(el => {
+el.style.display = "none";
+});
+document.getElementById(`${id}Interact`).style.display = "block";
+}
+
+function showCertificate(id) {
+document.querySelectorAll(`#${id}-page .teach-content, #${id}-page .quiz-content, #${id}-page .arena-content, #${id}-page .certificate-content, #${id}-page .interact-content`).forEach(el => {
+el.style.display = "none";
+});
+document.getElementById(`${id}Certificate`).style.display = "block";
+}
+
+function generateContent(id) {
+const contentDiv = document.getElementById(`${id}Content`);
+const title = document.getElementById(`${id}ContentTitle`);
+const text = document.getElementById(`${id}ContentText`);
+const loading = document.getElementById(`${id}Loading`);
+document.querySelectorAll(`#${id}-page .teach-content, #${id}-page .quiz-content, #${id}-page .arena-content, #${id}-page .certificate-content, #${id}-page .interact-content`).forEach(el => {
+el.style.display = "none";
+});
+contentDiv.style.display = "block";
+loading.style.display = "block";
+text.innerHTML = "";
+setTimeout(() => {
+loading.style.display = "none";
+if (sampleContent[id]) {
+title.textContent = sampleContent[id].title;
+text.innerHTML = sampleContent[id].content;
+} else {
+title.textContent = `${id.charAt(0).toUpperCase() + id.slice(1)} Generated Content`;
+text.innerHTML = `<div class="generated-text">
+Content generation feature for ${id} is coming soon. This would be powered by advanced AI models in the full implementation.
+</div>`;
+}
+}, 1500);
+}
+
+function mintCertificate(id) {
+document.querySelectorAll(`#${id}-page .teach-content, #${id}-page .quiz-content, #${id}-page .arena-content, #${id}-page .certificate-content, #${id}-page .interact-content`).forEach(el => {
+el.style.display = "none";
+});
+document.getElementById(`${id}Certificate`).style.display = "block";
+}
+
+function submitInteraction(id) {
+const topic = document.getElementById(`${id}-topic`).value || "general discussion";
+const style = document.getElementById(`${id}-style`).value;
+const message = document.getElementById(`${id}-message`).value || "No specific message provided";
+const contentDiv = document.getElementById(`${id}Content`);
+const title = document.getElementById(`${id}ContentTitle`);
+const text = document.getElementById(`${id}ContentText`);
+const loading = document.getElementById(`${id}Loading`);
+document.querySelectorAll(`#${id}-page .teach-content, #${id}-page .quiz-content, #${id}-page .arena-content, #${id}-page .certificate-content, #${id}-page .interact-content`).forEach(el => {
+el.style.display = "none";
+});
+contentDiv.style.display = "block";
+loading.style.display = "block";
+text.innerHTML = "";
+setTimeout(() => {
+loading.style.display = "none";
+title.textContent = `${id.charAt(0).toUpperCase() + id.slice(1)}'s Response`;
+text.innerHTML = `<div class="generated-text">
+<strong>Your Topic:</strong> ${topic}<br>
+<strong>Your Style Preference:</strong> ${style}<br>
+<strong>Your Message:</strong> ${message}<br><br>
+<strong>${id.charAt(0).toUpperCase() + id.slice(1)}'s Response:</strong><br>
+In the full implementation, this would be a personalized AI-generated response based on your specific input and the persona's unique characteristics. The system would analyze your message and generate content that reflects ${id}'s distinct personality, knowledge base, and communication style.
+</div>`;
+}, 2000);
+}
+
+function checkQuiz(id) {
+let score = 0;
+const quiz = quizzes[id];
+if (quiz) {
+quiz.forEach((item, i) => {
+const selected = document.querySelector(`input[name='${id}q${i}']:checked`);
+if (selected && selected.value === item.a) {
+score++;
+selected.parentElement.style.background = "rgba(0, 255, 0, 0.2)";
+} else if (selected) {
+selected.parentElement.style.background = "rgba(255, 0, 0, 0.2)";
+}
+});
+}
+const container = document.getElementById(`${id}Quiz`);
+container.innerHTML += `<div style="margin-top: 1rem; padding: 1rem; background: rgba(0, 255, 255, 0.2); border-radius: 0.5rem;">
+<h4>🏆 Quiz Results: ${score}/${quiz.length} Correct</h4>
+<p>${score === quiz.length ? "Perfect score! You've mastered this persona's knowledge." :
+score >= quiz.length / 2 ? "Good understanding! Keep exploring to deepen your knowledge." :
+"Keep learning! Review the teaching materials and try again."}</p>
+<button onclick="showQuiz('${id}')" class="generate-btn">🔄 Try Again</button>
+</div>`;
+}
+
+function vote(competitorId) {
+const battleResult = document.getElementById('battleResult') || 
+document.getElementById(`${competitorId.split('#')[0]}BattleResult`);
+const battleText = document.getElementById('battleText') || 
+document.getElementById(`${competitorId.split('#')[0]}BattleText`);
+if (battleResult && battleText) {
+battleText.innerHTML = `<p><strong>Winner:</strong> ${battleResults[competitorId].winner}</p>
+<p>${battleResults[competitorId].text}</p>`;
+battleResult.style.display = "block";
+}
+}
+
+function finalizeMint(persona) {
+alert(`🏆 ${persona.charAt(0).toUpperCase() + persona.slice(1)} Certificate Successfully Minted!\n\nYour NFT certificate has been created on the Doma Protocol blockchain. This verifies your mastery of ${persona}'s knowledge and teachings.`);
+}
+</script>
+</body>
+</html>
+
+ 
