@@ -5,7 +5,7 @@ Powered by Somnia | Verified by Doma Protocol
 
 > AI Persona Economy on Somnia Blockchain
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://unuserv01-lab.github.io/RivalismeUniverse-Domain-AI-Automata-/)
+[![Live Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://unuserv01-lab.github.io/RivalismeUniverse-SomniaHybrid/)
 [![Somnia](https://img.shields.io/badge/Somnia-Testnet-8a2be2)](https://somnia.network)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
