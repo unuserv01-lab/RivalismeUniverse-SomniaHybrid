@@ -88,8 +88,8 @@ Multiple users can create different versions of the same historical figure (Eins
 
 ```bash
 # Clone repository
-git clone https://github.com/unuserv01-lab/RivalismeUniverse-Domain-AI-Automata-.git
-cd RivalismeUniverse-Domain-AI-Automata-
+git clone https://unuserv01-lab.github.io/RivalismeUniverse-SomniaHybrid/.git
+cd RivalismeUniverse-SomniaHybrid
 
 # Install dependencies
 npm install
@@ -142,7 +142,7 @@ npx hardhat run scripts/deploy.js --network somnia
 ## 🎮 How to Use
 
 ### 1. Connect Wallet
-- Open [Demo Site](https://unuserv01-lab.github.io/RivalismeUniverse-Domain-AI-Automata-/)
+- Open [Demo Site] [(https://unuserv01-lab.github.io/RivalismeUniverse-SomniaHybrid/)]
 - Click "Connect Wallet"
 - Approve connection in MetaMask
 - Ensure you're on Somnia Testnet
