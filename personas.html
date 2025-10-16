@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  ...
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+  ...
+</head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -1013,26 +1017,6 @@ border-top-color: #ff1493;
 animation: spin 1s ease-in-out infinite;
 }
 
-/* Connect Wallet Button */
-.connect-wallet-btn {
-padding: 0.5rem 1rem;
-border: 2px solid #00ffff;
-background: rgba(0, 255, 255, 0.1);
-color: #00ffff;
-font-family: 'Orbitron', sans-serif;
-font-weight: 600;
-border-radius: 25px;
-cursor: pointer;
-transition: all 0.3s ease;
-margin-top: 1rem;
-}
-
-.connect-wallet-btn:hover {
-background: #00ffff;
-color: #000000;
-box-shadow: 0 0 15px #00ffff;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
 .portal-main-title { font-size: 2.5rem; }
@@ -1069,8 +1053,6 @@ box-shadow: 0 0 15px #00ffff;
 <span>🔥 Live Demo</span> | <span>⚔️ AI Competition</span> | <span>🏆 Persona Arena</span>
 </div>
 
-<!-- Connect Wallet Button -->
-<button id="connectWalletButton" class="connect-wallet-btn" onclick="connectWallet()">🔗 Connect Wallet</button>
 
 <!-- Responsible Innovation Framework -->
 <div class="responsible-innovation">
@@ -2385,1058 +2367,277 @@ Codified-law defender. Builds transparent rules so the weak aren't hostage to th
 </div>
 
 <script>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
- // ✅ FIXED: Deployed contract info
-const SOMNIA_CONTRACT = {
-    address: "0xd9145CCE52D386f254917e481eB44e9943F39138", 
-    abi: [
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "approved",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "Approval",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "operator",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "bool",
-				"name": "approved",
-				"type": "bool"
-			}
-		],
-		"name": "ApprovalForAll",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "_fromTokenId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "_toTokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "BatchMetadataUpdate",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "MetadataUpdate",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "specialization",
-				"type": "string"
-			}
-		],
-		"name": "PersonaMinted",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "newURI",
-				"type": "string"
-			}
-		],
-		"name": "PersonaUpdated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "Transfer",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "approve",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "balanceOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getApproved",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getPersona",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "specialization",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "mintedAt",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "creator",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "currentOwner",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "getPersonasByOwner",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "operator",
-				"type": "address"
-			}
-		],
-		"name": "isApprovedForAll",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "specialization",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "uri",
-				"type": "string"
-			}
-		],
-		"name": "mintMyPersona",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "specialization",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "uri",
-				"type": "string"
-			}
-		],
-		"name": "mintPersona",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "name",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "ownerOf",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "personaExists",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "personas",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "specialization",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "mintedAt",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "creator",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "safeTransferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bytes",
-				"name": "data",
-				"type": "bytes"
-			}
-		],
-		"name": "safeTransferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "operator",
-				"type": "address"
-			},
-			{
-				"internalType": "bool",
-				"name": "approved",
-				"type": "bool"
-			}
-		],
-		"name": "setApprovalForAll",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes4",
-				"name": "interfaceId",
-				"type": "bytes4"
-			}
-		],
-		"name": "supportsInterface",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "symbol",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "tokenURI",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "totalSupply",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "transferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "newURI",
-				"type": "string"
-			}
-		],
-		"name": "updateTokenURI",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "userPersonas",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-]
-};
+// ============================================
+// WALLET & CONTRACT INITIALIZATION
+// ============================================
 
-// Somnia Network Configuration
+let walletAddress = null;
+let provider = null;
+let signer = null;
+let contract = null;
+let isWalletConnected = false;
+
 const SOMNIA_NETWORK = {
-    chainId: "0x...", // ⚠️ REPLACE with actual Somnia Chain ID in hex (e.g., "0x1" for mainnet)
-    chainName: "Somnia Network",
-    rpcUrls: ["https://rpc.somnia.network"], // ⚠️ REPLACE with actual RPC URL
-    nativeCurrency: {
-        name: "STT",
-        symbol: "STT",
-        decimals: 18
-    },
-    blockExplorerUrls: ["https://explorer.somnia.network"]
+  chainId: '0xC467',
+  chainName: 'Somnia Testnet',
+  rpcUrls: ['https://dream-rpc.somnia.network/'],
+  blockExplorerUrls: ['https://explorer.somnia.network/'],
+  nativeCurrency: { name: 'STT', symbol: 'STT', decimals: 18 }
 };
-;
 
-// Connect wallet function
-// ✅ FIXED: Global variables for wallet state
-let globalProvider;
-let globalSigner;
-let globalContract;
-let globalUserAddress;
+const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+const CONTRACT_ABI = [
+  "function totalSupply() public view returns (uint256)",
+  "function getPersonasByOwner(address owner) public view returns (uint256[] memory)",
+  "function mintMyPersona(string memory name, string memory specialization, string memory uri) public returns (uint256)",
+  "function getPersona(uint256 tokenId) public view returns (string memory name, string memory specialization, uint256 mintedAt, address creator, address currentOwner)",
+  "function ownerOf(uint256 tokenId) public view returns (address)",
+  "function tokenURI(uint256 tokenId) public view returns (string memory)"
+];
 
-// ✅ FIXED: Connect wallet function with proper error handling
-async function connectWallet() {
-    const connectBtn = document.getElementById('connectWalletButton');
-    
-    // Check if MetaMask is installed
-    if (typeof window.ethereum === 'undefined') {
-        alert('❌ MetaMask not detected!\n\nPlease install MetaMask browser extension:\n• Chrome: https://metamask.io/download\n• Brave: Built-in wallet available');
-        return null;
-    }
-    
+// Initialize wallet dari localStorage
+async function initializeWallet() {
+  // Check if coming from index.html with connected wallet
+  const savedAddress = localStorage.getItem('walletAddress');
+  const wasConnected = localStorage.getItem('walletConnected');
+
+  if (wasConnected === 'true' && savedAddress && typeof window.ethereum !== 'undefined') {
     try {
-        console.log('🔄 Requesting wallet connection...');
-        connectBtn.disabled = true;
-        connectBtn.textContent = '🔄 Connecting...';
+      // Setup provider
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+      
+      // Verify account
+      const accounts = await provider.listAccounts();
+      if (accounts.length > 0 && accounts[0].toLowerCase() === savedAddress.toLowerCase()) {
+        walletAddress = savedAddress;
+        signer = provider.getSigner();
+        contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+        isWalletConnected = true;
+
+        console.log('✅ Wallet initialized:', walletAddress);
+        updateWalletUI();
         
-        // Request account access
-        const accounts = await window.ethereum.request({ 
-            method: 'eth_requestAccounts' 
-        });
-        
-        if (!accounts || accounts.length === 0) {
-            throw new Error('No accounts found. Please unlock your wallet.');
-        }
-        
-        globalUserAddress = accounts[0];
-        console.log('✅ Connected address:', globalUserAddress);
-        
-        // Initialize provider and signer
-        globalProvider = new ethers.providers.Web3Provider(window.ethereum);
-        globalSigner = globalProvider.getSigner();
-        
-        // Check network
-        const network = await globalProvider.getNetwork();
-        console.log('📡 Network:', network.name, 'Chain ID:', network.chainId);
-        
-        // Get balance
-        const balance = await globalProvider.getBalance(globalUserAddress);
-        const balanceInEth = ethers.utils.formatEther(balance);
-        console.log('💰 Balance:', balanceInEth, 'ETH');
-        
-        // Initialize contract
-        try {
-            globalContract = new ethers.Contract(
-                SOMNIA_CONTRACT.address,
-                SOMNIA_CONTRACT.abi,
-                globalSigner
-            );
-            console.log('📝 Contract initialized:', SOMNIA_CONTRACT.address);
-        } catch (contractError) {
-            console.warn('⚠️ Contract initialization failed:', contractError.message);
-            // Continue without contract - might not be deployed yet
-        }
-        
-        // Update button
-        connectBtn.textContent = `🔗 ${globalUserAddress.substring(0, 6)}...${globalUserAddress.substring(globalUserAddress.length - 4)}`;
-        connectBtn.style.background = 'rgba(0, 255, 0, 0.3)';
-        connectBtn.style.borderColor = '#00ff00';
-        
-        console.log('✅ Wallet connected successfully!');
-        
-        // Listen for account changes
-        window.ethereum.on('accountsChanged', handleAccountsChanged);
-        window.ethereum.on('chainChanged', handleChainChanged);
-        
-        return { 
-            provider: globalProvider, 
-            signer: globalSigner, 
-            contract: globalContract, 
-            address: globalUserAddress 
-        };
-        
+        return true;
+      }
     } catch (error) {
-        console.error('❌ Connection error:', error);
-        
-        let errorMessage = 'Connection failed: ';
-        if (error.code === 4001) {
-            errorMessage += 'You rejected the connection request.';
-        } else if (error.code === -32002) {
-            errorMessage += 'Connection request already pending. Please check MetaMask.';
-        } else {
-            errorMessage += error.message || 'Unknown error';
-        }
-        
-        alert('❌ ' + errorMessage);
-        
-        connectBtn.disabled = false;
-        connectBtn.textContent = '🔗 Connect Wallet';
-        
-        return null;
+      console.error('Wallet initialization failed:', error);
     }
+  }
+
+  isWalletConnected = false;
+  return false;
 }
 
-// ✅ NEW: Event handlers
-function handleAccountsChanged(accounts) {
-    if (accounts.length === 0) {
-        console.log('🔌 Wallet disconnected');
-        alert('Wallet disconnected. Please refresh the page.');
-        window.location.reload();
-    } else if (accounts[0] !== globalUserAddress) {
-        console.log('🔄 Account changed');
-        window.location.reload();
+// Update UI based on wallet status
+function updateWalletUI() {
+  if (isWalletConnected && walletAddress) {
+    // Show wallet address in header (kamu bisa custom)
+    const headerStats = document.querySelector('.header-stats');
+    if (headerStats) {
+      headerStats.innerHTML += ` | <span style="color: #00ff00;">🔗 ${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)}</span>`;
     }
+  } else {
+    // Show "Connect Wallet" message
+    console.log('⚠️ Wallet not connected. Some features will be limited.');
+  }
 }
 
-function handleChainChanged(chainId) {
-    console.log('🔄 Network changed to:', chainId);
-    window.location.reload();
+// Reconnect wallet (if user wants to connect from personas.html)
+async function reconnectWallet() {
+  if (typeof window.ethereum === 'undefined') {
+    alert("❌ Please install MetaMask!");
+    return false;
+  }
+
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    walletAddress = accounts[0];
+    
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    signer = provider.getSigner();
+    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+    
+    localStorage.setItem('walletAddress', walletAddress);
+    localStorage.setItem('walletConnected', 'true');
+    
+    isWalletConnected = true;
+    updateWalletUI();
+    
+    alert(`✅ Wallet reconnected: ${walletAddress}`);
+    return true;
+  } catch (error) {
+    console.error('Reconnect failed:', error);
+    alert('❌ Failed to reconnect wallet');
+    return false;
+  }
 }
 
-// ✅ FIXED: Mint persona function
-async function mintPersonaNFT(name) {
-    // Check if wallet is connected
-    if (!globalContract || !globalSigner || !globalUserAddress) {
-        alert('❌ Please connect your wallet first!');
-        const result = await connectWallet();
-        if (!result) return; // Connection failed
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', async function() {
+  // Pastikan ethers.js loaded
+  if (typeof ethers === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js';
+    script.onload = () => initializeWallet();
+    document.head.appendChild(script);
+  } else {
+    await initializeWallet();
+  }
+
+  // ... rest of your DOMContentLoaded code
+});
+
+// ============================================
+// MINT NFT FUNCTIONS
+// ============================================
+
+async function mintPersonaNFT(personaName) {
+  // Check wallet connection
+  if (!isWalletConnected || !contract) {
+    const confirmed = confirm("❌ Wallet not connected!\n\nDo you want to connect now?");
+    if (confirmed) {
+      const success = await reconnectWallet();
+      if (!success) return;
+    } else {
+      return;
+    }
+  }
+
+  // Confirm mint
+  const confirmMint = confirm(
+    `🎯 Mint ${personaName.toUpperCase()} Persona NFT?\n\n` +
+    `Cost: ~0.001 STT (gas fee)\n` +
+    `Network: Somnia Testnet\n\n` +
+    `Continue?`
+  );
+
+  if (!confirmMint) return;
+
+  try {
+    // Show loading
+    alert("⏳ Preparing transaction...\n\nPlease confirm in MetaMask");
+
+    // Prepare metadata
+    const metadata = {
+      name: personaName.charAt(0).toUpperCase() + personaName.slice(1),
+      specialization: "AI Persona",
+      uri: `https://rivalismeuniverse.com/metadata/${personaName.toLowerCase()}.json`
+    };
+
+    console.log('Minting with params:', metadata);
+
+    // Call contract
+    const tx = await contract.mintMyPersona(
+      metadata.name,
+      metadata.specialization,
+      metadata.uri
+    );
+
+    console.log('Transaction sent:', tx.hash);
+    alert(`⏳ Minting in progress...\n\nTX: ${tx.hash.substring(0, 20)}...\n\nPlease wait for confirmation...`);
+
+    // Wait for confirmation
+    const receipt = await tx.wait();
+    console.log('Transaction confirmed:', receipt);
+
+    // Success!
+    alert(
+      `✅ PERSONA NFT MINTED SUCCESSFULLY!\n\n` +
+      `Persona: ${metadata.name}\n` +
+      `Token ID: ${receipt.events ? receipt.events[0].args.tokenId : 'Check explorer'}\n` +
+      `TX: ${tx.hash}\n\n` +
+      `View on Explorer: ${SOMNIA_NETWORK.blockExplorerUrls[0]}/tx/${tx.hash}`
+    );
+
+    // Open explorer
+    window.open(`${SOMNIA_NETWORK.blockExplorerUrls[0]}/tx/${tx.hash}`, '_blank');
+
+  } catch (error) {
+    console.error('Mint failed:', error);
+    
+    let errorMsg = "❌ MINT FAILED\n\n";
+    
+    if (error.code === 4001) {
+      errorMsg += "You rejected the transaction";
+    } else if (error.code === -32603) {
+      errorMsg += "Insufficient funds for gas fee";
+    } else if (error.message) {
+      errorMsg += error.message;
+    } else {
+      errorMsg += "Unknown error occurred";
     }
     
-    // Check if contract is initialized
-    if (!globalContract) {
-        alert('❌ Smart contract not available.\n\nPlease ensure:\n1. Contract is deployed\n2. Contract address is correct\n3. You are on the right network');
-        return;
-    }
-    
-    try {
-        console.log(`🎨 Minting ${name} NFT...`);
-        
-        // Find the button that was clicked
-        const clickedButton = event.target;
-        const originalText = clickedButton.textContent;
-        clickedButton.disabled = true;
-        clickedButton.textContent = '🔄 Preparing...';
-        
-        // Prepare metadata URI
-        const uri = `https://rivalismeuniverse.com/metadata/${name.toLowerCase()}.json`;
-        console.log('📄 Metadata URI:', uri);
-        
-        // Estimate gas (optional but recommended)
-        try {
-            const gasEstimate = await globalContract.estimateGas.mintMyPersona(
-                name,
-                "AI Persona",
-                uri
-            );
-            console.log('⛽ Estimated gas:', gasEstimate.toString());
-        } catch (gasError) {
-            console.warn('⚠️ Gas estimation failed:', gasError.message);
-        }
-        
-        // Send transaction
-        clickedButton.textContent = '🔄 Minting...';
-        const tx = await globalContract.mintMyPersona(
-            name,
-            "AI Persona",
-            uri
-        );
-        
-        console.log('📤 Transaction sent:', tx.hash);
-        clickedButton.textContent = '⏳ Confirming...';
-        
-        // Wait for confirmation
-        const receipt = await tx.wait();
-        console.log('✅ Transaction confirmed:', receipt.transactionHash);
-        
-        // Success!
-        alert(`✅ ${name} Persona NFT Minted!\n\nTransaction: ${receipt.transactionHash}\n\nYou can view it on the block explorer.`);
-        
-        clickedButton.textContent = '✅ Minted!';
-        clickedButton.style.background = 'rgba(0, 255, 0, 0.3)';
-        clickedButton.style.borderColor = '#00ff00';
-        
-    } catch (error) {
-        console.error('❌ Mint error:', error);
-        
-        let errorMsg = 'Minting failed:\n\n';
-        
-        if (error.code === 4001 || error.code === 'ACTION_REJECTED') {
-            errorMsg += 'You rejected the transaction.';
-        } else if (error.message.includes('insufficient funds')) {
-            errorMsg += 'Insufficient funds for gas fee.';
-        } else if (error.message.includes('execution reverted')) {
-            errorMsg += 'Contract execution failed. Possible reasons:\n• Persona already minted\n• Contract function error\n• Insufficient permissions';
-        } else if (error.code === -32603) {
-            errorMsg += 'Internal error. Please check:\n• Network connection\n• Contract deployment\n• Gas settings';
-        } else {
-            errorMsg += error.message || 'Unknown error occurred';
-        }
-        
-        alert('❌ ' + errorMsg);
-        
-        // Reset button
-        const clickedButton = event.target;
-        clickedButton.disabled = false;
-        clickedButton.textContent = originalText;
-    }
+    alert(errorMsg);
+  }
 }
-// ✅ FIXED: Mint content NFT function
+
+// Mint Content NFT (for generated content)
 async function mintContentNFT(persona, contentHash) {
-    // Check wallet connection
-    if (!globalContract || !globalSigner || !globalUserAddress) {
-        alert('❌ Please connect your wallet first!');
-        const result = await connectWallet();
-        if (!result) return;
-    }
+  if (!isWalletConnected || !contract) {
+    alert("❌ Please connect wallet first!");
+    await reconnectWallet();
+    return;
+  }
+
+  try {
+    const metadata = {
+      name: `${persona} AI Content`,
+      specialization: "Generated Content",
+      uri: `https://rivalismeuniverse.com/content/${persona}/${contentHash}.json`
+    };
+
+    const tx = await contract.mintMyPersona(
+      metadata.name,
+      metadata.specialization,
+      metadata.uri
+    );
+
+    alert(`⏳ Minting content NFT...\n\nTX: ${tx.hash}`);
     
-    if (!globalContract) {
-        alert('❌ Smart contract not available.');
-        return;
-    }
+    const receipt = await tx.wait();
     
-    try {
-        console.log(`✨ Minting ${persona} content NFT...`);
-        
-        const clickedButton = event.target;
-        const originalText = clickedButton.textContent;
-        clickedButton.disabled = true;
-        clickedButton.textContent = '🔄 Minting Content...';
-        
-        // Generate content hash if not provided
-        const finalContentHash = contentHash || Date.now().toString();
-        const uri = `https://rivalismeuniverse.com/content/${persona.toLowerCase()}/${finalContentHash}.json`;
-        
-        console.log('📄 Content URI:', uri);
-        
-        // Send transaction
-        const tx = await globalContract.mintMyPersona(
-            `${persona} Content`,
-            "AI Generated Content",
-            uri
-        );
-        
-        console.log('📤 Transaction sent:', tx.hash);
-        clickedButton.textContent = '⏳ Confirming...';
-        
-        // Wait for confirmation
-        const receipt = await tx.wait();
-        console.log('✅ Content NFT minted:', receipt.transactionHash);
-        
-        alert(`✅ ${persona} Content NFT Minted!\n\nYour AI-generated content is now on-chain!\n\nTransaction: ${receipt.transactionHash}`);
-        
-        clickedButton.textContent = '✅ Minted!';
-        clickedButton.style.background = 'rgba(0, 255, 0, 0.3)';
-        clickedButton.style.borderColor = '#00ff00';
-        
-    } catch (error) {
-        console.error('❌ Content NFT mint error:', error);
-        
-        let errorMsg = 'Content minting failed:\n\n';
-        if (error.code === 4001) {
-            errorMsg += 'Transaction rejected by user.';
-        } else if (error.message.includes('insufficient funds')) {
-            errorMsg += 'Insufficient funds for gas.';
-        } else {
-            errorMsg += error.message || 'Unknown error';
-        }
-        
-        alert('❌ ' + errorMsg);
-        
-        const clickedButton = event.target;
-        clickedButton.disabled = false;
-        clickedButton.textContent = originalText;
-    }
+    alert(`✅ Content NFT minted!\n\nView: ${SOMNIA_NETWORK.blockExplorerUrls[0]}/tx/${tx.hash}`);
+    window.open(`${SOMNIA_NETWORK.blockExplorerUrls[0]}/tx/${tx.hash}`, '_blank');
+
+  } catch (error) {
+    console.error('Content NFT mint failed:', error);
+    alert(`❌ Failed to mint content NFT: ${error.message}`);
+  }
 }
 
-// ✅ FIXED: Mint certificate NFT function
+// Mint Certificate NFT
 async function mintCertificateNFT(persona) {
-    if (!globalContract || !globalSigner || !globalUserAddress) {
-        alert('❌ Please connect your wallet first!');
-        const result = await connectWallet();
-        if (!result) return;
-    }
-    
-    if (!globalContract) {
-        alert('❌ Smart contract not available.');
-        return;
-    }
-    
-    try {
-        console.log(`🏅 Minting ${persona} certificate NFT...`);
-        
-        const clickedButton = event.target;
-        const originalText = clickedButton.textContent;
-        clickedButton.disabled = true;
-        clickedButton.textContent = '🔄 Minting Certificate...';
-        
-        const uri = `https://rivalismeuniverse.com/certificates/${persona.toLowerCase()}.json`;
-        console.log('📄 Certificate URI:', uri);
-        
-        // Send transaction (certificates are usually free/soulbound)
-        const tx = await globalContract.mintMyPersona(
-            `${persona} Certificate`,
-            "Achievement Certificate",
-            uri
-        );
-        
-        console.log('📤 Transaction sent:', tx.hash);
-        clickedButton.textContent = '⏳ Confirming...';
-        
-        const receipt = await tx.wait();
-        console.log('✅ Certificate minted:', receipt.transactionHash);
-        
-        alert(`🏅 ${persona} Certificate Minted!\n\nCongratulations on completing your learning journey!\n\nThis soulbound NFT verifies your mastery.\n\nTransaction: ${receipt.transactionHash}`);
-        
-        clickedButton.textContent = '✅ Certificate Minted!';
-        clickedButton.style.background = 'rgba(218, 165, 32, 0.3)';
-        clickedButton.style.borderColor = '#daa520';
-        
-    } catch (error) {
-        console.error('❌ Certificate mint error:', error);
-        
-        let errorMsg = 'Certificate minting failed:\n\n';
-        if (error.code === 4001) {
-            errorMsg += 'Transaction rejected.';
-        } else {
-            errorMsg += error.message || 'Unknown error';
-        }
-        
-        alert('❌ ' + errorMsg);
-        
-        const clickedButton = event.target;
-        clickedButton.disabled = false;
-        clickedButton.textContent = originalText;
-    }
-}
+  if (!isWalletConnected || !contract) {
+    alert("❌ Please connect wallet first!");
+    await reconnectWallet();
+    return;
+  }
 
+  try {
+    const metadata = {
+      name: `${persona} Certificate`,
+      specialization: "Achievement Certificate",
+      uri: `https://rivalismeuniverse.com/certificates/${persona}.json`
+    };
+
+    const tx = await contract.mintMyPersona(
+      metadata.name,
+      metadata.specialization,
+      metadata.uri
+    );
+
+    alert(`⏳ Minting certificate...\n\nTX: ${tx.hash}`);
+    
+    const receipt = await tx.wait();
+    
+    alert(`✅ Certificate NFT minted!\n\nView: ${SOMNIA_NETWORK.blockExplorerUrls[0]}/tx/${tx.hash}`);
+    window.open(`${SOMNIA_NETWORK.blockExplorerUrls[0]}/tx/${tx.hash}`, '_blank');
+
+  } catch (error) {
+    console.error('Certificate mint failed:', error);
+    alert(`❌ Failed to mint certificate: ${error.message}`);
+  }
+}
 
 // AI Providers for Battle Badges
 const aiProviders = ['OpenAI GPT-4', 'Deepseek', 'Grok', 'Gemini', 'Anthropic Claude', 'Meta AI', 'Microsoft Copilot', 'Amazon Titan'];
@@ -3984,27 +3185,6 @@ const characterCard = this.closest('.character-card');
 const characterName = characterCard.querySelector('.character-name').textContent.trim().toLowerCase();
 openPersona(characterName);
 });
-});
-// ✅ NEW: Check wallet connection on page load
-window.addEventListener('load', async () => {
-    console.log('🚀 RivalismeUniverse loaded');
-    console.log('📦 ethers.js version:', ethers.version);
-    console.log('🦊 MetaMask installed:', typeof window.ethereum !== 'undefined');
-    
-    // Check if already connected
-    if (typeof window.ethereum !== 'undefined' && window.ethereum.selectedAddress) {
-        console.log('💡 Wallet already connected:', window.ethereum.selectedAddress);
-        // Optionally auto-connect
-        // await connectWallet();
-    }
-});
-
-// ✅ NEW: Cleanup on page unload
-window.addEventListener('beforeunload', () => {
-    if (window.ethereum) {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-        window.ethereum.removeListener('chainChanged', handleChainChanged);
-    }
 });
 </script>
 </body>
