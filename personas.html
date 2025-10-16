@@ -2385,98 +2385,363 @@ Codified-law defender. Builds transparent rules so the weak aren't hostage to th
 </div>
 
 <script>
-// Deployed contract info
+  // ✅ FIXED: Deployed contract info
 const SOMNIA_CONTRACT = {
-  address: "0xd9145CCE52D386f254917e481eB44e9943F39138",
-  abi: [
-    "function mintMyPersona(string memory name, string memory specialization, string memory uri) public returns (uint256)",
-    "function getPersonasByOwner(address owner) public view returns (uint256[] memory)",
-    "function totalSupply() public view returns (uint256)",
-    "function getPersona(uint256 tokenId) public view returns (string memory name, string memory specialization, uint256 mintedAt, address creator, address currentOwner)"
-  ]
+    address: "0xd9145CCE52D386f254917e481eB44e9943F39138", 
+    abi: [
+        "function mintMyPersona(string name, string specialization, string uri) public returns (uint256)",
+        "function getPersonasByOwner(address owner) public view returns (uint256[])",
+        "function totalSupply() public view returns (uint256)",
+        "function getPersona(uint256 tokenId) public view returns (tuple(string name, string specialization, uint256 mintedAt, address creator, address currentOwner))"
+    ]
 };
 
+// Somnia Network Configuration
+const SOMNIA_NETWORK = {
+    chainId: "0x...", // ⚠️ REPLACE with actual Somnia Chain ID in hex (e.g., "0x1" for mainnet)
+    chainName: "Somnia Network",
+    rpcUrls: ["https://rpc.somnia.network"], // ⚠️ REPLACE with actual RPC URL
+    nativeCurrency: {
+        name: "STT",
+        symbol: "STT",
+        decimals: 18
+    },
+    blockExplorerUrls: ["https://explorer.somnia.network"]
+};
+;
+
 // Connect wallet function
+// ✅ FIXED: Global variables for wallet state
+let globalProvider;
+let globalSigner;
+let globalContract;
+let globalUserAddress;
+
+// ✅ FIXED: Connect wallet function with proper error handling
 async function connectWallet() {
-  if (typeof window.ethereum !== 'undefined') {
-    try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const address = await signer.getAddress();
-      
-      console.log("Connected:", address);
-      
-      // Update button text
-      document.getElementById('connectWalletButton').textContent = `🔗 ${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
-      
-      // Initialize contract
-      const contract = new ethers.Contract(
-        SOMNIA_CONTRACT.address,
-        SOMNIA_CONTRACT.abi,
-        signer
-      );
-      
-      return { provider, signer, contract, address };
-    } catch (error) {
-      console.error("Connection failed:", error);
-      alert("❌ Wallet connection failed: " + error.message);
+    const connectBtn = document.getElementById('connectWalletButton');
+    
+    // Check if MetaMask is installed
+    if (typeof window.ethereum === 'undefined') {
+        alert('❌ MetaMask not detected!\n\nPlease install MetaMask browser extension:\n• Chrome: https://metamask.io/download\n• Brave: Built-in wallet available');
+        return null;
     }
-  } else {
-    alert("Please install MetaMask or Brave Wallet!");
-  }
+    
+    try {
+        console.log('🔄 Requesting wallet connection...');
+        connectBtn.disabled = true;
+        connectBtn.textContent = '🔄 Connecting...';
+        
+        // Request account access
+        const accounts = await window.ethereum.request({ 
+            method: 'eth_requestAccounts' 
+        });
+        
+        if (!accounts || accounts.length === 0) {
+            throw new Error('No accounts found. Please unlock your wallet.');
+        }
+        
+        globalUserAddress = accounts[0];
+        console.log('✅ Connected address:', globalUserAddress);
+        
+        // Initialize provider and signer
+        globalProvider = new ethers.providers.Web3Provider(window.ethereum);
+        globalSigner = globalProvider.getSigner();
+        
+        // Check network
+        const network = await globalProvider.getNetwork();
+        console.log('📡 Network:', network.name, 'Chain ID:', network.chainId);
+        
+        // Get balance
+        const balance = await globalProvider.getBalance(globalUserAddress);
+        const balanceInEth = ethers.utils.formatEther(balance);
+        console.log('💰 Balance:', balanceInEth, 'ETH');
+        
+        // Initialize contract
+        try {
+            globalContract = new ethers.Contract(
+                SOMNIA_CONTRACT.address,
+                SOMNIA_CONTRACT.abi,
+                globalSigner
+            );
+            console.log('📝 Contract initialized:', SOMNIA_CONTRACT.address);
+        } catch (contractError) {
+            console.warn('⚠️ Contract initialization failed:', contractError.message);
+            // Continue without contract - might not be deployed yet
+        }
+        
+        // Update button
+        connectBtn.textContent = `🔗 ${globalUserAddress.substring(0, 6)}...${globalUserAddress.substring(globalUserAddress.length - 4)}`;
+        connectBtn.style.background = 'rgba(0, 255, 0, 0.3)';
+        connectBtn.style.borderColor = '#00ff00';
+        
+        console.log('✅ Wallet connected successfully!');
+        
+        // Listen for account changes
+        window.ethereum.on('accountsChanged', handleAccountsChanged);
+        window.ethereum.on('chainChanged', handleChainChanged);
+        
+        return { 
+            provider: globalProvider, 
+            signer: globalSigner, 
+            contract: globalContract, 
+            address: globalUserAddress 
+        };
+        
+    } catch (error) {
+        console.error('❌ Connection error:', error);
+        
+        let errorMessage = 'Connection failed: ';
+        if (error.code === 4001) {
+            errorMessage += 'You rejected the connection request.';
+        } else if (error.code === -32002) {
+            errorMessage += 'Connection request already pending. Please check MetaMask.';
+        } else {
+            errorMessage += error.message || 'Unknown error';
+        }
+        
+        alert('❌ ' + errorMessage);
+        
+        connectBtn.disabled = false;
+        connectBtn.textContent = '🔗 Connect Wallet';
+        
+        return null;
+    }
 }
 
-// Mint persona function
+// ✅ NEW: Event handlers
+function handleAccountsChanged(accounts) {
+    if (accounts.length === 0) {
+        console.log('🔌 Wallet disconnected');
+        alert('Wallet disconnected. Please refresh the page.');
+        window.location.reload();
+    } else if (accounts[0] !== globalUserAddress) {
+        console.log('🔄 Account changed');
+        window.location.reload();
+    }
+}
+
+function handleChainChanged(chainId) {
+    console.log('🔄 Network changed to:', chainId);
+    window.location.reload();
+}
+
+// ✅ FIXED: Mint persona function
 async function mintPersonaNFT(name) {
-  const { contract } = await connectWallet();
-  const uri = `https://rivalismeuniverse.com/metadata/${name.toLowerCase()}.json`;
-  
-  try {
-    const tx = await contract.mintMyPersona(name, "AI Persona", uri);
-    console.log("Minting... TX:", tx.hash);
-    await tx.wait();
-    console.log("Minted successfully!");
-    alert(`✅ ${name} persona NFT minted successfully!`);
-  } catch (error) {
-    console.error("Mint failed:", error);
-    alert("❌ NFT mint failed: " + error.message);
-  }
+    // Check if wallet is connected
+    if (!globalContract || !globalSigner || !globalUserAddress) {
+        alert('❌ Please connect your wallet first!');
+        const result = await connectWallet();
+        if (!result) return; // Connection failed
+    }
+    
+    // Check if contract is initialized
+    if (!globalContract) {
+        alert('❌ Smart contract not available.\n\nPlease ensure:\n1. Contract is deployed\n2. Contract address is correct\n3. You are on the right network');
+        return;
+    }
+    
+    try {
+        console.log(`🎨 Minting ${name} NFT...`);
+        
+        // Find the button that was clicked
+        const clickedButton = event.target;
+        const originalText = clickedButton.textContent;
+        clickedButton.disabled = true;
+        clickedButton.textContent = '🔄 Preparing...';
+        
+        // Prepare metadata URI
+        const uri = `https://rivalismeuniverse.com/metadata/${name.toLowerCase()}.json`;
+        console.log('📄 Metadata URI:', uri);
+        
+        // Estimate gas (optional but recommended)
+        try {
+            const gasEstimate = await globalContract.estimateGas.mintMyPersona(
+                name,
+                "AI Persona",
+                uri
+            );
+            console.log('⛽ Estimated gas:', gasEstimate.toString());
+        } catch (gasError) {
+            console.warn('⚠️ Gas estimation failed:', gasError.message);
+        }
+        
+        // Send transaction
+        clickedButton.textContent = '🔄 Minting...';
+        const tx = await globalContract.mintMyPersona(
+            name,
+            "AI Persona",
+            uri
+        );
+        
+        console.log('📤 Transaction sent:', tx.hash);
+        clickedButton.textContent = '⏳ Confirming...';
+        
+        // Wait for confirmation
+        const receipt = await tx.wait();
+        console.log('✅ Transaction confirmed:', receipt.transactionHash);
+        
+        // Success!
+        alert(`✅ ${name} Persona NFT Minted!\n\nTransaction: ${receipt.transactionHash}\n\nYou can view it on the block explorer.`);
+        
+        clickedButton.textContent = '✅ Minted!';
+        clickedButton.style.background = 'rgba(0, 255, 0, 0.3)';
+        clickedButton.style.borderColor = '#00ff00';
+        
+    } catch (error) {
+        console.error('❌ Mint error:', error);
+        
+        let errorMsg = 'Minting failed:\n\n';
+        
+        if (error.code === 4001 || error.code === 'ACTION_REJECTED') {
+            errorMsg += 'You rejected the transaction.';
+        } else if (error.message.includes('insufficient funds')) {
+            errorMsg += 'Insufficient funds for gas fee.';
+        } else if (error.message.includes('execution reverted')) {
+            errorMsg += 'Contract execution failed. Possible reasons:\n• Persona already minted\n• Contract function error\n• Insufficient permissions';
+        } else if (error.code === -32603) {
+            errorMsg += 'Internal error. Please check:\n• Network connection\n• Contract deployment\n• Gas settings';
+        } else {
+            errorMsg += error.message || 'Unknown error occurred';
+        }
+        
+        alert('❌ ' + errorMsg);
+        
+        // Reset button
+        const clickedButton = event.target;
+        clickedButton.disabled = false;
+        clickedButton.textContent = originalText;
+    }
 }
-
-// Mint content NFT function
+// ✅ FIXED: Mint content NFT function
 async function mintContentNFT(persona, contentHash) {
-  const { contract } = await connectWallet();
-  const uri = `https://rivalismeuniverse.com/content/${persona.toLowerCase()}/${contentHash}.json`;
-  
-  try {
-    const tx = await contract.mintMyPersona(`${persona} Content`, "AI Generated Content", uri);
-    console.log("Minting content NFT... TX:", tx.hash);
-    await tx.wait();
-    console.log("Content NFT minted successfully!");
-    alert(`✅ ${persona} content NFT minted successfully!`);
-  } catch (error) {
-    console.error("Content NFT mint failed:", error);
-    alert("❌ Content NFT mint failed: " + error.message);
-  }
+    // Check wallet connection
+    if (!globalContract || !globalSigner || !globalUserAddress) {
+        alert('❌ Please connect your wallet first!');
+        const result = await connectWallet();
+        if (!result) return;
+    }
+    
+    if (!globalContract) {
+        alert('❌ Smart contract not available.');
+        return;
+    }
+    
+    try {
+        console.log(`✨ Minting ${persona} content NFT...`);
+        
+        const clickedButton = event.target;
+        const originalText = clickedButton.textContent;
+        clickedButton.disabled = true;
+        clickedButton.textContent = '🔄 Minting Content...';
+        
+        // Generate content hash if not provided
+        const finalContentHash = contentHash || Date.now().toString();
+        const uri = `https://rivalismeuniverse.com/content/${persona.toLowerCase()}/${finalContentHash}.json`;
+        
+        console.log('📄 Content URI:', uri);
+        
+        // Send transaction
+        const tx = await globalContract.mintMyPersona(
+            `${persona} Content`,
+            "AI Generated Content",
+            uri
+        );
+        
+        console.log('📤 Transaction sent:', tx.hash);
+        clickedButton.textContent = '⏳ Confirming...';
+        
+        // Wait for confirmation
+        const receipt = await tx.wait();
+        console.log('✅ Content NFT minted:', receipt.transactionHash);
+        
+        alert(`✅ ${persona} Content NFT Minted!\n\nYour AI-generated content is now on-chain!\n\nTransaction: ${receipt.transactionHash}`);
+        
+        clickedButton.textContent = '✅ Minted!';
+        clickedButton.style.background = 'rgba(0, 255, 0, 0.3)';
+        clickedButton.style.borderColor = '#00ff00';
+        
+    } catch (error) {
+        console.error('❌ Content NFT mint error:', error);
+        
+        let errorMsg = 'Content minting failed:\n\n';
+        if (error.code === 4001) {
+            errorMsg += 'Transaction rejected by user.';
+        } else if (error.message.includes('insufficient funds')) {
+            errorMsg += 'Insufficient funds for gas.';
+        } else {
+            errorMsg += error.message || 'Unknown error';
+        }
+        
+        alert('❌ ' + errorMsg);
+        
+        const clickedButton = event.target;
+        clickedButton.disabled = false;
+        clickedButton.textContent = originalText;
+    }
 }
 
-// Mint certificate NFT function
+// ✅ FIXED: Mint certificate NFT function
 async function mintCertificateNFT(persona) {
-  const { contract } = await connectWallet();
-  const uri = `https://rivalismeuniverse.com/certificates/${persona.toLowerCase()}.json`;
-  
-  try {
-    const tx = await contract.mintMyPersona(`${persona} Certificate`, "Achievement Certificate", uri);
-    console.log("Minting certificate NFT... TX:", tx.hash);
-    await tx.wait();
-    console.log("Certificate NFT minted successfully!");
-    alert(`✅ ${persona} certificate NFT minted successfully!`);
-  } catch (error) {
-    console.error("Certificate NFT mint failed:", error);
-    alert("❌ Certificate NFT mint failed: " + error.message);
-  }
+    if (!globalContract || !globalSigner || !globalUserAddress) {
+        alert('❌ Please connect your wallet first!');
+        const result = await connectWallet();
+        if (!result) return;
+    }
+    
+    if (!globalContract) {
+        alert('❌ Smart contract not available.');
+        return;
+    }
+    
+    try {
+        console.log(`🏅 Minting ${persona} certificate NFT...`);
+        
+        const clickedButton = event.target;
+        const originalText = clickedButton.textContent;
+        clickedButton.disabled = true;
+        clickedButton.textContent = '🔄 Minting Certificate...';
+        
+        const uri = `https://rivalismeuniverse.com/certificates/${persona.toLowerCase()}.json`;
+        console.log('📄 Certificate URI:', uri);
+        
+        // Send transaction (certificates are usually free/soulbound)
+        const tx = await globalContract.mintMyPersona(
+            `${persona} Certificate`,
+            "Achievement Certificate",
+            uri
+        );
+        
+        console.log('📤 Transaction sent:', tx.hash);
+        clickedButton.textContent = '⏳ Confirming...';
+        
+        const receipt = await tx.wait();
+        console.log('✅ Certificate minted:', receipt.transactionHash);
+        
+        alert(`🏅 ${persona} Certificate Minted!\n\nCongratulations on completing your learning journey!\n\nThis soulbound NFT verifies your mastery.\n\nTransaction: ${receipt.transactionHash}`);
+        
+        clickedButton.textContent = '✅ Certificate Minted!';
+        clickedButton.style.background = 'rgba(218, 165, 32, 0.3)';
+        clickedButton.style.borderColor = '#daa520';
+        
+    } catch (error) {
+        console.error('❌ Certificate mint error:', error);
+        
+        let errorMsg = 'Certificate minting failed:\n\n';
+        if (error.code === 4001) {
+            errorMsg += 'Transaction rejected.';
+        } else {
+            errorMsg += error.message || 'Unknown error';
+        }
+        
+        alert('❌ ' + errorMsg);
+        
+        const clickedButton = event.target;
+        clickedButton.disabled = false;
+        clickedButton.textContent = originalText;
+    }
 }
+
 
 // AI Providers for Battle Badges
 const aiProviders = ['OpenAI GPT-4', 'Deepseek', 'Grok', 'Gemini', 'Anthropic Claude', 'Meta AI', 'Microsoft Copilot', 'Amazon Titan'];
@@ -3024,6 +3289,27 @@ const characterCard = this.closest('.character-card');
 const characterName = characterCard.querySelector('.character-name').textContent.trim().toLowerCase();
 openPersona(characterName);
 });
+});
+// ✅ NEW: Check wallet connection on page load
+window.addEventListener('load', async () => {
+    console.log('🚀 RivalismeUniverse loaded');
+    console.log('📦 ethers.js version:', ethers.version);
+    console.log('🦊 MetaMask installed:', typeof window.ethereum !== 'undefined');
+    
+    // Check if already connected
+    if (typeof window.ethereum !== 'undefined' && window.ethereum.selectedAddress) {
+        console.log('💡 Wallet already connected:', window.ethereum.selectedAddress);
+        // Optionally auto-connect
+        // await connectWallet();
+    }
+});
+
+// ✅ NEW: Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    if (window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+        window.ethereum.removeListener('chainChanged', handleChainChanged);
+    }
 });
 </script>
 </body>
