@@ -1,888 +1,1046 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rivalisme Universe - Cosmic Portal</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #000;
-            color: white;
-            font-family: 'Orbitron', sans-serif;
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        #globe-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .ui-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .ui-overlay > * {
-            pointer-events: auto;
-        }
-
-        .main-title {
-            position: absolute;
-            top: 8%;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, #ff1493, #00ffff, #ff1493);
-            background-size: 200% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: neonPulse 3s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(255,20,147,0.8);
-            z-index: 10;
-        }
-
-        @keyframes neonPulse {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .subtitle {
-            position: absolute;
-            top: 18%;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 1.5rem;
-            color: #00ffff;
-            text-shadow: 0 0 10px rgba(0,255,255,0.6);
-            z-index: 10;
-        }
-
-        .portal-buttons {
-            position: absolute;
-            bottom: 15%;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            z-index: 10;
-        }
-
-        .portal-btn {
-            padding: 1.2rem 2.5rem;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #00ffff;
-            color: #00ffff;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .portal-btn:hover {
-            background: #00ffff;
-            color: #000;
-            box-shadow: 0 0 30px #00ffff, 0 0 60px rgba(0, 255, 255, 0.5);
-            transform: translateY(-5px);
-        }
-
-        .creator-btn {
-            border-color: #ff1493;
-            color: #ff1493;
-        }
-
-        .creator-btn:hover {
-            background: #ff1493;
-            color: #000;
-            box-shadow: 0 0 30px #ff1493, 0 0 60px rgba(255, 20, 147, 0.5);
-        }
-
-        .info-panel {
-            position: absolute;
-            top: 30%;
-            right: 5%;
-            width: 300px;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 2px solid rgba(255, 20, 147, 0.3);
-            z-index: 10;
-            pointer-events: auto;
-        }
-
-        .info-panel h3 {
-            color: #00ffff;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .info-panel p {
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1.5rem;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            display: block;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ff1493;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
-
-        .country-info {
-            position: absolute;
-            top: 30%;
-            left: 5%;
-            width: 300px;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 2px solid rgba(255, 20, 147, 0.3);
-            z-index: 10;
-            pointer-events: auto;
-            display: none;
-        }
-
-        .country-info h3 {
-            color: #00ffff;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .country-info p {
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .persona-list {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .persona-item {
-            padding: 0.5rem;
-            margin: 0.5rem 0;
-            background: rgba(255, 20, 147, 0.1);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .persona-item:hover {
-            background: rgba(255, 20, 147, 0.3);
-            transform: translateX(5px);
-        }
-
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        .floating-element {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,20,147,0.3) 0%, transparent 70%);
-            animation: float 15s infinite ease-in-out;
-        }
-
-        .element-1 {
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .element-2 {
-            top: 60%;
-            left: 15%;
-            animation-delay: 2s;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(0,255,255,0.3) 0%, transparent 70%);
-        }
-
-        .element-3 {
-            top: 30%;
-            right: 10%;
-            animation-delay: 4s;
-            width: 120px;
-            height: 120px;
-        }
-
-        .element-4 {
-            top: 70%;
-            right: 15%;
-            animation-delay: 6s;
-            background: radial-gradient(circle, rgba(0,255,255,0.3) 0%, transparent 70%);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        .pulse-ring {
-            position: absolute;
-            border: 2px solid #00ffff;
-            border-radius: 50%;
-            animation: pulse 3s infinite;
-            z-index: 1;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 5s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
-
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #000000 0%, #1a1a2e 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 0.8s ease;
-        }
-
-        .loading-title {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: 4px;
-            margin-bottom: 2rem;
-            background: linear-gradient(45deg, #ff1493, #00ffff, #ff1493);
-            background-size: 200% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: neonPulse 3s ease-in-out infinite;
-        }
-
-        .loading-bar {
-            width: 300px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 2rem;
-        }
-
-        .loading-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #ff1493, #00ffff);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        /* NEW FEATURES STYLES */
-        .wallet-section {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            z-index: 1000;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .connect-wallet-btn, .explore-somnia-btn {
-            padding: 0.8rem 1.5rem;
-            border: 2px solid #00ffff;
-            background: rgba(0, 255, 255, 0.1);
-            color: #00ffff;
-            border-radius: 25px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .connect-wallet-btn:hover, .explore-somnia-btn:hover {
-            background: #00ffff;
-            color: #000;
-            box-shadow: 0 0 30px #00ffff;
-            transform: translateY(-2px);
-        }
-
-        .wallet-connected {
-            background: rgba(0, 255, 0, 0.2);
-            border-color: #00ff00;
-            color: #00ff00;
-        }
-
-        .nft-mint-section {
-            background: rgba(30, 41, 59, 0.9);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 2px solid rgba(255, 20, 147, 0.3);
-            text-align: center;
-        }
-
-        .nft-preview {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 1.5rem;
-            border-radius: 15px;
-            border: 3px solid #00ffff;
-            background: linear-gradient(45deg, #1a1a2e, #16213e);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nft-preview::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 20, 147, 0.3), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .mint-price {
-            color: #00ffff;
-            font-size: 1.2rem;
-            margin: 1rem 0;
-        }
-
-        .mint-button {
-            padding: 1rem 2rem;
-            border: 2px solid #ff1493;
-            background: rgba(255, 20, 147, 0.2);
-            color: #ff1493;
-            border-radius: 50px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
-
-        .mint-button:hover {
-            background: #ff1493;
-            color: #000;
-            box-shadow: 0 0 30px #ff1493;
-            transform: translateY(-3px);
-        }
-
-        .ai-providers {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .ai-provider-badge {
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .ai-provider-badge.active {
-            background: rgba(0, 255, 255, 0.2);
-            border-color: #00ffff;
-            color: #00ffff;
-        }
-
-        .generation-stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            color: #00ffff;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 1.1rem;
-            font-weight: bold;
-            display: block;
-        }
-
-        .global-globe {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, 
-                rgba(0, 255, 255, 0.1) 0%,
-                rgba(255, 20, 147, 0.05) 40%,
-                transparent 70%);
-            box-shadow: 
-                0 0 200px rgba(0, 255, 255, 0.3),
-                inset 0 0 100px rgba(255, 20, 147, 0.2);
-            animation: globeRotate 60s linear infinite;
-            z-index: -1;
-            opacity: 0.6;
-        }
-
-        .globe-glow {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
-            border-radius: 50%;
-            background: radial-gradient(circle, 
-                rgba(0, 255, 255, 0.1) 0%,
-                rgba(255, 20, 147, 0.05) 30%,
-                transparent 70%);
-            animation: globePulse 8s ease-in-out infinite;
-            z-index: -2;
-        }
-
-        @keyframes globeRotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        @keyframes globePulse {
-            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
-        }
-
-        /* NFT Modal */
-        .nft-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 2px solid rgba(255, 20, 147, 0.3);
-            z-index: 1000;
-            display: none;
-            width: 90%;
-            max-width: 500px;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: #ff1493;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.5rem;
-                top: 5%;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-                top: 15%;
-            }
-
-            .portal-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-                bottom: 10%;
-            }
-
-            .info-panel, .country-info {
-                position: relative;
-                width: 90%;
-                margin: 2rem auto;
-                right: auto;
-                left: auto;
-            }
-
-            .wallet-section {
-                position: relative;
-                top: auto;
-                right: auto;
-                justify-content: center;
-                margin-bottom: 2rem;
-            }
-
-            .global-globe {
-                width: 300px;
-                height: 300px;
-            }
-
-            .globe-glow {
-                width: 400px;
-                height: 400px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Rivalisme Universe - Cosmic Portal (TopoJSON)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
+<!-- Ethers.js for Web3 integration -->
+<script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: radial-gradient(circle at center, #0a0010 30%, #000 100%);
+  color: #fff;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+#globe-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+/* ---------- UI ---------- */
+.ui-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.ui-overlay > * {
+  pointer-events: auto;
+}
+/* judul - ANIMASI NEON */
+.main-title {
+  position: absolute;
+  top: clamp(2%, 5vw, 8%);
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(1.8rem, 6vw, 4rem);
+  font-weight: 900;
+  /* Gradien Neon Pink/Ungu */
+  background: linear-gradient(90deg, #ff00ff, #a020f0, #ff00ff, #a020f0);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: cosmicPulse 6s ease-in-out infinite, neonFlicker 1s steps(10, end) infinite;
+  text-shadow: 
+    0 0 10px #ff00ff, 
+    0 0 20px #a020f0, 
+    0 0 30px rgba(255, 0, 255, 0.8);
+  z-index: 10;
+  letter-spacing: 2px;
+}
+@keyframes cosmicPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 
+      0 0 4px #ff00ff, 
+      0 0 10px #a020f0, 
+      0 0 20px rgba(255, 0, 255, 0.6);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+.subtitle {
+  position: absolute;
+  top: clamp(10%, 12vw, 18%);
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(0.8rem, 2.5vw, 1.5rem);
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(160, 32, 240, 0.7);
+  z-index: 10;
+}
+/* wallet section */
+.wallet-section {
+  position: absolute;
+  top: clamp(1rem, 2vw, 2rem);
+  right: clamp(1rem, 2vw, 2rem);
+  display: flex;
+  gap: clamp(0.5rem, 1vw, 1rem);
+  z-index: 20;
+}
+.wallet-btn {
+  padding: clamp(0.6rem, 1.2vw, 0.8rem) clamp(1rem, 2vw, 1.5rem);
+  border: 2px solid #ff00ff;
+  background: rgba(255, 0, 255, 0.1);
+  color: #ff00ff;
+  border-radius: 25px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+.wallet-btn:hover {
+  background: #ff00ff;
+  color: #000;
+  box-shadow: 0 0 20px #ff00ff;
+  transform: translateY(-2px);
+}
+/* tombol bawah */
+.portal-buttons {
+  position: absolute;
+  bottom: clamp(3%, 5vw, 15%);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 2rem);
+  width: 90%;
+  max-width: 600px;
+  z-index: 10;
+}
+.portal-btn {
+  flex: 1 1 140px;
+  padding: clamp(0.6rem, 2vw, 1.2rem) clamp(1rem, 3vw, 2.5rem);
+  border: 2px solid #a020f0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #a020f0;
+  border-radius: 50px;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  backdrop-filter: blur(8px);
+  letter-spacing: 1px;
+  text-align: center;
+}
+.portal-btn:hover {
+  background: #a020f0;
+  color: #000;
+  box-shadow: 0 0 25px #a020f0, 0 0 50px rgba(160, 32, 240, 0.6);
+  transform: translateY(-4px);
+}
+.creator-btn {
+  border-color: #ff00ff;
+  color: #ff00ff;
+}
+.creator-btn:hover {
+  background: #ff00ff;
+  color: #000;
+  box-shadow: 0 0 25px #ff00ff, 0 0 50px rgba(255, 0, 255, 0.6);
+}
+/* panel info kanan */
+.info-panel {
+  position: absolute;
+  top: 30%;
+  right: clamp(2%, 3vw, 5%);
+  width: clamp(260px, 35vw, 300px);
+  background: rgba(15, 0, 30, 0.85);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 0, 255, 0.6);
+  border-radius: 20px;
+  padding: 1.5rem;
+  z-index: 10;
+}
+.info-panel h3 {
+  color: #ff00ff;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 5px #a020f0;
+}
+.info-panel .stats div span {
+  color: #a020f0;
+  text-shadow: 0 0 5px #ff00ff;
+}
+
+/* Modal Gaya Neon */
+#modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: rgba(20, 0, 40, 0.95);
+  color: #fff;
+  border: 2px solid #ff00ff;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+  transition: 0.3s ease;
+  width: 80%;
+  max-width: 400px;
+  z-index: 20;
+  backdrop-filter: blur(5px);
+}
+#modal.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+#modal h2 {
+  color: #a020f0;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px #ff00ff;
+}
+#modal p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+#modal button {
+  background: #ff00ff;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 700;
+  transition: 0.3s;
+  box-shadow: 0 0 5px #ff00ff;
+}
+#modal button:hover {
+  background: #a020f0;
+  color: white;
+  box-shadow: 0 0 15px #a020f0;
+}
+/* 1. Loading Screen Styles */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0010 0%, #1a1a2e 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.8s ease;
+}
+
+.loading-title-persona {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-bottom: 2rem;
+    background: linear-gradient(45deg, #ff00ff, #a020f0, #ff00ff);
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: neonPulse 3s ease-in-out infinite;
+}
+@keyframes neonPulse {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.loading-bar {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #ff00ff, #a020f0);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* 2. Persona Generation Modal Styles */
+.persona-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(15, 0, 30, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 2px solid rgba(255, 0, 255, 0.6);
+    z-index: 1000;
+    display: none;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 50px rgba(255, 0, 255, 0.5);
+}
+
+.persona-modal h3 {
+    color: #ff00ff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.persona-input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 0, 255, 0.1);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    border-radius: 10px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 1.5rem;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.persona-input:focus {
+    outline: none;
+    border-color: #a020f0;
+    box-shadow: 0 0 10px rgba(160, 32, 240, 0.5);
+}
+
+.persona-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.persona-option {
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.persona-option:hover {
+    background: rgba(255, 0, 255, 0.2);
+    border-color: #ff00ff;
+}
+
+.persona-option.active {
+    background: rgba(160, 32, 240, 0.3);
+    border-color: #a020f0;
+    color: #ff00ff;
+    box-shadow: 0 0 10px #a020f0;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.modal-btn {
+    padding: 0.8rem 2rem;
+    border: 2px solid;
+    border-radius: 25px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-btn.generate {
+    background: rgba(255, 0, 255, 0.2);
+    border-color: #ff00ff;
+    color: #ff00ff;
+}
+
+.modal-btn.generate:hover {
+    background: #ff00ff;
+    color: #000;
+    box-shadow: 0 0 20px #ff00ff;
+}
+
+.modal-btn.cancel {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.modal-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+}
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .wallet-section {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 1rem auto 0;
+    justify-content: center;
+  }
+  .info-panel {
+    position: relative;
+    margin: 1rem auto 0;
+    right: auto;
+    top: auto;
+    width: 90%;
+  }
+}
+</style>
 </head>
 <body>
-    <div class="loading-screen" id="loadingScreen">
-        <h1 class="loading-title">RIVALISME UNIVERSE</h1>
-        <p style="color: #00ffff; margin-bottom: 2rem;">Initializing Cosmic Portal...</p>
-        <div class="loading-bar">
-            <div class="loading-progress" id="loadingProgress"></div>
-        </div>
+<div class="loading-screen" id="loadingScreen">
+    <h1 class="loading-title-persona">RIVALISME UNIVERSE</h1>
+    <p style="color: #a020f0; margin-bottom: 2rem;">Initializing Cosmic Portal...</p>
+    <div class="loading-bar">
+        <div class="loading-progress" id="loadingProgress"></div>
     </div>
-    
-    <div class="global-globe"></div>
-    <div class="globe-glow"></div>
-    
-    <div id="globe-container"></div>
-    
-    <div class="ui-overlay">
-        <div class="wallet-section">
-            <button class="connect-wallet-btn" onclick="connectWallet()">
-                <span class="wallet-icon">🔗</span>
-                <span class="wallet-text">Connect Wallet</span>
-            </button>
-            <button class="explore-somnia-btn" onclick="exploreSomnia()">
-                <span class="somnia-icon">🌐</span>
-                <span class="somnia-text">Explore Somnia</span>
-            </button>
-        </div>
-        
-        <h1 class="main-title">RIVALISME UNIVERSE</h1>
-        <p class="subtitle">Summon AI Personas from Across the Globe</p>
-        
-        <div class="portal-buttons">
-            <button class="portal-btn" onclick="window.location.href='personas.html'">View All Personas</button>
-            <button class="portal-btn creator-btn" onclick="enterCreatorRealm()">Content Creator Realm</button>
-            <button class="portal-btn" onclick="enterAcademicHall()">Academic Hall</button>
-            <button class="portal-btn creator-btn" onclick="generatePersona()">Generate New Persona</button>
-            <button class="portal-btn" onclick="showNFTPortal()">🖼️ NFT Portal</button>
-        </div>
-        
-        <div class="info-panel">
-            <h3>Cosmic Portal Active</h3>
-            <p>Select a region on the globe or use the portals to access AI personas from different dimensions of knowledge and creativity.</p>
-            
-            <div class="stats">
-                <div class="stat">
-                    <span class="stat-value" id="persona-count">142</span>
-                    <span class="stat-label">Personas</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-value" id="user-count">3.2K</span>
-                    <span class="stat-label">Users</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-value" id="country-count">67</span>
-                    <span class="stat-label">Countries</span>
-                </div>
-            </div>
+</div>
 
-            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,20,147,0.3);">
-                <h4 style="color: #00ffff; margin-bottom: 0.5rem;">🌐 Somnia Network</h4>
-                <div class="generation-stats">
-                    <div class="stat-item">
-                        <span class="stat-value" id="blockHeight">--</span>
-                        <span>Block Height</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="gasPrice">--</span>
-                        <span>Gas Price</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="country-info" id="country-info">
-            </div>
+<div id="globe-container"></div>
+
+<div class="ui-overlay">
+  <h1 class="main-title">RIVALISME UNIVERSE</h1>
+  <p class="subtitle">Summon AI Personas from Across the Globe</p>
+
+  
+<div class="wallet-section">
+    <button class="wallet-btn" onclick="connectWallet()">🔗 Connect Wallet</button>
+    <button class="wallet-btn" onclick="https://explorer.somnia.network/address/0xd9145CCE52D386f254917e481eB44e9943F39138?tab=index">🌐 Explore Somnia</button>
+  </div>
+
+  <div class="info-panel">
+    <h3>Cosmic Portal Active</h3>
+    <p style="font-size: 0.9rem; line-height: 1.5; color: #cbd5e1;">
+      Zoom / drag globe. Click neon pulses to reveal personas.
+    </p>
+    <div class="stats" style="display: flex; justify-content: space-between; margin-top: 1.2rem; font-size: 0.8rem;">
+      <div><span>1001</span><br/>Personas</div>
+      <div><span>3.2 K</span><br/>Users</div>
+      <div><span>195</span><br/>Countries</div>
     </div>
-    
-    <div class="floating-elements">
-        <div class="floating-element element-1"></div>
-        <div class="floating-element element-2"></div>
-        <div class="floating-element element-3"></div>
-        <div class="floating-element element-4"></div>
-    </div>
-    
-    <div class="nft-modal" id="nftModal">
-        <div class="modal-header">
-            <h3 style="color: #ff1493;">🖼️ NFT Portal Access</h3>
-            <button class="close-modal" onclick="closeNFTPortal()">×</button>
-        </div>
-        <div class="nft-mint-section">
-            <div class="nft-preview">
-                ✨
-            </div>
-            <h4 style="color: #fff;">Mint a Somnia AI Hybrid</h4>
-            <p style="color: #cbd5e1; font-size: 0.9rem;">Own the rights to a unique AI Persona generated on the Somnia Chain.</p>
-            <p class="mint-price">Price: 0.05 ETH</p>
-            <button class="mint-button" onclick="mintNFT()">Mint Now</button>
-        </div>
-        
-        <div style="text-align: center; margin-top: 2rem;">
-            <p style="font-size: 0.8rem; color: #94a3b8;">Powered by</p>
-            <div class="ai-providers">
-                <span class="ai-provider-badge active">Gemini</span>
-                <span class="ai-provider-badge">Claude</span>
-                <span class="ai-provider-badge">GPT-4</span>
-            </div>
-        </div>
-    </div>
+  </div>
 
-    <script>
-        // Placeholder functions for the buttons (replace with actual logic)
-        function connectWallet() {
-            alert("Connecting Wallet... (Logic to be implemented)");
-            document.querySelector('.connect-wallet-btn').classList.add('wallet-connected');
-            document.querySelector('.wallet-text').textContent = 'Wallet Connected';
-        }
-        
-        function exploreSomnia() {
-            alert("Exploring Somnia... (Logic to be implemented)");
-        }
-        
-        function enterCreatorRealm() {
-            alert("Entering Creator Realm... (Logic to be implemented)");
-        }
-        
-        function enterAcademicHall() {
-            alert("Entering Academic Hall... (Logic to be implemented)");
-        }
-        
-        function generatePersona() {
-            alert("Generating New Persona... (Logic to be implemented)");
-        }
-        
-        function showNFTPortal() {
-            document.getElementById('nftModal').style.display = 'block';
-        }
+  <div class="portal-buttons">
+    <button class="portal-btn" onclick="window.location.href='personas.html'">View All Personas</button>
+    <button class="portal-btn creator-btn" onclick="generatePersona()">Generate New Persona</button>
+    <button class="portal-btn">🖼️ Coming Soon</button>
+  </div>
 
-        function closeNFTPortal() {
-            document.getElementById('nftModal').style.display = 'none';
+  <div id="modal">
+    <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
+    <button onclick="window.open(currentLink, '_blank')">Masuki Persona</button><br />
+    <button onclick="closeModal()">Tutup</button>
+  </div>
+
+  <div class="persona-modal" id="personaModal">
+      <h3>Generate New Persona</h3>
+      <textarea class="persona-input" placeholder="Describe your desired AI persona... (e.g., 'A Japanese anime artist specializing in cyberpunk themes')"></textarea>
+      
+      <div class="persona-options">
+          <div class="persona-option active" data-type="creative">Creative</div>
+          <div class="persona-option" data-type="technical">Technical</div>
+          <div class="persona-option" data-type="cultural">Cultural</div>
+          <div class="persona-option" data-type="historical">Historical</div>
+      </div>
+
+      <div class="modal-buttons">
+          <button class="modal-btn cancel" onclick="closePersonaModal()">Cancel</button>
+          <button class="modal-btn generate" onclick="startPersonaGeneration()">Generate Persona</button>
+      </div>
+  </div>
+
+</div>
+
+<script>
+let globe, controls, renderer, scene, camera, pulseGroup, raycaster, mouse, currentLink, modal;
+
+function initializeGlobe() {
+    const container = document.getElementById('globe-container');
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 14);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.minDistance = 6;
+    controls.maxDistance = 25;
+    controls.enablePan = false;
+
+    const globeRadius = 5;
+    const globeGeom = new THREE.SphereGeometry(globeRadius, 64, 64);
+    const globeMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true, transparent: true, opacity: 0.15 });
+    globe = new THREE.Mesh(globeGeom, globeMat);
+    scene.add(globe);
+
+    const light1 = new THREE.PointLight(0xff00ff, 1.5, 50);
+    light1.position.set(10, 10, 10);
+    scene.add(light1);
+
+    const light2 = new THREE.PointLight(0xa020f0, 1, 50);
+    light2.position.set(-10, -10, -10);
+    scene.add(light2);
+
+    function addStars() {
+        const starGeo = new THREE.BufferGeometry();
+        const starCount = 5000;
+        const starPos = [];
+        for (let i = 0; i < starCount; i++) {
+          const x = (Math.random() - 0.5) * 2000;
+          const y = (Math.random() - 0.5) * 2000;
+          const z = (Math.random() - 0.5) * 2000;
+          starPos.push(x, y, z);
         }
+        starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
+        const starMat = new THREE.PointsMaterial({ 
+          color: 0xffffff, 
+          size: 0.3, 
+          transparent: true, 
+          opacity: 0.8,
+          sizeAttenuation: true
+        });
+        scene.add(new THREE.Points(starGeo, starMat));
+    }
+    addStars();
 
-        function mintNFT() {
-            alert("Minting NFT... Please confirm transaction in your wallet.");
-        }
+    function latLonToVector3(lat, lon, r) {
+        const phi = (90 - lat) * (Math.PI / 180);
+        const theta = (lon + 180) * (Math.PI / 180);
+        const x = -(r * Math.sin(phi) * Math.cos(theta));
+        const z = (r * Math.sin(phi) * Math.sin(theta));
+        const y = (r * Math.cos(phi));
+        return new THREE.Vector3(x, y, z);
+    }
 
-        // Global Variable Placeholders
-        document.getElementById('blockHeight').textContent = '4,521,900';
-        document.getElementById('gasPrice').textContent = '12 Gwei';
+    fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+        .then(res => res.json())
+        .then(data => {
+            const countries = topojson.feature(data, data.objects.countries).features;
+            drawWorldOutline(countries);
+            addCityLights(countries);
+        });
 
-        // Loading Screen Logic (Simulated Loading)
-        let progress = 0;
-        const progressBar = document.getElementById('loadingProgress');
-        const loadingScreen = document.getElementById('loadingScreen');
-
-        function updateLoading() {
-            progress += 5;
-            if (progress <= 100) {
-                progressBar.style.width = progress + '%';
-                setTimeout(updateLoading, 100);
-            } else {
-                setTimeout(() => {
-                    loadingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 800);
-                }, 500);
+    function drawWorldOutline(features) {
+        const lineMat = new THREE.LineBasicMaterial({
+            color: 0xFF00FF,
+            transparent: true,
+            opacity: 0.9,
+            linewidth: 1.5
+        });
+        
+        features.forEach(feature => {
+            const coords = feature.geometry.coordinates;
+            const type = feature.geometry.type;
+            if (type === "Polygon") {
+                coords.forEach(ring => addLine(ring, lineMat)); 
+            } else if (type === "MultiPolygon") {
+                coords.forEach(polygon => polygon.forEach(ring => addLine(ring, lineMat)));
             }
-        }
+        });
+    }
+
+    function addLine(ring, material) {
+        const points = [];
+        ring.forEach(coord => {
+            const lon = coord[0];
+            const lat = coord[1];
+            points.push(latLonToVector3(lat, lon, globeRadius + 0.005));
+        });
         
-        updateLoading();
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        const line = new THREE.Line(geometry, material);
+        globe.add(line);
+    }
 
-
-        // Three.js Code (Simplified for brevity)
-        const container = document.getElementById('globe-container');
-        let scene, camera, renderer, controls, sphere;
-
-        function initThree() {
-            // Scene Setup
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            container.appendChild(renderer.domElement);
-            
-            camera.position.z = 5;
-
-            // Globe/Sphere
-            const geometry = new THREE.SphereGeometry(1.5, 64, 64);
-            const material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true, opacity: 0.1 });
-            sphere = new THREE.Mesh(geometry, material);
-            scene.add(sphere);
-
-            // Controls (Allows rotating the globe)
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.minDistance = 3;
-            controls.maxDistance = 10;
-            controls.autoRotate = true;
-            controls.autoRotateSpeed = 0.5;
-            controls.enablePan = false;
-            controls.enableZoom = false; 
-
-            // Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-            scene.add(ambientLight);
-
-            // Add glowing rings and points (simple example)
-            function addGlowEffect(radius, color, thickness) {
-                const ringGeometry = new THREE.RingGeometry(radius, radius + thickness, 64);
-                const ringMaterial = new THREE.MeshBasicMaterial({ 
-                    color: color, 
-                    side: THREE.DoubleSide, 
-                    transparent: true, 
-                    opacity: 0.3 
-                });
-                const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-                ring.rotation.x = Math.PI / 2;
-                scene.add(ring);
-            }
-
-            addGlowEffect(1.6, 0x00ffff, 0.01); 
-            addGlowEffect(1.8, 0xff1493, 0.005);
-
-            // Add random data points (simulating activity)
-            const pointsGeometry = new THREE.BufferGeometry();
-            const pointsMaterial = new THREE.PointsMaterial({
-                color: 0x00ffff,
-                size: 0.05,
-                sizeAttenuation: true
+    function addCityLights(countries) {
+        const cityLightGroup = new THREE.Group();
+        globe.add(cityLightGroup);
+        
+        function getRandomPointInPolygon(ring) {
+            let minLon = Infinity, maxLon = -Infinity, minLat = Infinity, maxLat = -Infinity;
+            ring.forEach(coord => {
+                const lon = coord[0], lat = coord[1];
+                if (lon < minLon) minLon = lon;
+                if (lon > maxLon) maxLon = lon;
+                if (lat < minLat) minLat = lat;
+                if (lat > maxLat) maxLat = lat;
             });
-            const vertices = [];
-            for (let i = 0; i < 500; i++) {
-                const vector = new THREE.Vector3().setFromSphericalCoords(
-                    1.5, // radius
-                    Math.acos(Math.random() * 2 - 1), // phi
-                    Math.random() * 2 * Math.PI // theta
-                );
-                vertices.push(vector.x, vector.y, vector.z);
-            }
-            pointsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-            const points = new THREE.Points(pointsGeometry, pointsMaterial);
-            scene.add(points);
-
-            animate();
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
             
-            // Sphere rotation (in case autoRotate is disabled)
-            if (sphere) {
-                // sphere.rotation.y += 0.001; 
+            let attempts = 0;
+            while (attempts < 100) {
+                const lon = minLon + Math.random() * (maxLon - minLon);
+                const lat = minLat + Math.random() * (maxLat - minLat);
+                if (pointInPolygon([lon, lat], ring)) {
+                    return { lat, lon };
+                }
+                attempts++;
             }
+            return null;
+        }
+        
+        function pointInPolygon(point, vs) {
+            const x = point[0], y = point[1];
+            let inside = false;
+            for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+                const xi = vs[i][0], yi = vs[i][1];
+                const xj = vs[j][0], yj = vs[j][1];
+                
+                const intersect = ((yi > y) !== (yj > y)) &&
+                    (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                if (intersect) inside = !inside;
+            }
+            return inside;
+        }
+        
+        countries.forEach(country => {
+            const coords = country.geometry.coordinates;
+            const type = country.geometry.type;
+            let numPoints = Math.floor(Math.random() * 6) + 5; 
+            
+            if (type === "Polygon") {
+                const outerRing = coords[0];
+                for (let i = 0; i < numPoints; i++) {
+                    const point = getRandomPointInPolygon(outerRing);
+                    if (point) {
+                        addCityLight(point.lat, point.lon, cityLightGroup);
+                    }
+                }
+            } else if (type === "MultiPolygon") {
+                coords.forEach(polygon => {
+                    const outerRing = polygon[0];
+                    for (let i = 0; i < numPoints; i++) {
+                        const point = getRandomPointInPolygon(outerRing);
+                        if (point) {
+                            addCityLight(point.lat, point.lon, cityLightGroup);
+                        }
+                    }
+                });
+            }
+        });
+    }
 
-            controls.update();
-            renderer.render(scene, camera);
+    function addCityLight(lat, lon, group) {
+        const pos = latLonToVector3(lat, lon, globeRadius + 0.01);
+        const cityLight = new THREE.Mesh(
+            new THREE.SphereGeometry(0.03, 8, 8),
+            new THREE.MeshBasicMaterial({ 
+                color: 0xffff00, 
+                transparent: true,
+                opacity: 0.8
+            })
+        );
+        cityLight.position.copy(pos);
+        cityLight.userData = { 
+            originalScale: 1,
+            pulseSpeed: 0.5 + Math.random() * 1.5, 
+            baseOpacity: 0.5 + Math.random() * 0.4 
+        };
+        group.add(cityLight);
+    }
+
+    const islandData = [
+        { lat: -7.25, lon: 112.75, name: "Achmad Rival", desc: "The Creator of Rivalisme Universe (Surabaya)", link: "https://rivalismeuniverse.com/achmadrival" },
+        { lat: 35.68, lon: 139.69, name: "Solara", desc: "AI Persona of Eternal Light and Logic (Tokyo)", link: "https://rivalismeuniverse.com/persona/solara" },
+        { lat: 48.85, lon: 2.35, name: "Nexar", desc: "The Dark Thinker – Philosopher of Paradox (Paris)", link: "https://rivalismeuniverse.com/persona/nexar" },
+        { lat: 40.71, lon: -74.00, name: "Cipher", desc: "The Digital Strategist (New York)", link: "https://rivalismeuniverse.com/persona/cipher" },
+        { lat: 51.50, lon: -0.12, name: "Aethel", desc: "AI Historian and Timekeeper (London)", link: "https://rivalismeuniverse.com/persona/aethel" }
+    ];
+
+    pulseGroup = new THREE.Group();
+    globe.add(pulseGroup); 
+
+    islandData.forEach(island => {
+        const { lat, lon } = island;
+        const pos = latLonToVector3(lat, lon, globeRadius + 0.01);
+
+        const pulse = new THREE.Mesh(
+            new THREE.SphereGeometry(0.08, 16, 16),
+            new THREE.MeshBasicMaterial({ 
+                color: 0xff00ff,
+                transparent: true,
+                opacity: 0.9 
+            })
+        );
+        pulse.position.copy(pos);
+        pulse.userData = island;
+        pulseGroup.add(pulse);
+    });
+
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
+    modal = document.getElementById("modal");
+
+    window.addEventListener('click', e => {
+        if (document.getElementById('personaModal').style.display === 'block') {
+            return;
         }
 
-        function onWindowResize() {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(pulseGroup.children);
+        
+        if (intersects.length > 0) {
+            const data = intersects[0].object.userData;
+            openModal(data);
+        } else {
+            closeModal();
         }
+    });
 
-        window.addEventListener('resize', onWindowResize, false);
+    animate();
 
-        // Wait for the loading screen to finish before starting Three.js
-        setTimeout(initThree, 1800); 
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+} 
 
-    </script>
+function animate() {
+    requestAnimationFrame(animate);
+    if (controls) controls.update();
+    if (globe) globe.rotation.y += 0.01;
+
+    const time = Date.now() * 0.003;
+    if (pulseGroup) {
+        pulseGroup.children.forEach((p, i) => {
+            const scale = 1 + Math.sin(time + i) * 0.3;
+            p.scale.setScalar(scale);
+            p.material.opacity = 0.5 + Math.abs(Math.sin(time + i)) * 0.5;
+        });
+    }
+
+    if (globe && globe.children.length > 0) {
+        const cityLights = globe.children.filter(child => 
+            child.children && child.children.some(c => c.material && c.material.color.getHex() === 0xffff00)
+        );
+        
+        if (cityLights.length > 0) {
+            cityLights[0].children.forEach((light, i) => {
+                const userData = light.userData;
+                const scale = userData.originalScale + Math.sin(time * userData.pulseSpeed + i) * 0.2;
+                light.scale.setScalar(scale);
+                light.material.opacity = userData.baseOpacity + Math.sin(time * userData.pulseSpeed * 2 + i) * 0.3;
+            });
+        }
+    }
+
+    if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+    }
+}
+
+
+window.addEventListener('load', function() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingProgress = document.getElementById('loadingProgress');
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    initializeGlobe(); 
+                }, 800);
+            }, 500);
+        }
+        loadingProgress.style.width = progress + '%';
+    }, 200);
+});
+
+window.generatePersona = function() {
+    const modal = document.getElementById('personaModal');
+    modal.style.display = 'block';
+    
+    const options = document.querySelectorAll('.persona-modal .persona-option');
+    options.forEach(option => {
+        if (!option.onclick) {
+            option.onclick = function() {
+                options.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+            };
+        }
+    });
+}
+
+window.closePersonaModal = function() {
+    const modal = document.getElementById('personaModal');
+    modal.style.display = 'none';
+}
+
+window.startPersonaGeneration = function() {
+    const input = document.querySelector('.persona-modal .persona-input');
+    const activeOption = document.querySelector('.persona-modal .persona-option.active');
+    
+    if (input.value.trim() === '') {
+        alert('Please describe your desired persona!');
+        return;
+    }
+
+    const generateBtn = document.querySelector('.persona-modal .modal-btn.generate');
+    const originalText = generateBtn.textContent;
+    generateBtn.textContent = 'Generating...';
+    generateBtn.disabled = true;
+
+    setTimeout(() => {
+        alert(`Persona generation started!\nType: ${activeOption.dataset.type}\nDescription: "${input.value}"`);
+        closePersonaModal();
+        generateBtn.textContent = originalText;
+        generateBtn.disabled = false;
+        input.value = '';
+    }, 2000);
+}
+
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('personaModal');
+    const isClickInsideModal = modal.contains(event.target);
+    const isPersonaBtn = event.target.closest('.portal-btn.creator-btn'); 
+    
+    if (modal.style.display === 'block' && !isClickInsideModal && !isPersonaBtn) {
+        closePersonaModal();
+    }
+});
+// ============================================
+// WALLET CONNECTION WITH SOMNIA NETWORK
+// ============================================
+
+let currentWalletAddress = null;
+let provider = null;
+let signer = null;
+let contract = null;
+
+// Somnia Testnet Config
+const SOMNIA_NETWORK = {
+  chainId: '0xC467', // 50311 in hex
+  chainName: 'Somnia Testnet',
+  rpcUrls: ['https://dream-rpc.somnia.network/'],
+  blockExplorerUrls: ['https://explorer.somnia.network/'],
+  nativeCurrency: {
+    name: 'STT',
+    symbol: 'STT',
+    decimals: 18
+  }
+};
+
+const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+const CONTRACT_ABI = [
+  "function totalSupply() public view returns (uint256)",
+  "function getPersonasByOwner(address owner) public view returns (uint256[] memory)",
+  "function mintMyPersona(string memory name, string memory specialization, string memory uri) public returns (uint256)",
+  "function getPersona(uint256 tokenId) public view returns (string memory name, string memory specialization, uint256 mintedAt, address creator, address currentOwner)"
+];
+
+// Check if wallet is on Somnia network
+async function checkAndSwitchNetwork() {
+  try {
+    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+    
+    if (chainId !== SOMNIA_NETWORK.chainId) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: SOMNIA_NETWORK.chainId }],
+        });
+      } catch (switchError) {
+        // Network belum ditambahkan, tambahkan dulu
+        if (switchError.code === 4902) {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [SOMNIA_NETWORK]
+          });
+        } else {
+          throw switchError;
+        }
+      }
+    }
+    return true;
+  } catch (error) {
+    console.error('Network switch failed:', error);
+    return false;
+  }
+}
+
+// Main connect wallet function
+async function connectWallet() {
+  if (typeof window.ethereum === 'undefined') {
+    alert("❌ Please install MetaMask or use Brave browser!");
+    window.open('https://metamask.io/download/', '_blank');
+    return null;
+  }
+
+  try {
+    // 1. Switch to Somnia network
+    const networkOk = await checkAndSwitchNetwork();
+    if (!networkOk) {
+      alert("❌ Please switch to Somnia Testnet network!");
+      return null;
+    }
+
+    // 2. Request account access
+    const accounts = await window.ethereum.request({ 
+      method: 'eth_requestAccounts' 
+    });
+    
+    currentWalletAddress = accounts[0];
+
+    // 3. Initialize ethers.js (load dari CDN)
+    if (typeof ethers === 'undefined') {
+      // Load ethers.js if not loaded
+      await loadEthers();
+    }
+
+    // 4. Setup provider, signer, contract
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    signer = provider.getSigner();
+    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+    // 5. Save to localStorage untuk personas.html
+    localStorage.setItem('walletAddress', currentWalletAddress);
+    localStorage.setItem('walletConnected', 'true');
+
+    // 6. Update UI
+    const walletBtn = document.querySelector('.wallet-btn');
+    if (walletBtn) {
+      walletBtn.textContent = `🔗 ${currentWalletAddress.substring(0, 6)}...${currentWalletAddress.substring(currentWalletAddress.length - 4)}`;
+      walletBtn.style.borderColor = '#00ff00';
+      walletBtn.style.color = '#00ff00';
+    }
+
+    // 7. Get user's personas count
+    const personas = await contract.getPersonasByOwner(currentWalletAddress);
+    console.log(`✅ Connected! You own ${personas.length} personas`);
+
+    alert(`✅ Wallet Connected!\n\n` +
+          `Address: ${currentWalletAddress.substring(0, 10)}...${currentWalletAddress.substring(currentWalletAddress.length - 8)}\n` +
+          `Network: Somnia Testnet\n` +
+          `Your Personas: ${personas.length}`);
+
+    return {
+      address: currentWalletAddress,
+      provider,
+      signer,
+      contract
+    };
+
+  } catch (error) {
+    console.error("Connection failed:", error);
+    
+    if (error.code === 4001) {
+      alert("❌ You rejected the connection request");
+    } else if (error.code === -32002) {
+      alert("⏳ Please check MetaMask - connection request pending");
+    } else {
+      alert(`❌ Connection failed: ${error.message}`);
+    }
+    
+    return null;
+  }
+}
+
+// Load ethers.js library
+function loadEthers() {
+  return new Promise((resolve, reject) => {
+    if (typeof ethers !== 'undefined') {
+      resolve();
+      return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = 'https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js';
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+// Handle account/network changes
+if (typeof window.ethereum !== 'undefined') {
+  window.ethereum.on('accountsChanged', (accounts) => {
+    if (accounts.length === 0) {
+      console.log('Wallet disconnected');
+      localStorage.removeItem('walletAddress');
+      localStorage.removeItem('walletConnected');
+      location.reload();
+    } else {
+      currentWalletAddress = accounts[0];
+      localStorage.setItem('walletAddress', currentWalletAddress);
+      location.reload();
+    }
+  });
+
+  window.ethereum.on('chainChanged', () => {
+    location.reload();
+  });
+}
+
+// Check if wallet was previously connected
+window.addEventListener('load', async () => {
+  const wasConnected = localStorage.getItem('walletConnected');
+  const savedAddress = localStorage.getItem('walletAddress');
+  
+  if (wasConnected === 'true' && savedAddress) {
+    // Auto-connect
+    setTimeout(() => connectWallet(), 1000);
+  }
+});
+
+
+function exploreSomnia() {
+  alert('https://explorer.somnia.network/address/0xd9145CCE52D386f254917e481eB44e9943F39138?tab=index...');
+}
+
+function openModal(data) {
+    currentLink = data.link;
+    document.getElementById("modalTitle").textContent = data.name;
+    document.getElementById("modalDesc").textContent = data.desc;
+    modal.classList.add("show");
+}
+function closeModal() {
+    modal.classList.remove("show");
+}
+</script>
 </body>
 </html>
