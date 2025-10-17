@@ -1,7 +1,7 @@
-/* Deepseek Chat Core – drop-in untuk personas.html & 3D.html */
-const DEEPSEEK_KEY = '%%DEEPSEEK_KEY%%'; // kita replace otomatis saat build/CI
+/* Deepseek Chat Core – hard-coded key */
+const DEEPSEEK_KEY = 'sk-7ec7dc264c294ab6a136bf34c470e7a0';
 const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
-
+...
 /* UI element generator (minimal) */
 function injectChatWidget(personaId) {
   const wrap = document.createElement('div');
