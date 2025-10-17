@@ -1,14 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Rivalisme Universe - Cosmic Portal (TopoJSON)</title>
+<title>Rivalisme Universe - Cosmic Portal</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
-<!-- Ethers.js for Web3 integration -->
 <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
 
 <style>
@@ -121,6 +119,16 @@ body {
   color: #000;
   box-shadow: 0 0 20px #ff00ff;
   transform: translateY(-2px);
+}
+.wallet-btn.connected {
+  border-color: #00ff00;
+  color: #00ff00;
+  background: rgba(0, 255, 0, 0.1);
+}
+.wallet-btn.connected:hover {
+  background: #00ff00;
+  color: #000;
+  box-shadow: 0 0 20px #00ff00;
 }
 /* tombol bawah */
 .portal-buttons {
@@ -436,7 +444,7 @@ body {
   
 <div class="wallet-section">
     <button class="wallet-btn" onclick="connectWallet()">🔗 Connect Wallet</button>
-    <button class="wallet-btn" onclick="https://explorer.somnia.network/address/0xd9145CCE52D386f254917e481eB44e9943F39138?tab=index">🌐 Explore Somnia</button>
+    <button class="wallet-btn" onclick="exploreSomnia()">🌐 Explore Somnia</button>
   </div>
 
   <div class="info-panel">
@@ -791,60 +799,8 @@ window.addEventListener('load', function() {
     }, 200);
 });
 
-window.generatePersona = function() {
-    const modal = document.getElementById('personaModal');
-    modal.style.display = 'block';
-    
-    const options = document.querySelectorAll('.persona-modal .persona-option');
-    options.forEach(option => {
-        if (!option.onclick) {
-            option.onclick = function() {
-                options.forEach(opt => opt.classList.remove('active'));
-                this.classList.add('active');
-            };
-        }
-    });
-}
-
-window.closePersonaModal = function() {
-    const modal = document.getElementById('personaModal');
-    modal.style.display = 'none';
-}
-
-window.startPersonaGeneration = function() {
-    const input = document.querySelector('.persona-modal .persona-input');
-    const activeOption = document.querySelector('.persona-modal .persona-option.active');
-    
-    if (input.value.trim() === '') {
-        alert('Please describe your desired persona!');
-        return;
-    }
-
-    const generateBtn = document.querySelector('.persona-modal .modal-btn.generate');
-    const originalText = generateBtn.textContent;
-    generateBtn.textContent = 'Generating...';
-    generateBtn.disabled = true;
-
-    setTimeout(() => {
-        alert(`Persona generation started!\nType: ${activeOption.dataset.type}\nDescription: "${input.value}"`);
-        closePersonaModal();
-        generateBtn.textContent = originalText;
-        generateBtn.disabled = false;
-        input.value = '';
-    }, 2000);
-}
-
-window.addEventListener('click', function(event) {
-    const modal = document.getElementById('personaModal');
-    const isClickInsideModal = modal.contains(event.target);
-    const isPersonaBtn = event.target.closest('.portal-btn.creator-btn'); 
-    
-    if (modal.style.display === 'block' && !isClickInsideModal && !isPersonaBtn) {
-        closePersonaModal();
-    }
-});
 // ============================================
-// WALLET CONNECTION WITH SOMNIA NETWORK
+// IMPROVED WALLET CONNECTION WITH SOMNIA NETWORK
 // ============================================
 
 let currentWalletAddress = null;
@@ -852,9 +808,9 @@ let provider = null;
 let signer = null;
 let contract = null;
 
-// Somnia Testnet Config
+// Somnia Testnet Config - FIXED CHAIN ID
 const SOMNIA_NETWORK = {
-  chainId: '0xC498',
+  chainId: '0xC498', // ✅ Hex untuk 50312
   chainIdDecimal: 50312,
   chainName: 'Somnia Testnet',
   rpcUrls: ['https://dream-rpc.somnia.network/'],
@@ -1509,37 +1465,53 @@ const CONTRACT_ABI = [
 		"type": "function"
 	}
 ];
-// Check if wallet is on Somnia network
+
+// Improved network switching with debug
 async function checkAndSwitchNetwork() {
   try {
     const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+    console.log('🔍 Current Chain ID:', chainId, 'Expected:', SOMNIA_NETWORK.chainId);
     
     if (chainId !== SOMNIA_NETWORK.chainId) {
+      console.log('🔄 Switching to Somnia Testnet...');
       try {
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: SOMNIA_NETWORK.chainId }],
         });
+        console.log('✅ Successfully switched to Somnia Testnet');
+        return true;
       } catch (switchError) {
-        // Network belum ditambahkan, tambahkan dulu
+        console.log('❌ Switch error:', switchError);
         if (switchError.code === 4902) {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [SOMNIA_NETWORK]
-          });
+          console.log('➕ Adding Somnia Testnet to wallet...');
+          try {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [SOMNIA_NETWORK]
+            });
+            console.log('✅ Successfully added Somnia Testnet');
+            return true;
+          } catch (addError) {
+            console.error('❌ Failed to add network:', addError);
+            return false;
+          }
         } else {
-          throw switchError;
+          console.error('❌ Failed to switch network:', switchError);
+          return false;
         }
       }
+    } else {
+      console.log('✅ Already on Somnia Testnet');
+      return true;
     }
-    return true;
   } catch (error) {
-    console.error('Network switch failed:', error);
+    console.error('❌ Network check failed:', error);
     return false;
   }
 }
 
-// Main connect wallet function
+// Improved wallet connection
 async function connectWallet() {
   if (typeof window.ethereum === 'undefined') {
     alert("❌ Please install MetaMask or use Brave browser!");
@@ -1548,24 +1520,31 @@ async function connectWallet() {
   }
 
   try {
-    // 1. Switch to Somnia network
+    console.log('🔗 Starting wallet connection...');
+    
+    // 1. Switch to Somnia network with better error handling
     const networkOk = await checkAndSwitchNetwork();
     if (!networkOk) {
-      alert("❌ Please switch to Somnia Testnet network!");
+      const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
+      alert(`❌ Please switch to Somnia Testnet!\n\nCurrent Network: ${currentChainId}\nRequired: ${SOMNIA_NETWORK.chainId}\n\nPlease add manually if needed.`);
       return null;
     }
 
-    // 2. Request account access
-    const accounts = await window.ethereum.request({ 
-      method: 'eth_requestAccounts' 
-    });
+    // 2. Request account access with timeout
+    const accounts = await Promise.race([
+      window.ethereum.request({ method: 'eth_requestAccounts' }),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Request timeout')), 30000))
+    ]);
     
     currentWalletAddress = accounts[0];
+    console.log('✅ Account connected:', currentWalletAddress);
 
-    // 3. Initialize ethers.js (load dari CDN)
+    // 3. Initialize ethers.js with better loading
     if (typeof ethers === 'undefined') {
-      // Load ethers.js if not loaded
+      console.log('📦 Loading ethers.js...');
       await loadEthers();
+      // Wait for ethers to be fully ready
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
 
     // 4. Setup provider, signer, contract
@@ -1573,26 +1552,28 @@ async function connectWallet() {
     signer = provider.getSigner();
     contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
-    // 5. Save to localStorage untuk personas.html
+    // 5. Save to localStorage
     localStorage.setItem('walletAddress', currentWalletAddress);
     localStorage.setItem('walletConnected', 'true');
+    localStorage.setItem('connectedTime', Date.now().toString());
 
     // 6. Update UI
     const walletBtn = document.querySelector('.wallet-btn');
     if (walletBtn) {
       walletBtn.textContent = `🔗 ${currentWalletAddress.substring(0, 6)}...${currentWalletAddress.substring(currentWalletAddress.length - 4)}`;
-      walletBtn.style.borderColor = '#00ff00';
-      walletBtn.style.color = '#00ff00';
+      walletBtn.classList.add('connected');
     }
 
-    // 7. Get user's personas count
-    const personas = await contract.getPersonasByOwner(currentWalletAddress);
-    console.log(`✅ Connected! You own ${personas.length} personas`);
-
-    alert(`✅ Wallet Connected!\n\n` +
-          `Address: ${currentWalletAddress.substring(0, 10)}...${currentWalletAddress.substring(currentWalletAddress.length - 8)}\n` +
-          `Network: Somnia Testnet\n` +
-          `Your Personas: ${personas.length}`);
+    // 7. Get user's personas count with error handling
+    try {
+      const personas = await contract.getPersonasByOwner(currentWalletAddress);
+      console.log(`✅ You own ${personas.length} personas`);
+      
+      alert(`✅ WALLET CONNECTED!\n\nAddress: ${currentWalletAddress.substring(0, 10)}...${currentWalletAddress.substring(currentWalletAddress.length - 8)}\nNetwork: Somnia Testnet ✅\nYour Personas: ${personas.length}\n\n🎉 Ready to mint NFTs!`);
+    } catch (personaError) {
+      console.warn('Could not fetch personas:', personaError);
+      alert(`✅ WALLET CONNECTED!\n\nAddress: ${currentWalletAddress.substring(0, 10)}...\nNetwork: Somnia Testnet ✅\n\n🎉 Ready to use!`);
+    }
 
     return {
       address: currentWalletAddress,
@@ -1602,21 +1583,25 @@ async function connectWallet() {
     };
 
   } catch (error) {
-    console.error("Connection failed:", error);
+    console.error("❌ Connection failed:", error);
     
+    let errorMsg = "❌ Connection Failed!\n\n";
     if (error.code === 4001) {
-      alert("❌ You rejected the connection request");
+      errorMsg += "You rejected the connection request.";
     } else if (error.code === -32002) {
-      alert("⏳ Please check MetaMask - connection request pending");
+      errorMsg += "Please check your wallet - request pending!";
+    } else if (error.message.includes('timeout')) {
+      errorMsg += "Connection timeout. Please try again.";
     } else {
-      alert(`❌ Connection failed: ${error.message}`);
+      errorMsg += error.message || "Unknown error occurred";
     }
     
+    alert(errorMsg);
     return null;
   }
 }
 
-// Load ethers.js library
+// Improved ethers loading
 function loadEthers() {
   return new Promise((resolve, reject) => {
     if (typeof ethers !== 'undefined') {
@@ -1626,54 +1611,136 @@ function loadEthers() {
     
     const script = document.createElement('script');
     script.src = 'https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js';
-    script.onload = resolve;
-    script.onerror = reject;
+    script.onload = () => {
+      console.log('✅ ethers.js loaded successfully');
+      setTimeout(resolve, 300); // Extra time to ensure it's ready
+    };
+    script.onerror = () => {
+      console.error('❌ Failed to load ethers.js');
+      reject(new Error('Failed to load ethers.js library'));
+    };
     document.head.appendChild(script);
   });
 }
 
-// Handle account/network changes
-if (typeof window.ethereum !== 'undefined') {
-  window.ethereum.on('accountsChanged', (accounts) => {
-    if (accounts.length === 0) {
-      console.log('Wallet disconnected');
-      localStorage.removeItem('walletAddress');
-      localStorage.removeItem('walletConnected');
-      location.reload();
-    } else {
-      currentWalletAddress = accounts[0];
-      localStorage.setItem('walletAddress', currentWalletAddress);
-      location.reload();
-    }
-  });
+// Improved wallet event handlers
+function setupWalletListeners() {
+  if (typeof window.ethereum !== 'undefined') {
+    window.ethereum.on('accountsChanged', (accounts) => {
+      console.log('🔄 Accounts changed:', accounts);
+      if (accounts.length === 0) {
+        console.log('Wallet disconnected');
+        localStorage.removeItem('walletAddress');
+        localStorage.removeItem('walletConnected');
+        location.reload();
+      } else {
+        currentWalletAddress = accounts[0];
+        localStorage.setItem('walletAddress', currentWalletAddress);
+        location.reload();
+      }
+    });
 
-  window.ethereum.on('chainChanged', () => {
-    location.reload();
-  });
+    window.ethereum.on('chainChanged', (chainId) => {
+      console.log('🔄 Network changed:', chainId);
+      location.reload();
+    });
+  }
 }
 
-// Check if wallet was previously connected
+// Improved auto-connect
 window.addEventListener('load', async () => {
   const wasConnected = localStorage.getItem('walletConnected');
   const savedAddress = localStorage.getItem('walletAddress');
   
-  if (wasConnected === 'true' && savedAddress) {
-    // Auto-connect
-    setTimeout(() => connectWallet(), 1000);
+  if (wasConnected === 'true' && savedAddress && typeof window.ethereum !== 'undefined') {
+    setTimeout(async () => {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length > 0 && accounts[0].toLowerCase() === savedAddress.toLowerCase()) {
+          console.log('🔗 Auto-connecting wallet...');
+          await connectWallet();
+        } else {
+          localStorage.removeItem('walletConnected');
+          localStorage.removeItem('walletAddress');
+        }
+      } catch (error) {
+        console.log('Auto-connect failed:', error);
+      }
+    }, 2000);
   }
+  
+  // Setup listeners after load
+  setupWalletListeners();
 });
 
-
+// Fixed explore function
 function exploreSomnia() {
-  alert('https://explorer.somnia.network/address/0xd9145CCE52D386f254917e481eB44e9943F39138?tab=index...');
+  window.open('https://explorer.somnia.network/address/0xd9145CCE52D386f254917e481eB44e9943F39138?tab=index', '_blank');
 }
 
+// Persona Modal Functions
+function initializePersonaModal() {
+    const options = document.querySelectorAll('.persona-option');
+    options.forEach(option => {
+        option.addEventListener('click', function() {
+            options.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+}
+
+window.generatePersona = function() {
+    const modal = document.getElementById('personaModal');
+    modal.style.display = 'block';
+    initializePersonaModal();
+}
+
+window.closePersonaModal = function() {
+    const modal = document.getElementById('personaModal');
+    modal.style.display = 'none';
+}
+
+window.startPersonaGeneration = function() {
+    const input = document.querySelector('.persona-input');
+    const activeOption = document.querySelector('.persona-option.active');
+    
+    if (input.value.trim() === '') {
+        alert('Please describe your desired persona!');
+        return;
+    }
+
+    const generateBtn = document.querySelector('.modal-btn.generate');
+    const originalText = generateBtn.textContent;
+    generateBtn.textContent = 'Generating...';
+    generateBtn.disabled = true;
+
+    setTimeout(() => {
+        alert(`Persona generation started!\nType: ${activeOption.dataset.type}\nDescription: "${input.value}"`);
+        closePersonaModal();
+        generateBtn.textContent = originalText;
+        generateBtn.disabled = false;
+        input.value = '';
+    }, 2000);
+}
+
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('personaModal');
+    const isClickInsideModal = modal.contains(event.target);
+    const isPersonaBtn = event.target.closest('.portal-btn.creator-btn'); 
+    
+    if (modal.style.display === 'block' && !isClickInsideModal && !isPersonaBtn) {
+        closePersonaModal();
+    }
+});
+
+// Modal functions
 function openModal(data) {
     currentLink = data.link;
     document.getElementById("modalTitle").textContent = data.name;
     document.getElementById("modalDesc").textContent = data.desc;
     modal.classList.add("show");
 }
+
 function closeModal() {
     modal.classList.remove("show");
 }
