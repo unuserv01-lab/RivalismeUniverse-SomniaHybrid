@@ -810,7 +810,7 @@ let contract = null;
 
 // Somnia Testnet Config - FIXED CHAIN ID
 const SOMNIA_NETWORK = {
-  chainId: '0xC4A8', // ✅ Hex untuk 50312
+  chainId: '0xC498', // ✅ Hex untuk 50312
   chainIdDecimal: 50312,
   chainName: 'Somnia Testnet',
   rpcUrls: ['https://dream-rpc.somnia.network/'],
@@ -1511,96 +1511,91 @@ async function checkAndSwitchNetwork() {
   }
 }
 
-// Improved wallet connection
+// ============================================
+// SUPER SIMPLE MOBILE WALLET CONNECTION
+// ============================================
+
+let currentWalletAddress = null;
+
 async function connectWallet() {
+  // 1. Check if wallet exists
   if (typeof window.ethereum === 'undefined') {
-    alert("❌ Please install MetaMask or use Brave browser!");
-    window.open('https://metamask.io/download/', '_blank');
+    alert("❌ Wallet tidak terdeteksi!\n\nPastikan MetaMask/Brave Wallet sudah terinstall dan buka website ini dari dalam wallet browser.");
     return null;
   }
 
   try {
-    console.log('🔗 Starting wallet connection...');
-    
-    // 1. Switch to Somnia network with better error handling
-    const networkOk = await checkAndSwitchNetwork();
-    if (!networkOk) {
-      const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
-      alert(`❌ Please switch to Somnia Testnet!\n\nCurrent Network: ${currentChainId}\nRequired: ${SOMNIA_NETWORK.chainId}\n\nPlease add manually if needed.`);
-      return null;
-    }
-
-    // 2. Request account access with timeout
-    const accounts = await Promise.race([
-      window.ethereum.request({ method: 'eth_requestAccounts' }),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Request timeout')), 30000))
-    ]);
+    // 2. Simple account request - NO NETWORK CHECK
+    const accounts = await window.ethereum.request({ 
+      method: 'eth_requestAccounts' 
+    });
     
     currentWalletAddress = accounts[0];
-    console.log('✅ Account connected:', currentWalletAddress);
-
-    // 3. Initialize ethers.js with better loading
-    if (typeof ethers === 'undefined') {
-      console.log('📦 Loading ethers.js...');
-      await loadEthers();
-      // Wait for ethers to be fully ready
-      await new Promise(resolve => setTimeout(resolve, 500));
-    }
-
-    // 4. Setup provider, signer, contract
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    signer = provider.getSigner();
-    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-
-    // 5. Save to localStorage
-    localStorage.setItem('walletAddress', currentWalletAddress);
-    localStorage.setItem('walletConnected', 'true');
-    localStorage.setItem('connectedTime', Date.now().toString());
-
-    // 6. Update UI
+    
+    // 3. Update button
     const walletBtn = document.querySelector('.wallet-btn');
     if (walletBtn) {
-      walletBtn.textContent = `🔗 ${currentWalletAddress.substring(0, 6)}...${currentWalletAddress.substring(currentWalletAddress.length - 4)}`;
-      walletBtn.classList.add('connected');
+      walletBtn.textContent = `✅ ${currentWalletAddress.substring(0, 6)}...`;
+      walletBtn.style.background = '#00ff00';
+      walletBtn.style.color = '#000';
     }
 
-    // 7. Get user's personas count with error handling
-    try {
-      const personas = await contract.getPersonasByOwner(currentWalletAddress);
-      console.log(`✅ You own ${personas.length} personas`);
-      
-      alert(`✅ WALLET CONNECTED!\n\nAddress: ${currentWalletAddress.substring(0, 10)}...${currentWalletAddress.substring(currentWalletAddress.length - 8)}\nNetwork: Somnia Testnet ✅\nYour Personas: ${personas.length}\n\n🎉 Ready to mint NFTs!`);
-    } catch (personaError) {
-      console.warn('Could not fetch personas:', personaError);
-      alert(`✅ WALLET CONNECTED!\n\nAddress: ${currentWalletAddress.substring(0, 10)}...\nNetwork: Somnia Testnet ✅\n\n🎉 Ready to use!`);
-    }
+    // 4. Success message
+    alert(`🎉 BERHASIL TERHUBUNG!\n\nAlamat: ${currentWalletAddress}\n\nSekarang bisa gunakan fitur Persona!`);
+    
+    // Save connection
+    localStorage.setItem('walletAddress', currentWalletAddress);
+    localStorage.setItem('walletConnected', 'true');
 
-    return {
-      address: currentWalletAddress,
-      provider,
-      signer,
-      contract
-    };
+    return currentWalletAddress;
 
   } catch (error) {
-    console.error("❌ Connection failed:", error);
-    
-    let errorMsg = "❌ Connection Failed!\n\n";
+    // Simple error messages
     if (error.code === 4001) {
-      errorMsg += "You rejected the connection request.";
-    } else if (error.code === -32002) {
-      errorMsg += "Please check your wallet - request pending!";
-    } else if (error.message.includes('timeout')) {
-      errorMsg += "Connection timeout. Please try again.";
+      alert("❌ Permintaan koneksi ditolak.\n\nKlik 'Connect' di wallet Anda.");
     } else {
-      errorMsg += error.message || "Unknown error occurred";
+      alert(`❌ Gagal terhubung: ${error.message || 'Unknown error'}`);
     }
-    
-    alert(errorMsg);
     return null;
   }
 }
 
+function exploreSomnia() {
+  window.open('https://explorer.somnia.network', '_blank');
+}
+
+// Handle wallet changes
+if (typeof window.ethereum !== 'undefined') {
+  window.ethereum.on('accountsChanged', (accounts) => {
+    if (accounts.length === 0) {
+      // Disconnected
+      const walletBtn = document.querySelector('.wallet-btn');
+      if (walletBtn) {
+        walletBtn.textContent = '🔗 Connect Wallet';
+        walletBtn.style.background = '';
+        walletBtn.style.color = '';
+      }
+      localStorage.removeItem('walletAddress');
+      localStorage.removeItem('walletConnected');
+    }
+  });
+}
+
+// Auto-reconnect
+window.addEventListener('load', () => {
+  const wasConnected = localStorage.getItem('walletConnected');
+  const savedAddress = localStorage.getItem('walletAddress');
+  
+  if (wasConnected === 'true' && savedAddress) {
+    const walletBtn = document.querySelector('.wallet-btn');
+    if (walletBtn) {
+      walletBtn.textContent = `✅ ${savedAddress.substring(0, 6)}...`;
+      walletBtn.style.background = '#00ff00';
+      walletBtn.style.color = '#000';
+    }
+    currentWalletAddress = savedAddress;
+  }
+});
 // Improved ethers loading
 function loadEthers() {
   return new Promise((resolve, reject) => {
