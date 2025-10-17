@@ -2,16 +2,18 @@
 // SOMNIA TESTNET CONTRACT CONFIGURATION
 // ============================================
 
-const SOMNIA_CONFIG = {
-  // Network Info
-  network: {
-    name: "Somnia Testnet",
-    chainId: "0xC467", // 50311 in hex
-    chainIdDecimal: 50311,
-    rpcUrl: "https://dream-rpc.somnia.network/",
-    explorer: "https://explorer.somnia.network/",
-    currency: "STT"
-  },
+const SOMNIA_NETWORK = {
+  chainId: '0xC468',
+  chainIdDecimal: 50312,
+  chainName: 'Somnia Testnet',
+  rpcUrls: ['https://dream-rpc.somnia.network/'],
+  blockExplorerUrls: ['https://shannon-explorer.somnia.network/'], // Sesuai screenshot
+  nativeCurrency: {
+    name: 'STT',
+    symbol: 'STT',
+    decimals: 18
+  }
+};
 
   // Contract Info
   contract: {
