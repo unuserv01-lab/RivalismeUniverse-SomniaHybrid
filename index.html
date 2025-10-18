@@ -1559,11 +1559,15 @@ async function connectWallet() {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     signer = provider.getSigner();
     contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+// 5. Save to localStorage dengan data lengkap
+localStorage.setItem('walletAddress', currentWalletAddress);
+localStorage.setItem('walletConnected', 'true'); 
+localStorage.setItem('connectedTime', Date.now().toString());
+localStorage.setItem('walletProvider', 'metamask');
+localStorage.setItem('somniaNetwork', JSON.stringify(SOMNIA_NETWORK));
+localStorage.setItem('contractAddress', CONTRACT_ADDRESS);
 
-    // 5. Save to localStorage
-    localStorage.setItem('walletAddress', currentWalletAddress);
-    localStorage.setItem('walletConnected', 'true');
-    localStorage.setItem('connectedTime', Date.now().toString());
+console.log('💾 Wallet state saved to localStorage');
 
     // 6. Update UI
     const walletBtn = document.querySelector('.wallet-btn');
