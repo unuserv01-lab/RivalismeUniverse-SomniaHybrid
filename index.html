@@ -7,13 +7,47 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson@3"></script>
-	<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"
+<!-- Ethers.js via jsdelivr + fallback unpkg. Use loadEthers() below for dynamic loading too -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"
         onerror="this.onerror=null; this.src='https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js'">
 </script>
+
 <script>
-if (typeof ethers === 'undefined') {
-  console.warn("⚠️ ethers.js belum siap, coba refresh halaman atau matikan Brave Shield.");
-  setTimeout(() => location.reload(), 3000);
+/* Portable loader — gunakan ini juga di 3D.html agar konsisten */
+function loadEthers() {
+  return new Promise((resolve, reject) => {
+    if (typeof ethers !== 'undefined') {
+      console.log('ethers already present');
+      return resolve();
+    }
+
+    // try jsdelivr first with onerror fallback
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js';
+    script.async = true;
+    script.onload = () => {
+      console.log('✅ ethers.js loaded (jsdelivr)');
+      // tiny delay to be safe on mobile
+      setTimeout(resolve, 150);
+    };
+    script.onerror = () => {
+      console.warn('❌ jsDelivr failed, trying unpkg fallback...');
+      // fallback to unpkg
+      const s2 = document.createElement('script');
+      s2.src = 'https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js';
+      s2.async = true;
+      s2.onload = () => {
+        console.log('✅ ethers.js loaded (unpkg)');
+        setTimeout(resolve, 150);
+      };
+      s2.onerror = () => {
+        console.error('❌ All remote ethers CDN failed');
+        reject(new Error('Failed to load ethers.js from CDNs'));
+      };
+      document.head.appendChild(s2);
+    };
+    document.head.appendChild(script);
+  });
 }
 </script>
 
@@ -753,7 +787,7 @@ function initializeGlobe() {
 function animate() {
     requestAnimationFrame(animate);
     if (controls) controls.update();
-    if (globe) globe.rotation.y += 0.01;
+    if (globe) globe.rotation.y += 0.0005;
 
     const time = Date.now() * 0.003;
     if (pulseGroup) {
