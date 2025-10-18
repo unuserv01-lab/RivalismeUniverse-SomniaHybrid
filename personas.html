@@ -2,11 +2,49 @@
 <html lang="en">
 <head>
   ...
-  <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
-  
-<!-- Deepseek Chat -->
-<link rel="stylesheet" href="css/chat-widget.css">
-<script src="js/deepseek-chat.js"></script>
+<!-- Ethers.js via jsdelivr + fallback unpkg. Use loadEthers() below for dynamic loading too -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"
+        onerror="this.onerror=null; this.src='https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js'">
+</script>
+
+<script>
+/* Portable loader — gunakan ini juga di 3D.html agar konsisten */
+function loadEthers() {
+  return new Promise((resolve, reject) => {
+    if (typeof ethers !== 'undefined') {
+      console.log('ethers already present');
+      return resolve();
+    }
+
+    // try jsdelivr first with onerror fallback
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js';
+    script.async = true;
+    script.onload = () => {
+      console.log('✅ ethers.js loaded (jsdelivr)');
+      // tiny delay to be safe on mobile
+      setTimeout(resolve, 150);
+    };
+    script.onerror = () => {
+      console.warn('❌ jsDelivr failed, trying unpkg fallback...');
+      // fallback to unpkg
+      const s2 = document.createElement('script');
+      s2.src = 'https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js';
+      s2.async = true;
+      s2.onload = () => {
+        console.log('✅ ethers.js loaded (unpkg)');
+        setTimeout(resolve, 150);
+      };
+      s2.onerror = () => {
+        console.error('❌ All remote ethers CDN failed');
+        reject(new Error('Failed to load ethers.js from CDNs'));
+      };
+      document.head.appendChild(s2);
+    };
+    document.head.appendChild(script);
+  });
+}
+</script>
   ...
 </head>
 <meta charset="UTF-8">
@@ -2395,32 +2433,672 @@ Codified-law defender. Builds transparent rules so the weak aren't hostage to th
 
 <script>
 // ============================================
-// WALLET & CONTRACT INITIALIZATION
+// IMPROVED WALLET CONNECTION WITH SOMNIA NETWORK
 // ============================================
 
-let walletAddress = null;
+let currentWalletAddress = null;
 let provider = null;
 let signer = null;
 let contract = null;
-let isWalletConnected = false;
 
+// Somnia Testnet Config - FIXED CHAIN ID
 const SOMNIA_NETWORK = {
-  chainId: '0xC467',
+  chainId: '0xC488', // ✅ Hex untuk 50312
+  chainIdDecimal: 50312,
   chainName: 'Somnia Testnet',
   rpcUrls: ['https://dream-rpc.somnia.network/'],
-  blockExplorerUrls: ['https://explorer.somnia.network/'],
-  nativeCurrency: { name: 'STT', symbol: 'STT', decimals: 18 }
+  blockExplorerUrls: ['https://shannon-explorer.somnia.network/'],
+  nativeCurrency: {
+    name: 'STT',
+    symbol: 'STT',
+    decimals: 18
+  }
 };
 
 const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
 const CONTRACT_ABI = [
-  "function totalSupply() public view returns (uint256)",
-  "function getPersonasByOwner(address owner) public view returns (uint256[] memory)",
-  "function mintMyPersona(string memory name, string memory specialization, string memory uri) public returns (uint256)",
-  "function getPersona(uint256 tokenId) public view returns (string memory name, string memory specialization, uint256 mintedAt, address creator, address currentOwner)",
-  "function ownerOf(uint256 tokenId) public view returns (address)",
-  "function tokenURI(uint256 tokenId) public view returns (string memory)"
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "approved",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "ApprovalForAll",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_fromTokenId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_toTokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "BatchMetadataUpdate",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "MetadataUpdate",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "specialization",
+				"type": "string"
+			}
+		],
+		"name": "PersonaMinted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "newURI",
+				"type": "string"
+			}
+		],
+		"name": "PersonaUpdated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getApproved",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getPersona",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "specialization",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "mintedAt",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "creator",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "currentOwner",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "getPersonasByOwner",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			}
+		],
+		"name": "isApprovedForAll",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "specialization",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "uri",
+				"type": "string"
+			}
+		],
+		"name": "mintMyPersona",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "specialization",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "uri",
+				"type": "string"
+			}
+		],
+		"name": "mintPersona",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "ownerOf",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "personaExists",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
+			}
+		],
+		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "setApprovalForAll",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes4",
+				"name": "interfaceId",
+				"type": "bytes4"
+			}
+		],
+		"name": "supportsInterface",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "newURI",
+				"type": "string"
+			}
+		],
+		"name": "updateTokenURI",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
 ];
+
 // ============================================
 // IMPROVED WALLET INITIALIZATION WITH PERSISTENCE
 // ============================================
@@ -2635,25 +3313,16 @@ function showWalletInfo() {
     `Ready to mint NFTs!`
   );
 }
-// Initialize on page load
+// Initialize on page load — safer: wait for loadEthers()
 document.addEventListener('DOMContentLoaded', async function() {
-  console.log('🚀 personas.html loaded, initializing...');
-  
-  // Pastikan ethers.js loaded
-  if (typeof ethers === 'undefined') {
-    console.log('📦 Loading ethers.js...');
-    const script = document.createElement('script');
-    script.src = 'https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js';
-    script.onload = async () => {
-      console.log('✅ ethers.js loaded');
-      await initializeWallet();
-      setupWalletListeners();
-    };
-    document.head.appendChild(script);
-  } else {
-    console.log('✅ ethers.js already loaded');
+  try {
+    await loadEthers(); // kalau gagal, akan throw
     await initializeWallet();
-    setupWalletListeners();
+  } catch (err) {
+    console.error('Ethers failed to load on personas.html:', err);
+    // User-friendly fallback UI
+    alert("⚠️ Web3 library gagal dimuat. Coba matikan Brave Shield atau refresh halaman.\n\nJika masalah tetap, coba buka di Chrome/Firefox.");
+    // optionally show a retry button — or let user click connect which will call reconnectWallet()
   }
 
   // ... rest of your DOMContentLoaded code
@@ -3388,7 +4057,22 @@ const characterName = characterCard.querySelector('.character-name').textContent
 openPersona(characterName);
 });
 });
+</script>
+<!-- === SCRIPT TERAKHIR (SETELAH SEMUA LAINNYA) === -->
+<script src="js/main.js"></script>
+<script src="js/wallet-connect.js"></script>
+<!-- Tambahan script lain kalau ada -->
 
+<!-- Deepseek Chat -->
+<link rel="stylesheet" href="css/chat-widget.css">
+<script>
+  // opsional: masukkan API key test kamu di sini
+  window.DEEPSEEK_API_KEY = "sk-7ec7dc264c294ab6a136bf34c470e7a0";
+</script>
+<script src="js/deepseek-chat.js"></script>
+
+<script>
+  console.log("✅ Deepseek Chat aktif. Tunggu klik persona untuk memulai chat...");
 </script>
 </body>
 </html>
