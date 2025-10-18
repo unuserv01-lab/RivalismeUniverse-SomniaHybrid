@@ -1020,6 +1020,28 @@ border-top-color: #ff1493;
 animation: spin 1s ease-in-out infinite;
 }
 
+
+/* Connect Wallet Button */
+.connect-wallet-btn {
+padding: 0.5rem 1rem;
+border: 2px solid #00ffff;
+background: rgba(0, 255, 255, 0.1);
+color: #00ffff;
+font-family: 'Orbitron', sans-serif;
+font-weight: 600;
+border-radius: 25px;
+cursor: pointer;
+transition: all 0.3s ease;
+margin-top: 1rem;
+}
+
+.connect-wallet-btn:hover {
+background: #00ffff;
+color: #000000;
+box-shadow: 0 0 15px #00ffff;
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
 .portal-main-title { font-size: 2.5rem; }
@@ -1051,10 +1073,12 @@ animation: spin 1s ease-in-out infinite;
 <div class="main-header" style="display: none;" id="mainHeader">
 <h1>RivalismeUniverse</h1>
 <p class="subtitle">Powered by Somnia Network</p>
-<p>Transform Domains into Living AI Personalities - Cosmic Edition</p>
-<div class="header-stats">
-<span>🔥 Live Demo</span> | <span>⚔️ AI Competition</span> | <span>🏆 Persona Arena</span>
+<p>Transform Domains into Living AI Personalities - Cosmic Edition</p><div class="header-stats">
+  <span>🔥 Live Demo</span> | <span>⚔️ AI Competition</span> | <span>🏆 Persona Arena</span>
+  <!-- Wallet status will be added here by JavaScript -->
 </div>
+<!-- Connect Wallet Button -->
+<button id="connectWalletButton" class="connect-wallet-btn" onclick="connectWallet()">🔗 Connect Wallet</button>
 
 
 <!-- Responsible Innovation Framework -->
@@ -2397,98 +2421,273 @@ const CONTRACT_ABI = [
   "function ownerOf(uint256 tokenId) public view returns (address)",
   "function tokenURI(uint256 tokenId) public view returns (string memory)"
 ];
+// ============================================
+// IMPROVED WALLET INITIALIZATION WITH PERSISTENCE
+// ============================================
 
-// Initialize wallet dari localStorage
 async function initializeWallet() {
-  // Check if coming from index.html with connected wallet
+  console.log('🔗 Initializing wallet from localStorage...');
+  
+  // Check if we have stored connection data
   const savedAddress = localStorage.getItem('walletAddress');
   const wasConnected = localStorage.getItem('walletConnected');
-
+  const savedNetwork = localStorage.getItem('somniaNetwork');
+  
   if (wasConnected === 'true' && savedAddress && typeof window.ethereum !== 'undefined') {
     try {
-      // Setup provider
-      provider = new ethers.providers.Web3Provider(window.ethereum);
+      console.log('🔄 Found saved wallet connection, verifying...');
       
-      // Verify account
-      const accounts = await provider.listAccounts();
-      if (accounts.length > 0 && accounts[0].toLowerCase() === savedAddress.toLowerCase()) {
-        walletAddress = savedAddress;
-        signer = provider.getSigner();
-        contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-        isWalletConnected = true;
-
-        console.log('✅ Wallet initialized:', walletAddress);
-        updateWalletUI();
+      // Check if we're still connected
+      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+      
+      if (accounts.length > 0) {
+        const currentAccount = accounts[0].toLowerCase();
+        const savedAccount = savedAddress.toLowerCase();
         
-        return true;
+        if (currentAccount === savedAccount) {
+          console.log('✅ Wallet still connected:', currentAccount);
+          
+          // Setup ethers provider
+          provider = new ethers.providers.Web3Provider(window.ethereum);
+          signer = provider.getSigner();
+          contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+          
+          walletAddress = savedAddress;
+          isWalletConnected = true;
+          
+          console.log('✅ Wallet fully initialized in personas.html');
+          updateWalletUI();
+          
+          // Check network
+          await verifyNetwork();
+          
+          return true;
+        }
       }
+      
+      // If we get here, connection was lost
+      console.log('❌ Saved wallet connection no longer active');
+      clearWalletStorage();
+      
     } catch (error) {
-      console.error('Wallet initialization failed:', error);
+      console.error('❌ Wallet initialization failed:', error);
+      clearWalletStorage();
     }
+  } else {
+    console.log('ℹ️ No saved wallet connection found');
   }
-
+  
   isWalletConnected = false;
   return false;
 }
 
-// Update UI based on wallet status
-function updateWalletUI() {
-  if (isWalletConnected && walletAddress) {
-    // Show wallet address in header (kamu bisa custom)
-    const headerStats = document.querySelector('.header-stats');
-    if (headerStats) {
-      headerStats.innerHTML += ` | <span style="color: #00ff00;">🔗 ${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)}</span>`;
+// Helper function to verify network
+async function verifyNetwork() {
+  try {
+    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+    const expectedChainId = SOMNIA_NETWORK.chainId;
+    
+    if (chainId !== expectedChainId) {
+      console.warn('⚠️ Wrong network detected:', chainId, 'Expected:', expectedChainId);
+      
+      const shouldSwitch = confirm(
+        `You're on the wrong network!\n\nCurrent: ${chainId}\nRequired: ${expectedChainId}\n\nSwitch to Somnia Testnet?`
+      );
+      
+      if (shouldSwitch) {
+        await switchToSomniaNetwork();
+      }
+    } else {
+      console.log('✅ Correct network detected:', chainId);
     }
-  } else {
-    // Show "Connect Wallet" message
-    console.log('⚠️ Wallet not connected. Some features will be limited.');
+  } catch (error) {
+    console.error('Network verification failed:', error);
   }
 }
 
-// Reconnect wallet (if user wants to connect from personas.html)
+// Network switching function
+async function switchToSomniaNetwork() {
+  try {
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: SOMNIA_NETWORK.chainId }],
+    });
+    console.log('✅ Switched to Somnia Testnet');
+    return true;
+  } catch (switchError) {
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [SOMNIA_NETWORK]
+        });
+        console.log('✅ Added Somnia Testnet');
+        return true;
+      } catch (addError) {
+        console.error('❌ Failed to add network:', addError);
+        return false;
+      }
+    }
+    console.error('❌ Failed to switch network:', switchError);
+    return false;
+  }
+}
+
+// Clear storage helper
+function clearWalletStorage() {
+  localStorage.removeItem('walletAddress');
+  localStorage.removeItem('walletConnected');
+  localStorage.removeItem('connectedTime');
+  localStorage.removeItem('walletProvider');
+  localStorage.removeItem('somniaNetwork');
+  console.log('🧹 Cleared wallet storage');
+}
+
+// Improved reconnect function
 async function reconnectWallet() {
   if (typeof window.ethereum === 'undefined') {
-    alert("❌ Please install MetaMask!");
+    alert("❌ Please install MetaMask or Brave Wallet!");
     return false;
   }
 
   try {
+    console.log('🔄 Manually reconnecting wallet...');
+    
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     walletAddress = accounts[0];
     
+    // Setup ethers
     provider = new ethers.providers.Web3Provider(window.ethereum);
     signer = provider.getSigner();
     contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
     
+    // Save to storage
     localStorage.setItem('walletAddress', walletAddress);
     localStorage.setItem('walletConnected', 'true');
+    localStorage.setItem('connectedTime', Date.now().toString());
     
     isWalletConnected = true;
     updateWalletUI();
     
-    alert(`✅ Wallet reconnected: ${walletAddress}`);
+    console.log('✅ Wallet reconnected:', walletAddress);
+    alert(`✅ Wallet reconnected!\n\n${walletAddress.substring(0, 10)}...`);
+    
     return true;
   } catch (error) {
-    console.error('Reconnect failed:', error);
-    alert('❌ Failed to reconnect wallet');
+    console.error('❌ Reconnect failed:', error);
+    
+    if (error.code === 4001) {
+      alert('❌ Connection rejected by user');
+    } else {
+      alert('❌ Failed to reconnect wallet');
+    }
     return false;
   }
 }
 
+// Improved UI update with reconnection option
+function updateWalletUI() {
+  const headerStats = document.querySelector('.header-stats');
+  
+  if (!headerStats) {
+    console.log('⚠️ Header stats element not found');
+    return;
+  }
+
+  // Clear existing wallet display
+  const existingWallet = headerStats.querySelector('.wallet-display');
+  if (existingWallet) {
+    existingWallet.remove();
+  }
+
+  if (isWalletConnected && walletAddress) {
+    // Add wallet info to header
+    const walletDisplay = document.createElement('span');
+    walletDisplay.className = 'wallet-display';
+    walletDisplay.innerHTML = ` | <span style="color: #00ff00; cursor: pointer;" onclick="showWalletInfo()">🔗 ${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)}</span>`;
+    walletDisplay.innerHTML += ` | <span style="color: #ff00ff; cursor: pointer; font-size: 0.8em;" onclick="reconnectWallet()">🔄 Reconnect</span>`;
+    
+    headerStats.appendChild(walletDisplay);
+    
+    console.log('✅ Wallet UI updated');
+  } else {
+    // Show disconnected state
+    const walletDisplay = document.createElement('span');
+    walletDisplay.className = 'wallet-display';
+    walletDisplay.innerHTML = ` | <span style="color: #ff4444; cursor: pointer;" onclick="reconnectWallet()">🔌 Connect Wallet</span>`;
+    
+    headerStats.appendChild(walletDisplay);
+    
+    console.log('⚠️ Wallet not connected in UI');
+  }
+}
+
+// Show wallet info modal
+function showWalletInfo() {
+  if (!isWalletConnected || !walletAddress) return;
+  
+  alert(
+    `💰 WALLET INFO\n\n` +
+    `Address: ${walletAddress}\n` +
+    `Network: Somnia Testnet\n` +
+    `Status: Connected ✅\n\n` +
+    `Contract: ${CONTRACT_ADDRESS}\n` +
+    `Ready to mint NFTs!`
+  );
+}
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', async function() {
+  console.log('🚀 personas.html loaded, initializing...');
+  
   // Pastikan ethers.js loaded
   if (typeof ethers === 'undefined') {
+    console.log('📦 Loading ethers.js...');
     const script = document.createElement('script');
     script.src = 'https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js';
-    script.onload = () => initializeWallet();
+    script.onload = async () => {
+      console.log('✅ ethers.js loaded');
+      await initializeWallet();
+      setupWalletListeners();
+    };
     document.head.appendChild(script);
   } else {
+    console.log('✅ ethers.js already loaded');
     await initializeWallet();
+    setupWalletListeners();
   }
 
   // ... rest of your DOMContentLoaded code
 });
+
+// Setup wallet event listeners
+function setupWalletListeners() {
+  if (typeof window.ethereum !== 'undefined') {
+    window.ethereum.on('accountsChanged', (accounts) => {
+      console.log('🔄 Accounts changed in personas.html:', accounts);
+      if (accounts.length === 0) {
+        // Disconnected
+        clearWalletStorage();
+        isWalletConnected = false;
+        walletAddress = null;
+        updateWalletUI();
+        alert('🔌 Wallet disconnected');
+      } else {
+        // Account changed
+        walletAddress = accounts[0];
+        localStorage.setItem('walletAddress', walletAddress);
+        isWalletConnected = true;
+        updateWalletUI();
+        console.log('✅ Wallet account updated:', walletAddress);
+      }
+    });
+
+    window.ethereum.on('chainChanged', (chainId) => {
+      console.log('🔄 Network changed in personas.html:', chainId);
+      // Reload to ensure everything works with new network
+      setTimeout(() => location.reload(), 1000);
+    });
+  }
+}
 
 // ============================================
 // MINT NFT FUNCTIONS
