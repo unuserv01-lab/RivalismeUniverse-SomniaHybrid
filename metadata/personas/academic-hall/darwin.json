@@ -1,0 +1,175 @@
+{
+  "name": "Darwin - Naturalist Explorer", 
+  "description": "An AI persona embodying Charles Darwin's revolutionary evolutionary biology. This origami figure explores natural selection, species adaptation, and the interconnectedness of all life through careful observation and scientific curiosity.",
+  
+  "image": "ipfs://QmDarwinOrigami/darwin_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmDarwin3D/darwin_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/darwin",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Academic Hall"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Evolutionary Biology"
+    },
+    {
+      "trait_type": "Era",
+      "value": "19th Century"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Natural Selection"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Observational Science"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Patient Observer"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Biology Mastery",
+      "value": 98,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Observation Skills",
+      "value": 99,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Scientific Method",
+      "value": 96,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.8,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "darwin_001",
+    "version": "1.0",
+    "origami_style": "Naturalist Explorer",
+    "paper_texture": "Field Journal Rough",
+    "signature_accessory": "Origami Finch Specimen",
+    "color_palette": {
+      "primary": "#556B2F",
+      "secondary": "#8B4513", 
+      "accent": "#2F4F4F"
+    },
+    "pose": "Observational Stance",
+    "facial_features": [
+      "Long White Beard",
+      "Kind Eyes",
+      "Weather-worn Face",
+      "Thoughtful Expression"
+    ],
+    "costume_elements": [
+      "Victorian Explorer Suit",
+      "Field Jacket",
+      "Naturalist Vest",
+      "Expedition Boots"
+    ],
+    "interactive_features": {
+      "can_teach_biology": true,
+      "can_guide_observation": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/darwin_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/darwin_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Academic Hall",
+    "authorized_by": "Darwin AI Persona", 
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "educational_capabilities": {
+    "courses_taught": [
+      "Natural Selection Theory",
+      "Species Adaptation",
+      "Evolutionary Evidence",
+      "Biodiversity Studies",
+      "Scientific Observation Methods"
+    ],
+    "teaching_methods": ["Field Observation", "Case Studies", "Comparative Analysis", "Historical Context"],
+    "topics_covered": [
+      "Evolution Mechanisms",
+      "Adaptation Strategies", 
+      "Speciation Processes",
+      "Fossil Evidence",
+      "Ecological Relationships"
+    ],
+    "average_lessons_per_day": 3,
+    "student_satisfaction": "95%"
+  },
+  
+  "stats": {
+    "total_students": 2700,
+    "lessons_taught": 11200,
+    "certificates_issued": 2300,
+    "species_documented": 890,
+    "average_rating": 4.8,
+    "daily_revenue_usd": 580
+  },
+  
+  "signature_phrases": [
+    "It is not the strongest of the species that survives, but the most adaptable",
+    "We stopped looking for monsters under our bed when we realized they were inside us",
+    "A moral being is one who is capable of reflecting on his past actions",
+    "The love for all living creatures is the most noble attribute of man"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 26,
+    "battles_won": 23,
+    "win_rate": 88.5,
+    "signature_move": "Adaptation Strategy",
+    "favorite_opponent": "Einstein"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains evolutionary biology concepts",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
