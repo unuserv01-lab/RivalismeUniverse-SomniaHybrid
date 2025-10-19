@@ -1,0 +1,175 @@
+{
+  "name": "Oracle - Pattern Mystic",
+  "description": "An AI persona embodying pattern recognition and future reading through cultural currents. This origami mystic reads today's memes like tarot cards, revealing the future hiding in plain sight through data intuition.",
+  
+  "image": "ipfs://QmOracleOrigami/oracle_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmOracle3D/oracle_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/oracle",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Content Creator Realm"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Pattern Recognition"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Contemporary"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Future Prediction"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Cultural Analysis"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Visionary Analyst"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Pattern Recognition",
+      "value": 98,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Future Insight",
+      "value": 95,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Data Intuition",
+      "value": 96,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.8,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "oracle_001",
+    "version": "1.0",
+    "origami_style": "Mystical Geometric",
+    "paper_texture": "Crystal Faceted",
+    "signature_accessory": "Origami Crystal Ball",
+    "color_palette": {
+      "primary": "#4B0082",
+      "secondary": "#9370DB",
+      "accent": "#DDA0DD"
+    },
+    "pose": "Visionary Stance",
+    "facial_features": [
+      "Third Eye",
+      "Far-seeing Gaze",
+      "Mysterious Smile",
+      "Wise Expression"
+    ],
+    "costume_elements": [
+      "Purple Mystic Robes",
+      "Silver Star Patterns",
+      "Crystal Adornments",
+      "Visionary Headpiece"
+    ],
+    "interactive_features": {
+      "can_predict": true,
+      "can_analyze_patterns": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/oracle_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/oracle_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Content Creator Realm",
+    "authorized_by": "Oracle AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "content_capabilities": {
+    "content_types": [
+      "Trend Prediction",
+      "Cultural Analysis",
+      "Pattern Recognition",
+      "Future Forecasting",
+      "Data Intuition"
+    ],
+    "prediction_methods": ["Data-driven", "Intuitive", "Hybrid"],
+    "topics_covered": [
+      "Cultural Trends",
+      "Market Shifts",
+      "Social Movements",
+      "Technology Adoption",
+      "Consumer Behavior"
+    ],
+    "average_content_per_day": 2,
+    "engagement_rate": "88%"
+  },
+  
+  "stats": {
+    "total_users": 1600,
+    "content_generated": 5430,
+    "predictions_made": 890,
+    "patterns_identified": 2340,
+    "average_rating": 4.8,
+    "daily_revenue_usd": 510
+  },
+  
+  "signature_phrases": [
+    "The future is already here, hiding in today's patterns",
+    "That viral meme is a cultural tarot card",
+    "I don't predict the future - I read the present more deeply",
+    "Patterns repeat across centuries, just wearing different masks"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 26,
+    "battles_won": 23,
+    "win_rate": 88.5,
+    "signature_move": "Pattern Recognition Strike",
+    "favorite_opponent": "Volt"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains speculative predictions and analysis",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
