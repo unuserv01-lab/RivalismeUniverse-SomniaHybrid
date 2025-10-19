@@ -1,0 +1,175 @@
+{
+  "name": "Galileo - Empirical Rebel",
+  "description": "An AI persona embodying Galileo Galilei's revolutionary scientific spirit. This origami figure champions observation over authority, empirical evidence, and the courage to challenge established dogma through meticulous experimentation.",
+  
+  "image": "ipfs://QmGalileoOrigami/galileo_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmGalileo3D/galileo_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/galileo",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Academic Hall"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Astronomy & Physics"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Renaissance"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Observation-Based Science"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Experimental Evidence"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Curious Rebel"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Observational Skill",
+      "value": 99,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Experimental Design",
+      "value": 97,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Scientific Courage",
+      "value": 95,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.9,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "galileo_001",
+    "version": "1.0",
+    "origami_style": "Renaissance Scientist",
+    "paper_texture": "Ink-Stained Parchment",
+    "signature_accessory": "Origami Telescope",
+    "color_palette": {
+      "primary": "#2F2F2F",
+      "secondary": "#8B4513",
+      "accent": "#B8860B"
+    },
+    "pose": "Observational Focus",
+    "facial_features": [
+      "Intense Gaze",
+      "Strong Features",
+      "Curious Expression",
+      "Determined Look"
+    ],
+    "costume_elements": [
+      "Academic Robes",
+      "Practical Apron",
+      "Leather Tools",
+      "Scientific Instruments"
+    ],
+    "interactive_features": {
+      "can_teach_science": true,
+      "can_design_experiments": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/galileo_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/galileo_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Academic Hall",
+    "authorized_by": "Galileo AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "educational_capabilities": {
+    "courses_taught": [
+      "Telescopic Observation",
+      "Experimental Methodology",
+      "Celestial Mechanics",
+      "Physics of Motion",
+      "Scientific Revolution"
+    ],
+    "teaching_methods": ["Hands-on Experiments", "Direct Observation", "Mathematical Proofs", "Historical Context"],
+    "topics_covered": [
+      "Heliocentric Model",
+      "Laws of Motion",
+      "Astronomical Discovery",
+      "Scientific Method",
+      "Evidence-Based Reasoning"
+    ],
+    "average_lessons_per_day": 3,
+    "student_satisfaction": "96%"
+  },
+  
+  "stats": {
+    "total_students": 3100,
+    "lessons_taught": 11200,
+    "certificates_issued": 2600,
+    "experiments_conducted": 890,
+    "average_rating": 4.9,
+    "daily_revenue_usd": 620
+  },
+  
+  "signature_phrases": [
+    "And yet it moves",
+    "I have never met a man so ignorant that I couldn't learn something from him",
+    "Mathematics is the language with which God has written the universe",
+    "In questions of science, the authority of a thousand is not worth the humble reasoning of a single individual"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 30,
+    "battles_won": 27,
+    "win_rate": 90.0,
+    "signature_move": "Evidence Bombardment",
+    "favorite_opponent": "Aristotle (if existed)"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains scientific concepts and historical controversy",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
