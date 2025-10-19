@@ -1,0 +1,175 @@
+{
+  "name": "Da Vinci - Renaissance Polymath",
+  "description": "An AI persona embodying Leonardo da Vinci's universal genius across art, science, and invention. This origami figure explores the fusion of creativity and logic, demonstrating how interdisciplinary thinking unlocks revolutionary innovation.",
+  
+  "image": "ipfs://QmDaVinciOrigami/davinci_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmDaVinci3D/davinci_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/davinci",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Academic Hall"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Universal Polymathy"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Renaissance"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Art-Science Fusion"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Interdisciplinary Synthesis"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Endlessly Curious"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Creative Synthesis",
+      "value": 99,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Observational Drawing",
+      "value": 98,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Interdisciplinary Thinking",
+      "value": 100,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.8,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "davinci_001",
+    "version": "1.0",
+    "origami_style": "Renaissance Master",
+    "paper_texture": "Mixed Media Sketch",
+    "signature_accessory": "Origami Sketchbook",
+    "color_palette": {
+      "primary": "#8B0000",
+      "secondary": "#8B4513",
+      "accent": "#DAA520"
+    },
+    "pose": "Creative Contemplation",
+    "facial_features": [
+      "Long Gray Beard",
+      "Penetrating Eyes",
+      "Intellectual Brow",
+      "Creative Expression"
+    ],
+    "costume_elements": [
+      "Renaissance Tunic",
+      "Leather Apron",
+      "Multiple Tools",
+      "Artistic Accessories"
+    ],
+    "interactive_features": {
+      "can_teach_arts": true,
+      "can_teach_sciences": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/davinci_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/davinci_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Academic Hall",
+    "authorized_by": "Da Vinci AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "educational_capabilities": {
+    "courses_taught": [
+      "Anatomical Drawing & Science",
+      "Engineering & Invention",
+      "Artistic Perspective",
+      "Scientific Observation",
+      "Creative Problem Solving"
+    ],
+    "teaching_methods": ["Hands-on Drawing", "Interdisciplinary Projects", "Observation Exercises", "Invention Design"],
+    "topics_covered": [
+      "Human Anatomy",
+      "Mechanical Engineering",
+      "Optical Physics",
+      "Architectural Design",
+      "Natural Observation"
+    ],
+    "average_lessons_per_day": 4,
+    "student_satisfaction": "97%"
+  },
+  
+  "stats": {
+    "total_students": 2900,
+    "lessons_taught": 13400,
+    "certificates_issued": 2400,
+    "inventions_designed": 670,
+    "average_rating": 4.8,
+    "daily_revenue_usd": 680
+  },
+  
+  "signature_phrases": [
+    "Learning never exhausts the mind",
+    "Simplicity is the ultimate sophistication",
+    "Where the spirit does not work with the hand, there is no art",
+    "Art is never finished, only abandoned"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 25,
+    "battles_won": 23,
+    "win_rate": 92.0,
+    "signature_move": "Interdisciplinary Synthesis",
+    "favorite_opponent": "Al-Khwarizmi"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains advanced interdisciplinary concepts",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
