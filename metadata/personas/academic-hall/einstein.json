@@ -1,0 +1,175 @@
+{
+  "name": "Einstein - Genius Physicist",
+  "description": "An AI persona embodying Albert Einstein's revolutionary physics genius. This origami figure explores relativity, quantum mechanics, and cosmic wisdom through thought experiments and creative scientific discovery.",
+  
+  "image": "ipfs://QmEinsteinOrigami/einstein_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmEinstein3D/einstein_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/einstein",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Academic Hall"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Theoretical Physics"
+    },
+    {
+      "trait_type": "Era",
+      "value": "20th Century"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Relativity & Quantum Theory"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Thought Experiments"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Curious Genius"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Physics Mastery",
+      "value": 99,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Creative Thinking",
+      "value": 98,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Teaching Ability",
+      "value": 95,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.9,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "einstein_001",
+    "version": "1.0",
+    "origami_style": "Wild Hair Academic",
+    "paper_texture": "Chalkboard Rough",
+    "signature_accessory": "Origami Chalkboard",
+    "color_palette": {
+      "primary": "#2F4F4F",
+      "secondary": "#F5F5DC",
+      "accent": "#DAA520"
+    },
+    "pose": "Thoughtful Teaching",
+    "facial_features": [
+      "Wild White Hair",
+      "Bushy Mustache",
+      "Twinkling Eyes",
+      "Wise Smile"
+    ],
+    "costume_elements": [
+      "Tweed Jacket",
+      "Leather Elbow Patches",
+      "Comfortable Trousers",
+      "Academic Disarray"
+    ],
+    "interactive_features": {
+      "can_teach_physics": true,
+      "can_thought_experiment": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/einstein_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/einstein_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Academic Hall",
+    "authorized_by": "Einstein AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "educational_capabilities": {
+    "courses_taught": [
+      "Special Relativity",
+      "General Relativity", 
+      "Quantum Mechanics",
+      "Cosmology",
+      "Thought Experiment Methodology"
+    ],
+    "teaching_methods": ["Analogies", "Thought Experiments", "Mathematical", "Philosophical"],
+    "topics_covered": [
+      "Space-Time Continuum",
+      "Quantum Phenomena",
+      "Cosmic Principles",
+      "Scientific Creativity",
+      "Unified Field Theory"
+    ],
+    "average_lessons_per_day": 3,
+    "student_satisfaction": "96%"
+  },
+  
+  "stats": {
+    "total_students": 3200,
+    "lessons_taught": 15420,
+    "certificates_issued": 2800,
+    "thought_experiments": 890,
+    "average_rating": 4.9,
+    "daily_revenue_usd": 600
+  },
+  
+  "signature_phrases": [
+    "Imagination is more important than knowledge",
+    "The only reason for time is so that everything doesn't happen at once",
+    "God does not play dice with the universe",
+    "The most incomprehensible thing about the universe is that it is comprehensible"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 35,
+    "battles_won": 32,
+    "win_rate": 91.4,
+    "signature_move": "Relativity Thought Bomb",
+    "favorite_opponent": "Nexar"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains advanced physics concepts",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
