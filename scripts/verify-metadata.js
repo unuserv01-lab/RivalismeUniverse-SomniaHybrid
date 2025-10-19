@@ -1,26 +1,29 @@
 const { ethers } = require('ethers');
-const fs = require('fs').promises;
-const path = require('path');
 const axios = require('axios');
 
 class MetadataVerifier {
-  constructor(providerUrl, contractAddress, contractABI) {
-    this.provider = new ethers.providers.JsonRpcProvider(providerUrl);
-    this.contract = new ethers.Contract(contractAddress, contractABI, this.provider);
+  constructor() {
+    this.provider = new ethers.providers.JsonRpcProvider('https://dream-rpc.somnia.network/');
+    this.contractAddress = '0xd9145CCE52D386f254917e481eB44e9943F39138';
+    
+    // Minimal ABI for tokenURI
+    this.contractABI = [
+      "function tokenURI(uint256 tokenId) external view returns (string memory)"
+    ];
+    
+    this.contract = new ethers.Contract(this.contractAddress, this.contractABI, this.provider);
   }
 
-  // Verify metadata matches on-chain data
   async verifyTokenMetadata(tokenId, expectedMetadata) {
     try {
-      // Get on-chain token URI
-      const tokenURI = await this.contract.tokenURI(tokenId);
-      console.log(`📡 Token ${tokenId} URI: ${tokenURI}`);
+      console.log(`🔍 Verifying token ${tokenId}...`);
       
-      // Fetch actual metadata from IPFS
+      const tokenURI = await this.contract.tokenURI(tokenId);
+      console.log(`📡 On-chain URI: ${tokenURI}`);
+      
       const ipfsHash = tokenURI.replace('ipfs://', '');
       const actualMetadata = await this.fetchIPFSMetadata(ipfsHash);
       
-      // Compare critical fields
       const verificationResult = this.compareMetadata(expectedMetadata, actualMetadata);
       
       return {
@@ -32,7 +35,7 @@ class MetadataVerifier {
         expected: expectedMetadata
       };
     } catch (error) {
-      console.error(`❌ Failed to verify token ${tokenId}:`, error);
+      console.error(`❌ Failed to verify token ${tokenId}:`, error.message);
       return {
         tokenId,
         verified: false,
@@ -41,7 +44,6 @@ class MetadataVerifier {
     }
   }
 
-  // Fetch metadata from IPFS
   async fetchIPFSMetadata(ipfsHash) {
     try {
       const gatewayURL = `https://ipfs.io/ipfs/${ipfsHash}`;
@@ -52,16 +54,14 @@ class MetadataVerifier {
     }
   }
 
-  // Compare two metadata objects
   compareMetadata(expected, actual) {
     const differences = [];
     let verified = true;
 
-    // Check critical fields
-    const criticalFields = ['name', 'description', 'image', 'attributes'];
+    const criticalFields = ['name', 'description', 'image'];
     
     for (const field of criticalFields) {
-      if (!this.deepEqual(expected[field], actual[field])) {
+      if (expected[field] !== actual[field]) {
         differences.push({
           field,
           expected: expected[field],
@@ -74,31 +74,26 @@ class MetadataVerifier {
     return { verified, differences };
   }
 
-  // Deep equal comparison
-  deepEqual(obj1, obj2) {
-    return JSON.stringify(obj1) === JSON.stringify(obj2);
-  }
-
-  // Verify all tokens for a specific persona
   async verifyPersonaTokens(personaId, expectedMetadataArray) {
     const results = [];
     
     for (const expectedMetadata of expectedMetadataArray) {
-      const tokenId = expectedMetadata.properties.persona_id;
-      const result = await this.verifyTokenMetadata(tokenId, expectedMetadata);
+      const result = await this.verifyTokenMetadata(expectedMetadata.tokenId, expectedMetadata);
       results.push(result);
+      
+      // Delay to avoid rate limiting
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
     
     return this.generateVerificationReport(results, personaId);
   }
 
-  // Generate verification report
   generateVerificationReport(results, personaId) {
     const total = results.length;
     const verified = results.filter(r => r.verified).length;
     const failed = total - verified;
     
-    const report = {
+    return {
       personaId,
       timestamp: new Date().toISOString(),
       summary: {
@@ -109,111 +104,23 @@ class MetadataVerifier {
       },
       details: results
     };
-    
-    return report;
-  }
-
-  // Batch verify multiple tokens
-  async batchVerify(tokenIds, expectedMetadataMap) {
-    const results = [];
-    
-    for (const tokenId of tokenIds) {
-      const expectedMetadata = expectedMetadataMap[tokenId];
-      if (expectedMetadata) {
-        const result = await this.verifyTokenMetadata(tokenId, expectedMetadata);
-        results.push(result);
-      }
-    }
-    
-    return results;
-  }
-
-  // Verify certificate metadata
-  async verifyCertificate(certificateId, studentWallet) {
-    try {
-      // Implementation for certificate verification
-      // This would check certificate-specific fields
-      return {
-        certificateId,
-        studentWallet,
-        verified: true,
-        message: 'Certificate verification logic to be implemented'
-      };
-    } catch (error) {
-      return {
-        certificateId,
-        studentWallet,
-        verified: false,
-        error: error.message
-      };
-    }
   }
 }
 
-// CLI interface
+// Example usage
 async function main() {
-  const args = process.argv.slice(2);
-  const command = args[0];
+  const verifier = new MetadataVerifier();
   
-  const config = {
-    providerUrl: process.env.RPC_URL || 'https://dream-rpc.somnia.network/',
-    contractAddress: process.env.CONTRACT_ADDRESS,
-    contractABI: require('../config/contracts.js').personaABI
+  // Example token verification
+  const tokenId = 1;
+  const expectedMetadata = {
+    name: "Unuser - Chaos Critic",
+    description: "An AI persona embodying brutal honesty and satirical social critique...",
+    image: "ipfs://QmUnuserOrigami/unuser.png"
   };
-
-  const verifier = new MetadataVerifier(
-    config.providerUrl,
-    config.contractAddress,
-    config.contractABI
-  );
-
-  switch (command) {
-    case 'verify-token':
-      const tokenId = args[1];
-      const metadataPath = args[2];
-      await verifySingleToken(verifier, tokenId, metadataPath);
-      break;
-      
-    case 'verify-persona':
-      const personaId = args[1];
-      await verifyPersonaTokens(verifier, personaId);
-      break;
-      
-    case 'batch-verify':
-      const tokenListPath = args[1];
-      await batchVerifyTokens(verifier, tokenListPath);
-      break;
-      
-    case 'verify-certificate':
-      const [certId, wallet] = args.slice(1);
-      await verifier.verifyCertificate(certId, wallet);
-      break;
-      
-    default:
-      console.log(`
-Usage:
-  node verify-metadata.js verify-token <tokenId> <metadataPath>
-  node verify-metadata.js verify-persona <personaId>
-  node verify-metadata.js batch-verify <tokenListPath>
-  node verify-metadata.js verify-certificate <certificateId> <studentWallet>
-      `);
-  }
-}
-
-async function verifySingleToken(verifier, tokenId, metadataPath) {
-  // Implementation for single token verification
-}
-
-async function verifyPersonaTokens(verifier, personaId) {
-  // Implementation for persona tokens verification
-}
-
-async function batchVerifyTokens(verifier, tokenListPath) {
-  // Implementation for batch verification
-}
-
-if (require.main === module) {
-  main().catch(console.error);
+  
+  const result = await verifier.verifyTokenMetadata(tokenId, expectedMetadata);
+  console.log('Verification result:', result);
 }
 
 module.exports = MetadataVerifier;
