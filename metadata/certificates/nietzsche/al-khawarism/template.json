@@ -1,0 +1,168 @@
+{
+  "name": "Al-Khwarizmi Mathematical Genius Certificate #[TOKEN_ID]",
+  "description": "Official Academic Hall certificate verifying mastery of Al-Khwarizmi's Mathematical Foundations curriculum. This golden age-styled blockchain credential certifies understanding of algebra, algorithms, and geometric applications through rigorous study with Prof. Al-Khwarizmi AI Persona.",
+  
+  "image": "ipfs://QmAlKhwarizmiCertificate/[WALLET_ADDRESS].png",
+  "external_url": "https://rivalismeuniverse.com/certificates/alkhwarizmi/[WALLET_ADDRESS]",
+  
+  "attributes": [
+    {
+      "trait_type": "Certificate Type",
+      "value": "Mathematical Foundations"
+    },
+    {
+      "trait_type": "Persona",
+      "value": "Al-Khwarizmi"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Mathematics & Astronomy"
+    },
+    {
+      "trait_type": "Achievement Level",
+      "value": "Algorithmic Scholar"
+    },
+    {
+      "trait_type": "Curriculum",
+      "value": "Algebra & Algorithms"
+    },
+    {
+      "trait_type": "Border Design",
+      "value": "Islamic Geometric"
+    },
+    {
+      "trait_type": "Signature Style",
+      "value": "Golden Age Calligraphy"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Mathematical Skill",
+      "value": 94,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Algorithmic Thinking",
+      "value": 96,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Geometric Vision",
+      "value": 92,
+      "max_value": 100
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Completion Date",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "certificate_id": "ALKHWARIZMI_CERT_[UNIQUE_ID]",
+    "student_wallet": "[WALLET_ADDRESS]",
+    "persona_signature": "Al-Khwarizmi",
+    "verification_status": "Algorithmically Verified",
+    
+    "curriculum_completed": {
+      "courses": [
+        "Algebraic Principles",
+        "Algorithmic Problem Solving",
+        "Geometric Applications",
+        "Astronomical Mathematics",
+        "Numerical Systems"
+      ],
+      "total_lessons": 45,
+      "mathematical_proofs": 28,
+      "final_exam_score": 94
+    },
+    
+    "skills_mastered": [
+      "Algebraic Equation Solving",
+      "Step-by-Step Algorithm Design",
+      "Geometric Proof Construction",
+      "Mathematical Pattern Recognition",
+      "Scientific Calculation Methods"
+    ],
+    
+    "certificate_design": {
+      "border_style": "Islamic Geometric",
+      "color_scheme": "Lapis Lazuli & Gold",
+      "signature_seal": "Origami Compass",
+      "corner_emblems": "Algebraic Symbols",
+      "background_pattern": "Celestial Coordinate Grid"
+    },
+    
+    "blockchain_proof": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312,
+      "transaction_hash": "0x[TX_HASH]",
+      "block_number": 12345679
+    },
+    
+    "verification": {
+      "qr_code": "ipfs://QmVerificationQR/alkhwarizmi_[WALLET_ADDRESS].png",
+      "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+      "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+      "ipfs_metadata": "ipfs://QmCertificateMetadata/alkhwarizmi_[WALLET_ADDRESS].json"
+    },
+    
+    "issuer_info": {
+      "institution": "Rivalisme Universe - Academic Hall",
+      "authorized_by": "Al-Khwarizmi AI Persona",
+      "accreditation": "Mathematical Mastery Verified",
+      "credential_type": "Soulbound Achievement NFT"
+    }
+  },
+  
+  "student_achievements": {
+    "course_start_date": "2025-09-08T08:00:00Z",
+    "course_end_date": "2025-10-19T16:00:00Z",
+    "total_study_time_hours": 55,
+    "lessons_completed": 45,
+    "mathematical_proofs": 28,
+    "algorithms_designed": 15,
+    "final_exam_score": 94,
+    "problem_solving_rate": 96
+  },
+  
+  "special_recognitions": [
+    {
+      "badge": "Algebra Master",
+      "description": "Demonstrated exceptional skill in algebraic problem solving"
+    },
+    {
+      "badge": "Algorithm Architect",
+      "description": "Excelled in designing step-by-step solution methods"
+    },
+    {
+      "badge": "Golden Age Scholar",
+      "description": "Mastered mathematical principles from Islamic Golden Age"
+    }
+  ],
+  
+  "mathematical_milestones": {
+    "algebraic_principles_mastered": true,
+    "algorithmic_thinking_developed": true,
+    "geometric_applications_understood": true,
+    "scientific_calculation_perfected": true,
+    "mathematical_patterns_recognized": true
+  },
+  
+  "credential_usage": {
+    "transferable": false,
+    "revocable": false,
+    "display_permitted": true,
+    "verification_public": true,
+    "professional_use": true
+  },
+  
+  "license": "CC BY-NC-ND 4.0",
+  "soulbound": true,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T16:00:00Z"
+}
