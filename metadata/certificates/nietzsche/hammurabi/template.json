@@ -1,0 +1,168 @@
+{
+  "name": "Hammurabi Justice System Certificate #[TOKEN_ID]",
+  "description": "Official Academic Hall certificate verifying mastery of Hammurabi's Legal Foundations curriculum. This ancient Babylonian-styled blockchain credential certifies understanding of codified law, proportional justice, and legal system architecture through profound study with King Hammurabi AI Persona.",
+  
+  "image": "ipfs://QmHammurabiCertificate/[WALLET_ADDRESS].png",
+  "external_url": "https://rivalismeuniverse.com/certificates/hammurabi/[WALLET_ADDRESS]",
+  
+  "attributes": [
+    {
+      "trait_type": "Certificate Type",
+      "value": "Legal Foundations"
+    },
+    {
+      "trait_type": "Persona",
+      "value": "Hammurabi"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Legal Systems & Governance"
+    },
+    {
+      "trait_type": "Achievement Level",
+      "value": "Legal Scholar"
+    },
+    {
+      "trait_type": "Curriculum",
+      "value": "Codified Justice Systems"
+    },
+    {
+      "trait_type": "Border Design",
+      "value": "Ancient Babylonian"
+    },
+    {
+      "trait_type": "Signature Style",
+      "value": "Cuneiform Seal"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Legal Understanding",
+      "value": 92,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Justice Principles",
+      "value": 94,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "System Design",
+      "value": 90,
+      "max_value": 100
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Completion Date",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "certificate_id": "HAMMURABI_CERT_[UNIQUE_ID]",
+    "student_wallet": "[WALLET_ADDRESS]",
+    "persona_signature": "𒄩𒄠𒈬𒊏𒁉",
+    "verification_status": "Legally Verified",
+    
+    "curriculum_completed": {
+      "courses": [
+        "Codified Law Principles",
+        "Proportional Justice Systems",
+        "Legal Transparency Frameworks",
+        "Ancient Governance Models",
+        "Modern Legal Applications"
+      ],
+      "total_lessons": 38,
+      "legal_cases_analyzed": 20,
+      "final_exam_score": 92
+    },
+    
+    "skills_mastered": [
+      "Legal System Analysis",
+      "Justice Principle Application",
+      "Transparent Rule Design",
+      "Proportional Response Calculation",
+      "Governance Framework Evaluation"
+    ],
+    
+    "certificate_design": {
+      "border_style": "Ancient Babylonian",
+      "color_scheme": "Stone Grey & Lapis Blue",
+      "signature_seal": "Origami Stone Stele",
+      "corner_emblems": "Cuneiform Justice Symbols",
+      "background_pattern": "Ancient City Plan & Irrigation Systems"
+    },
+    
+    "blockchain_proof": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312,
+      "transaction_hash": "0x[TX_HASH]",
+      "block_number": 12345679
+    },
+    
+    "verification": {
+      "qr_code": "ipfs://QmVerificationQR/hammurabi_[WALLET_ADDRESS].png",
+      "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+      "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+      "ipfs_metadata": "ipfs://QmCertificateMetadata/hammurabi_[WALLET_ADDRESS].json"
+    },
+    
+    "issuer_info": {
+      "institution": "Rivalisme Universe - Academic Hall",
+      "authorized_by": "Hammurabi AI Persona",
+      "accreditation": "Legal Mastery Verified",
+      "credential_type": "Soulbound Achievement NFT"
+    }
+  },
+  
+  "student_achievements": {
+    "course_start_date": "2025-09-10T10:00:00Z",
+    "course_end_date": "2025-10-19T17:00:00Z",
+    "total_study_time_hours": 42,
+    "lessons_completed": 38,
+    "legal_cases_analyzed": 20,
+    "justice_principles_applied": 25,
+    "final_exam_score": 92,
+    "legal_reasoning_accuracy": 94
+  },
+  
+  "special_recognitions": [
+    {
+      "badge": "Justice Architect",
+      "description": "Demonstrated exceptional understanding of proportional justice systems"
+    },
+    {
+      "badge": "Legal System Analyst",
+      "description": "Excelled in analyzing and evaluating legal frameworks"
+    },
+    {
+      "badge": "Transparency Advocate",
+      "description": "Showed deep commitment to legal transparency and fairness"
+    }
+  ],
+  
+  "legal_milestones": {
+    "codified_law_principles_mastered": true,
+    "proportional_justice_understood": true,
+    "legal_transparency_appreciated": true,
+    "ancient_governance_analyzed": true,
+    "modern_applications_demonstrated": true
+  },
+  
+  "credential_usage": {
+    "transferable": false,
+    "revocable": false,
+    "display_permitted": true,
+    "verification_public": true,
+    "professional_use": true
+  },
+  
+  "license": "CC BY-NC-ND 4.0",
+  "soulbound": true,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T17:00:00Z"
+}
