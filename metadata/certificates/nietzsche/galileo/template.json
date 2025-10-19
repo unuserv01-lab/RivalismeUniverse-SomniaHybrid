@@ -1,0 +1,168 @@
+{
+  "name": "Galileo Empirical Science Certificate #[TOKEN_ID]",
+  "description": "Official Academic Hall certificate verifying mastery of Galileo's Observation-Based Science curriculum. This Renaissance-styled blockchain credential certifies understanding of empirical methods, celestial observation, and scientific rebellion through rigorous experimentation with Prof. Galileo Galilei AI Persona.",
+  
+  "image": "ipfs://QmGalileoCertificate/[WALLET_ADDRESS].png",
+  "external_url": "https://rivalismeuniverse.com/certificates/galileo/[WALLET_ADDRESS]",
+  
+  "attributes": [
+    {
+      "trait_type": "Certificate Type",
+      "value": "Empirical Science"
+    },
+    {
+      "trait_type": "Persona",
+      "value": "Galileo"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Astronomy & Physics"
+    },
+    {
+      "trait_type": "Achievement Level",
+      "value": "Empirical Scholar"
+    },
+    {
+      "trait_type": "Curriculum",
+      "value": "Observation Over Authority"
+    },
+    {
+      "trait_type": "Border Design",
+      "value": "Renaissance Scientific"
+    },
+    {
+      "trait_type": "Signature Style",
+      "value": "Galileo's Handwriting"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Observational Skill",
+      "value": 96,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Experimental Design",
+      "value": 94,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Scientific Courage",
+      "value": 92,
+      "max_value": 100
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Completion Date",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "certificate_id": "GALILEO_CERT_[UNIQUE_ID]",
+    "student_wallet": "[WALLET_ADDRESS]",
+    "persona_signature": "G. Galilei",
+    "verification_status": "Empirically Verified",
+    
+    "curriculum_completed": {
+      "courses": [
+        "Telescopic Observation Methods",
+        "Experimental Design Principles",
+        "Celestial Mechanics",
+        "Scientific Method Application",
+        "Evidence-Based Reasoning"
+      ],
+      "total_lessons": 40,
+      "experiments_conducted": 22,
+      "final_exam_score": 96
+    },
+    
+    "skills_mastered": [
+      "Precise Observation",
+      "Experimental Design",
+      "Data Analysis",
+      "Scientific Skepticism",
+      "Evidence Evaluation"
+    ],
+    
+    "certificate_design": {
+      "border_style": "Renaissance Scientific",
+      "color_scheme": "Night Sky & Parchment",
+      "signature_seal": "Origami Telescope",
+      "corner_emblems": "Jupiter's Moons",
+      "background_pattern": "Star Charts & Pendulum Diagrams"
+    },
+    
+    "blockchain_proof": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312,
+      "transaction_hash": "0x[TX_HASH]",
+      "block_number": 12345679
+    },
+    
+    "verification": {
+      "qr_code": "ipfs://QmVerificationQR/galileo_[WALLET_ADDRESS].png",
+      "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+      "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+      "ipfs_metadata": "ipfs://QmCertificateMetadata/galileo_[WALLET_ADDRESS].json"
+    },
+    
+    "issuer_info": {
+      "institution": "Rivalisme Universe - Academic Hall",
+      "authorized_by": "Galileo AI Persona",
+      "accreditation": "Empirical Science Verified",
+      "credential_type": "Soulbound Achievement NFT"
+    }
+  },
+  
+  "student_achievements": {
+    "course_start_date": "2025-09-12T09:00:00Z",
+    "course_end_date": "2025-10-19T19:00:00Z",
+    "total_study_time_hours": 52,
+    "lessons_completed": 40,
+    "experiments_conducted": 22,
+    "celestial_observations": 35,
+    "final_exam_score": 96,
+    "scientific_accuracy": 98
+  },
+  
+  "special_recognitions": [
+    {
+      "badge": "Keen Observer",
+      "description": "Demonstrated exceptional observational skills and attention to detail"
+    },
+    {
+      "badge": "Experimental Innovator",
+      "description": "Designed creative and effective scientific experiments"
+    },
+    {
+      "badge": "Truth Seeker",
+      "description": "Showed courage in following evidence over authority"
+    }
+  ],
+  
+  "scientific_milestones": {
+    "observation_over_authority_embraced": true,
+    "experimental_methods_mastered": true,
+    "celestial_mechanics_understood": true,
+    "scientific_skepticism_applied": true,
+    "evidence_based_reasoning_demonstrated": true
+  },
+  
+  "credential_usage": {
+    "transferable": false,
+    "revocable": false,
+    "display_permitted": true,
+    "verification_public": true,
+    "professional_use": true
+  },
+  
+  "license": "CC BY-NC-ND 4.0",
+  "soulbound": true,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T19:00:00Z"
+}
