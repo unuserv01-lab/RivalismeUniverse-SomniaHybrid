@@ -3358,6 +3358,38 @@ function setupWalletListeners() {
   }
 }
 
+async function votePersona(personaId) {
+  if (typeof window.ethereum === 'undefined') {
+    alert("⚠️ Please install MetaMask to vote!");
+    return;
+  }
+
+  try {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, abi, signer);
+
+    const tokenId = parseInt(personaId); // misal '001' -> 1
+    const tx = await contract.votePersona(tokenId);
+
+    const battleBox = document.getElementById("battleText");
+    if (battleBox) {
+      battleBox.innerText = `⏳ Voting for Persona #${personaId}... TX: ${tx.hash}`;
+    }
+
+    await tx.wait();
+
+    if (battleBox) {
+      battleBox.innerText = `✅ Vote for Persona #${personaId} confirmed!`;
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("❌ Voting failed: " + err.message);
+  }
+}
+	
 // ============================================
 // MINT NFT FUNCTIONS
 // ============================================
