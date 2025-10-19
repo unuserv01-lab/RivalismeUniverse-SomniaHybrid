@@ -1,11 +1,11 @@
-const { Web3Storage } = require('web3.storage');
+const { NFTStorage, File } = require('nft.storage');
 const fs = require('fs').promises;
 const path = require('path');
 const mime = require('mime-types');
 
 class IPFSUploader {
   constructor(apiToken) {
-    this.client = new Web3Storage({ token: apiToken });
+    this.client = new NFTStorage({ token: apiToken });
   }
 
   // Upload single file to IPFS
@@ -16,27 +16,21 @@ class IPFSUploader {
       const mimeType = mime.lookup(filePath) || 'application/octet-stream';
       
       const file = new File([fileContent], fileName, { type: mimeType });
-      const cid = await this.client.put([file], {
-        name: fileName,
-        maxRetries: 3
-      });
+      const cid = await this.client.storeBlob(file);
       
       console.log(`✅ Uploaded ${fileName} to IPFS: ${cid}`);
-      return `ipfs://${cid}/${fileName}`;
+      return `ipfs://${cid}`;
     } catch (error) {
       console.error(`❌ Failed to upload ${filePath}:`, error);
       throw error;
     }
   }
 
-  // Upload directory to IPFS
+  // Upload directory to IPFS (NFT.Storage handle directories well)
   async uploadDirectory(directoryPath) {
     try {
       const files = await this.getFilesFromDirectory(directoryPath);
-      const cid = await this.client.put(files, {
-        name: path.basename(directoryPath),
-        maxRetries: 3
-      });
+      const cid = await this.client.storeDirectory(files);
       
       console.log(`✅ Uploaded directory ${directoryPath} to IPFS: ${cid}`);
       return `ipfs://${cid}`;
@@ -46,7 +40,7 @@ class IPFSUploader {
     }
   }
 
-  // Upload JSON metadata
+  // Upload JSON metadata (special method for NFT metadata)
   async uploadJSONMetadata(metadata, fileName) {
     try {
       const jsonString = JSON.stringify(metadata, null, 2);
@@ -54,12 +48,9 @@ class IPFSUploader {
         type: 'application/json' 
       });
       
-      const cid = await this.client.put([file], {
-        name: fileName,
-        maxRetries: 3
-      });
+      const cid = await this.client.storeBlob(file);
       
-      const ipfsUrl = `ipfs://${cid}/${fileName}`;
+      const ipfsUrl = `ipfs://${cid}`;
       console.log(`✅ Uploaded ${fileName} to IPFS: ${ipfsUrl}`);
       return ipfsUrl;
     } catch (error) {
@@ -68,32 +59,31 @@ class IPFSUploader {
     }
   }
 
-  // Batch upload metadata files
-  async batchUploadMetadata(metadataArray, basePath = 'metadata') {
-    const results = [];
-    
-    for (const item of metadataArray) {
-      try {
-        const ipfsUrl = await this.uploadJSONMetadata(
-          item.metadata, 
-          `${basePath}/${item.fileName}`
-        );
-        results.push({
-          ...item,
-          ipfsUrl,
-          status: 'success'
-        });
-      } catch (error) {
-        results.push({
-          ...item,
-          ipfsUrl: null,
-          status: 'failed',
-          error: error.message
-        });
-      }
+  // Upload complete NFT with metadata and image
+  async uploadNFT(metadata, imagePath, fileName) {
+    try {
+      const imageContent = await fs.readFile(imagePath);
+      const imageFile = new File([imageContent], path.basename(imagePath), {
+        type: mime.lookup(imagePath) || 'image/png'
+      });
+
+      const metadataFile = new File(
+        [JSON.stringify(metadata, null, 2)], 
+        fileName,
+        { type: 'application/json' }
+      );
+
+      const cid = await this.client.storeDirectory([imageFile, metadataFile]);
+      
+      console.log(`✅ Uploaded NFT to IPFS: ${cid}`);
+      return {
+        metadataUrl: `ipfs://${cid}/${fileName}`,
+        imageUrl: `ipfs://${cid}/${path.basename(imagePath)}`
+      };
+    } catch (error) {
+      console.error(`❌ Failed to upload NFT:`, error);
+      throw error;
     }
-    
-    return results;
   }
 
   // Get files from directory recursively
@@ -120,7 +110,7 @@ class IPFSUploader {
     return files;
   }
 
-  // Check upload status
+  // Check storage status (NFT.Storage specific)
   async checkStatus(cid) {
     try {
       const status = await this.client.status(cid);
@@ -131,59 +121,3 @@ class IPFSUploader {
     }
   }
 }
-
-// CLI interface
-async function main() {
-  const args = process.argv.slice(2);
-  const command = args[0];
-  
-  const apiToken = process.env.WEB3_STORAGE_TOKEN;
-  if (!apiToken) {
-    console.error('❌ WEB3_STORAGE_TOKEN environment variable required');
-    process.exit(1);
-  }
-
-  const uploader = new IPFSUploader(apiToken);
-
-  switch (command) {
-    case 'upload-file':
-      const filePath = args[1];
-      await uploader.uploadFile(filePath);
-      break;
-      
-    case 'upload-dir':
-      const dirPath = args[1];
-      await uploader.uploadDirectory(dirPath);
-      break;
-      
-    case 'upload-metadata':
-      const metadataPath = args[1];
-      await uploadMetadataBatch(uploader, metadataPath);
-      break;
-      
-    case 'check-status':
-      const cid = args[1];
-      const status = await uploader.checkStatus(cid);
-      console.log('Upload status:', status);
-      break;
-      
-    default:
-      console.log(`
-Usage:
-  node upload-to-ipfs.js upload-file <filePath>
-  node upload-to-ipfs.js upload-dir <directoryPath>
-  node upload-to-ipfs.js upload-metadata <metadataDirectory>
-  node upload-to-ipfs.js check-status <cid>
-      `);
-  }
-}
-
-async function uploadMetadataBatch(uploader, metadataPath) {
-  // Implementation for batch metadata upload
-}
-
-if (require.main === module) {
-  main().catch(console.error);
-}
-
-module.exports = IPFSUploader;
