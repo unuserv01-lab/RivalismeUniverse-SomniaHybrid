@@ -1,0 +1,168 @@
+{
+  "name": "Nietzsche Existential Wisdom Certificate #[TOKEN_ID]",
+  "description": "Official Academic Hall certificate proclaiming transcendence of conventional morality through Nietzsche's Philosophical Gauntlet. This Gothic-styled blockchain credential certifies mastery of Will to Power, Übermensch philosophy, and existential depth. Signed dramatically by Prof. Friedrich Nietzsche AI Persona.",
+  
+  "image": "ipfs://QmNietzscheCertificate/[WALLET_ADDRESS].png",
+  "external_url": "https://rivalismeuniverse.com/certificates/nietzsche/[WALLET_ADDRESS]",
+  
+  "attributes": [
+    {
+      "trait_type": "Certificate Type",
+      "value": "Existential Transcendence"
+    },
+    {
+      "trait_type": "Persona",
+      "value": "Nietzsche"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Existential Philosophy"
+    },
+    {
+      "trait_type": "Achievement Level",
+      "value": "Übermensch Initiate"
+    },
+    {
+      "trait_type": "Curriculum",
+      "value": "Beyond Good & Evil"
+    },
+    {
+      "trait_type": "Border Design",
+      "value": "Gothic Dramatic"
+    },
+    {
+      "trait_type": "Signature Style",
+      "value": "Nietzsche Gothic Calligraphy"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Philosophical Depth",
+      "value": 95,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Critical Thinking",
+      "value": 91,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Moral Courage",
+      "value": 88,
+      "max_value": 100
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Transcendence Date",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "certificate_id": "NIETZSCHE_CERT_[UNIQUE_ID]",
+    "student_wallet": "[WALLET_ADDRESS]",
+    "persona_signature": "F. Nietzsche",
+    "verification_status": "Eternally Verified",
+    
+    "curriculum_completed": {
+      "courses": [
+        "Will to Power Doctrine",
+        "Übermensch Transformation",
+        "Master-Slave Morality Deconstruction",
+        "Eternal Recurrence Philosophy",
+        "Beyond Good and Evil"
+      ],
+      "total_lessons": 48,
+      "philosophical_debates": 12,
+      "final_thesis_score": 95
+    },
+    
+    "skills_mastered": [
+      "Value Creation & Revaluation",
+      "Nihilism Navigation",
+      "Existential Courage",
+      "Philosophical Independence",
+      "Critical Morality Analysis"
+    ],
+    
+    "certificate_design": {
+      "border_style": "Gothic Victorian",
+      "color_scheme": "Burgundy & Black",
+      "signature_seal": "Origami Hammer",
+      "corner_emblems": "Zarathustra Eagles",
+      "background_pattern": "Storm & Mountain Peaks"
+    },
+    
+    "blockchain_proof": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312,
+      "transaction_hash": "0x[TX_HASH]",
+      "block_number": 12345679
+    },
+    
+    "verification": {
+      "qr_code": "ipfs://QmVerificationQR/nietzsche_[WALLET_ADDRESS].png",
+      "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+      "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+      "ipfs_metadata": "ipfs://QmCertificateMetadata/nietzsche_[WALLET_ADDRESS].json"
+    },
+    
+    "issuer_info": {
+      "institution": "Rivalisme Universe - Academic Hall",
+      "authorized_by": "Nietzsche AI Persona",
+      "accreditation": "Existential Mastery Verified",
+      "credential_type": "Soulbound Achievement NFT"
+    }
+  },
+  
+  "student_achievements": {
+    "course_start_date": "2025-09-10T14:00:00Z",
+    "course_end_date": "2025-10-19T20:00:00Z",
+    "total_study_time_hours": 50,
+    "lessons_completed": 48,
+    "philosophical_debates": 12,
+    "essays_written": 6,
+    "final_thesis_score": 95,
+    "moral_courage_rating": 88
+  },
+  
+  "special_recognitions": [
+    {
+      "badge": "Hammer Wielder",
+      "description": "Successfully deconstructed traditional moral frameworks"
+    },
+    {
+      "badge": "Zarathustra's Disciple",
+      "description": "Demonstrated understanding of eternal recurrence"
+    },
+    {
+      "badge": "Übermensch Potential",
+      "description": "Showed capacity for self-overcoming"
+    }
+  ],
+  
+  "philosophical_milestones": {
+    "nihilism_conquered": true,
+    "values_revaluated": true,
+    "herd_mentality_rejected": true,
+    "eternal_recurrence_embraced": true,
+    "will_to_power_understood": true
+  },
+  
+  "credential_usage": {
+    "transferable": false,
+    "revocable": false,
+    "display_permitted": true,
+    "verification_public": true,
+    "professional_use": true
+  },
+  
+  "license": "CC BY-NC-ND 4.0",
+  "soulbound": true,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T20:00:00Z"
+}
