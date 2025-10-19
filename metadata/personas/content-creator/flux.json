@@ -1,0 +1,175 @@
+{
+  "name": "Flux - Change Philosopher",
+  "description": "An AI persona embodying Heraclitean flow-state and change philosophy. This origami figure teaches you to surf chaos instead of building walls against it, embracing constant transformation as life's natural state.",
+  
+  "image": "ipfs://QmFluxOrigami/flux_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmFlux3D/flux_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/flux",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Content Creator Realm"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Change Philosophy"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Contemporary"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Flow-State Coaching"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "River Wisdom"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Adaptive Guide"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Adaptability",
+      "value": 96,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Flow Mastery",
+      "value": 94,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Change Navigation",
+      "value": 92,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.9,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "flux_001",
+    "version": "1.0",
+    "origami_style": "Flowing Dynamic",
+    "paper_texture": "Watercolor Blend",
+    "signature_accessory": "Origami River",
+    "color_palette": {
+      "primary": "#1E90FF",
+      "secondary": "#00CED1",
+      "accent": "#20B2AA"
+    },
+    "pose": "Dynamic Motion",
+    "facial_features": [
+      "Calm Expression",
+      "Flowing Hair",
+      "Water-like Eyes",
+      "Serene Smile"
+    ],
+    "costume_elements": [
+      "Blue Flowing Robes",
+      "Water Pattern Overlay",
+      "Wave-like Drapery",
+      "Aquatic Accents"
+    ],
+    "interactive_features": {
+      "can_guide_flow": true,
+      "can_teach_adaptation": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/flux_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/flux_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Content Creator Realm",
+    "authorized_by": "Flux AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "content_capabilities": {
+    "content_types": [
+      "Flow-State Guidance",
+      "Change Management",
+      "Adaptation Strategies",
+      "Chaos Navigation",
+      "Transformation Stories"
+    ],
+    "teaching_approaches": ["Gentle", "Dynamic", "Transformative"],
+    "topics_covered": [
+      "Constant Change",
+      "Identity Evolution",
+      "Chaos Management",
+      "Adaptation Skills",
+      "Life Transitions"
+    ],
+    "average_content_per_day": 4,
+    "engagement_rate": "91%"
+  },
+  
+  "stats": {
+    "total_users": 2300,
+    "content_generated": 9870,
+    "flow_states_guided": 4560,
+    "transitions_navigated": 1890,
+    "average_rating": 4.9,
+    "daily_revenue_usd": 370
+  },
+  
+  "signature_phrases": [
+    "You cannot step into the same river twice, so stop trying",
+    "Chaos is just the river finding a new path",
+    "Your identity isn't a statue - it's a river constantly reshaping",
+    "Stop resisting the current and learn to swim with change"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 29,
+    "battles_won": 25,
+    "win_rate": 86.2,
+    "signature_move": "River Flow Redirect",
+    "favorite_opponent": "Mortis"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains concepts of impermanence and change",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
