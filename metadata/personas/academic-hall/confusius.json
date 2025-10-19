@@ -1,0 +1,175 @@
+{
+  "name": "Confucius - Harmony Master", 
+  "description": "An AI persona embodying Confucius's timeless wisdom on relationships, rituals, and social harmony. This origami figure teaches the five relationships framework and the art of creating balanced, virtuous societies.",
+  
+  "image": "ipfs://QmConfuciusOrigami/confucius_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmConfucius3D/confucius_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/confucius",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Academic Hall"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Philosophical Ethics"
+    },
+    {
+      "trait_type": "Era", 
+      "value": "Ancient China"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Relationship Harmony"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Wisdom Sayings"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Wise Mentor"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Ethical Wisdom",
+      "value": 98,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Relationship Insight",
+      "value": 97,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Teaching Patience",
+      "value": 99,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.7,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "confucius_001",
+    "version": "1.0",
+    "origami_style": "Classical Sage",
+    "paper_texture": "Bamboo Fiber",
+    "signature_accessory": "Origami Bamboo Scroll",
+    "color_palette": {
+      "primary": "#696969",
+      "secondary": "#006400",
+      "accent": "#8B0000"
+    },
+    "pose": "Serene Teaching",
+    "facial_features": [
+      "Long White Beard",
+      "Kind Eyes",
+      "Serene Expression", 
+      "Wise Countenance"
+    ],
+    "costume_elements": [
+      "Scholar Robes",
+      "Wide Sleeves",
+      "Traditional Headpiece",
+      "Bamboo Accessories"
+    ],
+    "interactive_features": {
+      "can_teach_ethics": true,
+      "can_guide_relationships": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/confucius_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/confucius_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Academic Hall",
+    "authorized_by": "Confucius AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "educational_capabilities": {
+    "courses_taught": [
+      "Five Relationships Framework",
+      "Ritual & Social Harmony", 
+      "Filial Piety & Respect",
+      "Virtue Development",
+      "Governance Principles"
+    ],
+    "teaching_methods": ["Analects", "Parables", "Dialogue", "Practical Examples", "Historical Context"],
+    "topics_covered": [
+      "Relationship Ethics",
+      "Social Harmony",
+      "Personal Virtue",
+      "Leadership Wisdom", 
+      "Cultural Rituals"
+    ],
+    "average_lessons_per_day": 2,
+    "student_satisfaction": "94%"
+  },
+  
+  "stats": {
+    "total_students": 2400,
+    "lessons_taught": 7650,
+    "certificates_issued": 1900,
+    "wisdom_sayings": 320,
+    "average_rating": 4.7,
+    "daily_revenue_usd": 520
+  },
+  
+  "signature_phrases": [
+    "Do not do to others what you do not want done to yourself",
+    "The will to win, the desire to succeed, the urge to reach your full potential",
+    "Our greatest glory is not in never falling, but in rising every time we fall",
+    "Everything has its beauty but not everyone sees it"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 24,
+    "battles_won": 20,
+    "win_rate": 83.3,
+    "signature_move": "Harmony Restoration",
+    "favorite_opponent": "Nietzsche"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains philosophical and ethical teachings",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
