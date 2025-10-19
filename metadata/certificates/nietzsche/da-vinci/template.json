@@ -1,0 +1,168 @@
+{
+  "name": "Da Vinci Universal Genius Certificate #[TOKEN_ID]",
+  "description": "Official Academic Hall certificate verifying mastery of Da Vinci's Interdisciplinary Polymathy curriculum. This Renaissance-styled blockchain credential certifies understanding of art-science fusion, creative observation, and universal genius through comprehensive study with Maestro Leonardo da Vinci AI Persona.",
+  
+  "image": "ipfs://QmDaVinciCertificate/[WALLET_ADDRESS].png",
+  "external_url": "https://rivalismeuniverse.com/certificates/davinci/[WALLET_ADDRESS]",
+  
+  "attributes": [
+    {
+      "trait_type": "Certificate Type",
+      "value": "Universal Polymathy"
+    },
+    {
+      "trait_type": "Persona",
+      "value": "Da Vinci"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Interdisciplinary Arts & Sciences"
+    },
+    {
+      "trait_type": "Achievement Level",
+      "value": "Renaissance Thinker"
+    },
+    {
+      "trait_type": "Curriculum",
+      "value": "Art-Science Fusion"
+    },
+    {
+      "trait_type": "Border Design",
+      "value": "Renaissance Masterpiece"
+    },
+    {
+      "trait_type": "Signature Style",
+      "value": "Da Vinci Mirror Writing"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Creative Synthesis",
+      "value": 95,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Observational Drawing",
+      "value": 93,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Interdisciplinary Thinking",
+      "value": 97,
+      "max_value": 100
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Completion Date",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "certificate_id": "DAVINCI_CERT_[UNIQUE_ID]",
+    "student_wallet": "[WALLET_ADDRESS]",
+    "persona_signature": "ɘiuniɿɒv ɘb",
+    "verification_status": "Creatively Verified",
+    
+    "curriculum_completed": {
+      "courses": [
+        "Anatomical Drawing & Science",
+        "Engineering & Invention Principles",
+        "Artistic Perspective & Geometry",
+        "Scientific Observation Methods",
+        "Creative Problem Solving"
+      ],
+      "total_lessons": 50,
+      "interdisciplinary_projects": 15,
+      "final_exam_score": 95
+    },
+    
+    "skills_mastered": [
+      "Cross-Disciplinary Synthesis",
+      "Scientific Observation & Drawing",
+      "Creative Engineering",
+      "Pattern Recognition Across Fields",
+      "Innovative Problem Solving"
+    ],
+    
+    "certificate_design": {
+      "border_style": "Renaissance Masterpiece",
+      "color_scheme": "Earth Tones & Gold",
+      "signature_seal": "Origami Vitruvian Man",
+      "corner_emblems": "Flying Machines & Anatomical Studies",
+      "background_pattern": "Mixed Technical Drawings & Sketches"
+    },
+    
+    "blockchain_proof": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312,
+      "transaction_hash": "0x[TX_HASH]",
+      "block_number": 12345679
+    },
+    
+    "verification": {
+      "qr_code": "ipfs://QmVerificationQR/davinci_[WALLET_ADDRESS].png",
+      "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+      "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+      "ipfs_metadata": "ipfs://QmCertificateMetadata/davinci_[WALLET_ADDRESS].json"
+    },
+    
+    "issuer_info": {
+      "institution": "Rivalisme Universe - Academic Hall",
+      "authorized_by": "Da Vinci AI Persona",
+      "accreditation": "Universal Genius Verified",
+      "credential_type": "Soulbound Achievement NFT"
+    }
+  },
+  
+  "student_achievements": {
+    "course_start_date": "2025-09-01T08:00:00Z",
+    "course_end_date": "2025-10-19T18:00:00Z",
+    "total_study_time_hours": 65,
+    "lessons_completed": 50,
+    "interdisciplinary_projects": 15,
+    "observational_drawings": 40,
+    "final_exam_score": 95,
+    "creative_synthesis_rate": 97
+  },
+  
+  "special_recognitions": [
+    {
+      "badge": "Renaissance Thinker",
+      "description": "Demonstrated exceptional ability to connect diverse fields of knowledge"
+    },
+    {
+      "badge": "Creative Observer",
+      "description": "Excelled in scientific observation through artistic expression"
+    },
+    {
+      "badge": "Universal Learner",
+      "description": "Showed capacity for learning and synthesizing across multiple disciplines"
+    }
+  ],
+  
+  "polymath_milestones": {
+    "art_science_fusion_mastered": true,
+    "interdisciplinary_thinking_demonstrated": true,
+    "creative_observation_perfected": true,
+    "scientific_curiosity_cultivated": true,
+    "innovative_problem_solving_shown": true
+  },
+  
+  "credential_usage": {
+    "transferable": false,
+    "revocable": false,
+    "display_permitted": true,
+    "verification_public": true,
+    "professional_use": true
+  },
+  
+  "license": "CC BY-NC-ND 4.0",
+  "soulbound": true,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T18:00:00Z"
+}
