@@ -1,0 +1,181 @@
+{
+  "name": "Darwin Evolutionary Biology Certificate #[TOKEN_ID]",
+  "description": "Official Academic Hall certificate verifying mastery of Darwin's Evolutionary Biology curriculum. This blockchain-verified credential certifies understanding of natural selection, adaptation, and species development through rigorous study with Prof. Charles Darwin AI Persona.",
+  
+  "image": "ipfs://QmDarwinCertificate/[WALLET_ADDRESS].png",
+  "external_url": "https://rivalismeuniverse.com/certificates/darwin/[WALLET_ADDRESS]",
+  
+  "attributes": [
+    {
+      "trait_type": "Certificate Type",
+      "value": "Evolutionary Biology"
+    },
+    {
+      "trait_type": "Persona",
+      "value": "Darwin"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Biological Sciences"
+    },
+    {
+      "trait_type": "Achievement Level",
+      "value": "Naturalist Scholar"
+    },
+    {
+      "trait_type": "Curriculum",
+      "value": "Natural Selection & Adaptation"
+    },
+    {
+      "trait_type": "Border Design",
+      "value": "Natural History"
+    },
+    {
+      "trait_type": "Signature Style",
+      "value": "Darwin Scientific"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Biology Mastery",
+      "value": 90,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Observation Skills",
+      "value": 94,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Scientific Method",
+      "value": 88,
+      "max_value": 100
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Completion Date",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "certificate_id": "DARWIN_CERT_[UNIQUE_ID]",
+    "student_wallet": "[WALLET_ADDRESS]",
+    "persona_signature": "C. Darwin",
+    "verification_status": "Blockchain Verified",
+    
+    "curriculum_completed": {
+      "courses": [
+        "Natural Selection Theory",
+        "Species Adaptation Mechanisms",
+        "Galápagos Islands Case Study",
+        "Evolutionary Evidence Analysis",
+        "Biodiversity & Classification"
+      ],
+      "total_lessons": 38,
+      "field_observations": 22,
+      "final_exam_score": 90
+    },
+    
+    "skills_mastered": [
+      "Species Identification",
+      "Adaptation Analysis",
+      "Scientific Observation",
+      "Evolutionary Prediction",
+      "Biodiversity Assessment"
+    ],
+    
+    "certificate_design": {
+      "border_style": "Natural History",
+      "color_scheme": "Earth Tones",
+      "signature_seal": "Origami Finch",
+      "corner_emblems": "Galápagos Species",
+      "background_pattern": "Evolutionary Tree"
+    },
+    
+    "blockchain_proof": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312,
+      "transaction_hash": "0x[TX_HASH]",
+      "block_number": 12345679
+    },
+    
+    "verification": {
+      "qr_code": "ipfs://QmVerificationQR/darwin_[WALLET_ADDRESS].png",
+      "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+      "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+      "ipfs_metadata": "ipfs://QmCertificateMetadata/darwin_[WALLET_ADDRESS].json"
+    },
+    
+    "issuer_info": {
+      "institution": "Rivalisme Universe - Academic Hall",
+      "authorized_by": "Darwin AI Persona",
+      "accreditation": "Blockchain Verified Credential",
+      "credential_type": "Non-Transferable Achievement NFT"
+    }
+  },
+  
+  "student_achievements": {
+    "course_start_date": "2025-09-12T09:00:00Z",
+    "course_end_date": "2025-10-19T17:00:00Z",
+    "total_study_time_hours": 45,
+    "lessons_completed": 38,
+    "field_observations": 22,
+    "species_documented": 47,
+    "final_exam_score": 90,
+    "participation_rate": 95,
+    "research_contributions": 18
+  },
+  
+  "special_recognitions": [
+    {
+      "badge": "Keen Observer",
+      "description": "Demonstrated exceptional observation skills in field studies"
+    },
+    {
+      "badge": "Adaptation Expert",
+      "description": "Mastered species adaptation mechanisms and analysis"
+    },
+    {
+      "badge": "Naturalist Explorer",
+      "description": "Completed extensive field observation requirements"
+    }
+  ],
+  
+  "evolutionary_milestones": {
+    "natural_selection_understood": true,
+    "adaptation_mechanisms_mastered": true,
+    "speciation_processes_analyzed": true,
+    "fossil_evidence_interpreted": true,
+    "biodiversity_principles_applied": true
+  },
+  
+  "credential_usage": {
+    "transferable": false,
+    "revocable": false,
+    "display_permitted": true,
+    "verification_public": true,
+    "professional_use": true
+  },
+  
+  "related_nfts": {
+    "persona_nft": "darwin_001",
+    "previous_certificates": [],
+    "course_badges": ["badge_evolution", "badge_adaptation", "badge_biodiversity"]
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 0,
+    "royalty_receiver": null,
+    "note": "Certificates are soulbound and non-transferable"
+  },
+  
+  "license": "CC BY-NC-ND 4.0",
+  "soulbound": true,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T17:00:00Z"
+}
