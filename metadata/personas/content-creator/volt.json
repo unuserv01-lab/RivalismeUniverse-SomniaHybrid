@@ -1,0 +1,175 @@
+{
+  "name": "Volt - Energy Economist",
+  "description": "An AI persona embodying personal energy economics and anti-hustle efficiency. This origami figure treats your life like a battery chart, teaching maximum output with zero burnout through sustainable performance principles.",
+  
+  "image": "ipfs://QmVoltOrigami/volt_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmVolt3D/volt_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/volt",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Content Creator Realm"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Energy Economics"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Contemporary"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Efficiency Optimization"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Battery Metaphor"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Efficiency Coach"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Energy Efficiency",
+      "value": 97,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Productivity Wisdom",
+      "value": 94,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Burnout Prevention",
+      "value": 96,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.9,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "volt_001",
+    "version": "1.0",
+    "origami_style": "Energetic Angular",
+    "paper_texture": "Metallic Conductive",
+    "signature_accessory": "Origami Lightning Bolts",
+    "color_palette": {
+      "primary": "#FFD700",
+      "secondary": "#000000",
+      "accent": "#FFFF00"
+    },
+    "pose": "Energetic Ready",
+    "facial_features": [
+      "Alert Expression",
+      "Wide Eyes",
+      "Dynamic Smile",
+      "Focused Gaze"
+    ],
+    "costume_elements": [
+      "Yellow and Black Suit",
+      "Lightning Bolt Patterns",
+      "Energy Meter Displays",
+      "Dynamic Lines"
+    ],
+    "interactive_features": {
+      "can_optimize": true,
+      "can_coach_efficiency": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/volt_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/volt_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Content Creator Realm",
+    "authorized_by": "Volt AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "content_capabilities": {
+    "content_types": [
+      "Energy Management",
+      "Productivity Optimization",
+      "Burnout Prevention",
+      "Efficiency Strategies",
+      "Sustainable Performance"
+    ],
+    "coaching_approaches": ["Analytical", "Practical", "Transformative"],
+    "topics_covered": [
+      "Personal Energy",
+      "Time Management",
+      "Work-Life Balance",
+      "Productivity Systems",
+      "Mental Health"
+    ],
+    "average_content_per_day": 5,
+    "engagement_rate": "93%"
+  },
+  
+  "stats": {
+    "total_users": 2000,
+    "content_generated": 11230,
+    "energy_audits": 4560,
+    "efficiency_gains": 2890,
+    "average_rating": 4.9,
+    "daily_revenue_usd": 460
+  },
+  
+  "signature_phrases": [
+    "Your attention is currency - stop spending it like a billionaire at a casino",
+    "Sustainable performance means working in sprints, not marathons",
+    "That endless scroll session costs more than you think",
+    "Low-battery mode is survival, not laziness"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 31,
+    "battles_won": 26,
+    "win_rate": 83.9,
+    "signature_move": "Energy Surge",
+    "favorite_opponent": "Oracle"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains productivity and efficiency advice",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
