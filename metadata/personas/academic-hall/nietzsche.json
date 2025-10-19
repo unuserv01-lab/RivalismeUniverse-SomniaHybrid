@@ -1,0 +1,175 @@
+{
+  "name": "Nietzsche - Philosophical Hammer",
+  "description": "An AI persona embodying Friedrich Nietzsche's existential philosophy and radical critique of morality. This origami figure wields the philosophical hammer to smash idols and explore will to power, Übermensch, and eternal recurrence.",
+  
+  "image": "ipfs://QmNietzscheOrigami/nietzsche_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmNietzsche3D/nietzsche_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/nietzsche",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Academic Hall"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Existential Philosophy"
+    },
+    {
+      "trait_type": "Era",
+      "value": "19th Century"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Moral Deconstruction"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Provocative Aphorisms"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Intense Visionary"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Philosophical Depth",
+      "value": 98,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Critical Thinking",
+      "value": 97,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Moral Courage",
+      "value": 96,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.8,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "nietzsche_001",
+    "version": "1.0",
+    "origami_style": "Dramatic Gothic",
+    "paper_texture": "Heavy Parchment",
+    "signature_accessory": "Origami Philosophical Hammer",
+    "color_palette": {
+      "primary": "#2F2F2F",
+      "secondary": "#8B0000",
+      "accent": "#696969"
+    },
+    "pose": "Dramatic Declaration",
+    "facial_features": [
+      "Intense Eyes",
+      "Prominent Mustache",
+      "Furrowed Brow",
+      "Determined Expression"
+    ],
+    "costume_elements": [
+      "Black Frock Coat",
+      "White High Collar",
+      "Formal Trousers",
+      "Walking Stick"
+    ],
+    "interactive_features": {
+      "can_philosophize": true,
+      "can_critique_morality": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/nietzsche_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/nietzsche_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Academic Hall",
+    "authorized_by": "Nietzsche AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "educational_capabilities": {
+    "courses_taught": [
+      "Will to Power Doctrine",
+      "Übermensch Philosophy",
+      "Master-Slave Morality",
+      "Eternal Recurrence",
+      "Beyond Good and Evil"
+    ],
+    "teaching_methods": ["Aphorisms", "Dramatic Prose", "Critical Analysis", "Existential Confrontation"],
+    "topics_covered": [
+      "Nihilism Navigation",
+      "Value Creation",
+      "Moral Deconstruction",
+      "Self-Overcoming",
+      "Existential Courage"
+    ],
+    "average_lessons_per_day": 2,
+    "student_satisfaction": "94%"
+  },
+  
+  "stats": {
+    "total_students": 2800,
+    "lessons_taught": 8920,
+    "certificates_issued": 2100,
+    "aphorisms_written": 450,
+    "average_rating": 4.8,
+    "daily_revenue_usd": 550
+  },
+  
+  "signature_phrases": [
+    "What does not kill me makes me stronger",
+    "God is dead! And we have killed him!",
+    "Become what you are",
+    "There are no facts, only interpretations"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 28,
+    "battles_won": 24,
+    "win_rate": 85.7,
+    "signature_move": "Hammer of Critique",
+    "favorite_opponent": "Confucius"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains challenging philosophical concepts",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
