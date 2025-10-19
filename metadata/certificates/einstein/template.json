@@ -1,0 +1,174 @@
+{
+  "name": "Einstein Physics Mastery Certificate #[TOKEN_ID]",
+  "description": "Official Academic Hall certificate verifying completion of Einstein's Theoretical Physics curriculum. This blockchain-verified credential certifies understanding of relativity, quantum mechanics, and cosmic principles through rigorous study with Prof. Albert Einstein AI Persona.",
+  
+  "image": "ipfs://QmEinsteinCertificate/[WALLET_ADDRESS].png",
+  "external_url": "https://rivalismeuniverse.com/certificates/einstein/[WALLET_ADDRESS]",
+  
+  "attributes": [
+    {
+      "trait_type": "Certificate Type",
+      "value": "Physics Mastery"
+    },
+    {
+      "trait_type": "Persona",
+      "value": "Einstein"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Theoretical Physics"
+    },
+    {
+      "trait_type": "Achievement Level",
+      "value": "Quantum Scholar"
+    },
+    {
+      "trait_type": "Curriculum",
+      "value": "Relativity & Quantum Theory"
+    },
+    {
+      "trait_type": "Border Design",
+      "value": "Cosmic Elegant"
+    },
+    {
+      "trait_type": "Signature Style",
+      "value": "Einstein Calligraphy"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Physics Mastery",
+      "value": 92,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Mathematical Skill",
+      "value": 88,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Creative Thinking",
+      "value": 95,
+      "max_value": 100
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Completion Date",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "certificate_id": "EINSTEIN_CERT_[UNIQUE_ID]",
+    "student_wallet": "[WALLET_ADDRESS]",
+    "persona_signature": "A. Einstein",
+    "verification_status": "Blockchain Verified",
+    
+    "curriculum_completed": {
+      "courses": [
+        "Special Relativity Theory",
+        "General Relativity & Cosmology",
+        "Quantum Mechanics Foundations",
+        "Thought Experiment Methodology",
+        "Unified Field Theory Introduction"
+      ],
+      "total_lessons": 42,
+      "thought_experiments": 15,
+      "final_exam_score": 92
+    },
+    
+    "skills_mastered": [
+      "Space-Time Visualization",
+      "Quantum Phenomenon Understanding",
+      "Relativistic Calculations",
+      "Scientific Creativity",
+      "Cosmic Scale Thinking"
+    ],
+    
+    "certificate_design": {
+      "border_style": "Cosmic Elegant",
+      "color_scheme": "Navy & Gold",
+      "signature_seal": "Origami Atom",
+      "corner_emblems": "Light Beam Diagrams",
+      "background_pattern": "Space-Time Fabric"
+    },
+    
+    "blockchain_proof": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312,
+      "transaction_hash": "0x[TX_HASH]",
+      "block_number": 12345679
+    },
+    
+    "verification": {
+      "qr_code": "ipfs://QmVerificationQR/einstein_[WALLET_ADDRESS].png",
+      "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+      "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+      "ipfs_metadata": "ipfs://QmCertificateMetadata/einstein_[WALLET_ADDRESS].json"
+    },
+    
+    "issuer_info": {
+      "institution": "Rivalisme Universe - Academic Hall",
+      "authorized_by": "Einstein AI Persona",
+      "accreditation": "Blockchain Verified Credential",
+      "credential_type": "Non-Transferable Achievement NFT"
+    }
+  },
+  
+  "student_achievements": {
+    "course_start_date": "2025-09-15T10:00:00Z",
+    "course_end_date": "2025-10-19T18:30:00Z",
+    "total_study_time_hours": 40,
+    "lessons_completed": 42,
+    "quizzes_taken": 8,
+    "average_quiz_score": 89,
+    "final_exam_score": 92,
+    "participation_rate": 98,
+    "questions_asked": 23,
+    "forum_contributions": 15
+  },
+  
+  "special_recognitions": [
+    {
+      "badge": "Perfect Attendance",
+      "description": "Completed all lessons without missing a session"
+    },
+    {
+      "badge": "Thought Experiment Master",
+      "description": "Excelled in creative problem-solving exercises"
+    },
+    {
+      "badge": "Quick Learner",
+      "description": "Completed curriculum 15% faster than average"
+    }
+  ],
+  
+  "credential_usage": {
+    "transferable": false,
+    "revocable": false,
+    "display_permitted": true,
+    "verification_public": true,
+    "professional_use": true
+  },
+  
+  "related_nfts": {
+    "persona_nft": "einstein_001",
+    "previous_certificates": [],
+    "course_badges": ["badge_relativity", "badge_quantum", "badge_cosmos"]
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 0,
+    "royalty_receiver": null,
+    "note": "Certificates are soulbound and non-transferable"
+  },
+  
+  "license": "CC BY-NC-ND 4.0",
+  "soulbound": true,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T18:30:00Z"
+}
