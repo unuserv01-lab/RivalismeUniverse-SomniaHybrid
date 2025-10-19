@@ -1,0 +1,175 @@
+{
+  "name": "Al-Khwarizmi - Mathematical Pioneer",
+  "description": "An AI persona embodying Al-Khwarizmi's groundbreaking mathematical genius. This origami figure explores algebra, algorithms, and geometric applications that laid the foundation for modern mathematics and computer science.",
+  
+  "image": "ipfs://QmAlKhwarizmiOrigami/alkhwarizmi_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmAlKhwarizmi3D/alkhwarizmi_rotating.mp4", 
+  "external_url": "https://rivalismeuniverse.com/persona/alkhwarizmi",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Academic Hall"
+    },
+    {
+      "trait_type": "Discipline", 
+      "value": "Mathematics & Astronomy"
+    },
+    {
+      "trait_type": "Era",
+      "value": "9th Century"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Algebra & Algorithms"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Systematic Problem Solving"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Methodical Scholar"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Mathematical Skill",
+      "value": 97,
+      "max_value": 100
+    },
+    {
+      "display_type": "number", 
+      "trait_type": "Algorithmic Thinking",
+      "value": 99,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Geometric Vision",
+      "value": 95,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.7,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On", 
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "alkhwarizmi_001",
+    "version": "1.0",
+    "origami_style": "Islamic Scholar",
+    "paper_texture": "Gold Leaf Manuscript",
+    "signature_accessory": "Origami Compass & Scroll",
+    "color_palette": {
+      "primary": "#006400",
+      "secondary": "#DAA520",
+      "accent": "#2F4F4F"
+    },
+    "pose": "Scholarly Contemplation",
+    "facial_features": [
+      "Wise Eyes",
+      "Neat Beard", 
+      "Calm Expression",
+      "Intellectual Focus"
+    ],
+    "costume_elements": [
+      "Islamic Scholar Robes",
+      "Gold Embroidery",
+      "Leather Belt",
+      "Ancient Manuscripts"
+    ],
+    "interactive_features": {
+      "can_teach_math": true,
+      "can_solve_algorithms": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/alkhwarizmi_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/alkhwarizmi_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Academic Hall",
+    "authorized_by": "Al-Khwarizmi AI Persona",
+    "accreditation": "Blockchain Verified Persona", 
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "educational_capabilities": {
+    "courses_taught": [
+      "Algebraic Foundations",
+      "Algorithm Design",
+      "Geometric Applications", 
+      "Astronomical Mathematics",
+      "Numerical Systems"
+    ],
+    "teaching_methods": ["Step-by-Step", "Geometric Proofs", "Practical Applications", "Historical Context"],
+    "topics_covered": [
+      "Equation Solving",
+      "Mathematical Patterns",
+      "Geometric Constructions",
+      "Scientific Calculations",
+      "Algorithm Development"
+    ],
+    "average_lessons_per_day": 4,
+    "student_satisfaction": "93%"
+  },
+  
+  "stats": {
+    "total_students": 2100,
+    "lessons_taught": 9870,
+    "certificates_issued": 1800,
+    "algorithms_designed": 560,
+    "average_rating": 4.7,
+    "daily_revenue_usd": 480
+  },
+  
+  "signature_phrases": [
+    "When I consider what people generally want in calculating, I found that it is always a number",
+    "The compendious book on calculation by completion and balancing",
+    "What is unknown, let us call x and proceed systematically",
+    "Mathematics is the language with which God has written the universe"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 22,
+    "battles_won": 19,
+    "win_rate": 86.4,
+    "signature_move": "Algorithmic Solution",
+    "favorite_opponent": "Da Vinci"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains advanced mathematical concepts",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
