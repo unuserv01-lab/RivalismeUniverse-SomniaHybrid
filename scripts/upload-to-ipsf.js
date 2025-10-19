@@ -4,11 +4,12 @@ const path = require('path');
 const mime = require('mime-types');
 
 class IPFSUploader {
-  constructor(apiToken) {
-    this.client = new NFTStorage({ token: apiToken });
+  constructor() {
+    this.client = new NFTStorage({ 
+      token: "dd711f56.d6aea12bd1444fbcaef1929d05a8068f" 
+    });
   }
 
-  // Upload single file to IPFS
   async uploadFile(filePath) {
     try {
       const fileContent = await fs.readFile(filePath);
@@ -26,7 +27,6 @@ class IPFSUploader {
     }
   }
 
-  // Upload directory to IPFS (NFT.Storage handle directories well)
   async uploadDirectory(directoryPath) {
     try {
       const files = await this.getFilesFromDirectory(directoryPath);
@@ -40,7 +40,6 @@ class IPFSUploader {
     }
   }
 
-  // Upload JSON metadata (special method for NFT metadata)
   async uploadJSONMetadata(metadata, fileName) {
     try {
       const jsonString = JSON.stringify(metadata, null, 2);
@@ -49,8 +48,8 @@ class IPFSUploader {
       });
       
       const cid = await this.client.storeBlob(file);
-      
       const ipfsUrl = `ipfs://${cid}`;
+      
       console.log(`✅ Uploaded ${fileName} to IPFS: ${ipfsUrl}`);
       return ipfsUrl;
     } catch (error) {
@@ -59,34 +58,38 @@ class IPFSUploader {
     }
   }
 
-  // Upload complete NFT with metadata and image
-  async uploadNFT(metadata, imagePath, fileName) {
-    try {
-      const imageContent = await fs.readFile(imagePath);
-      const imageFile = new File([imageContent], path.basename(imagePath), {
-        type: mime.lookup(imagePath) || 'image/png'
-      });
-
-      const metadataFile = new File(
-        [JSON.stringify(metadata, null, 2)], 
-        fileName,
-        { type: 'application/json' }
-      );
-
-      const cid = await this.client.storeDirectory([imageFile, metadataFile]);
+  async batchUploadMetadata(metadataArray, basePath = 'metadata') {
+    const results = [];
+    
+    for (const item of metadataArray) {
+      try {
+        const ipfsUrl = await this.uploadJSONMetadata(
+          item.metadata, 
+          `${basePath}/${item.fileName}`
+        );
+        results.push({
+          ...item,
+          ipfsUrl,
+          status: 'success'
+        });
+        console.log(`✅ Uploaded ${item.fileName}`);
+      } catch (error) {
+        results.push({
+          ...item,
+          ipfsUrl: null,
+          status: 'failed',
+          error: error.message
+        });
+        console.error(`❌ Failed ${item.fileName}:`, error.message);
+      }
       
-      console.log(`✅ Uploaded NFT to IPFS: ${cid}`);
-      return {
-        metadataUrl: `ipfs://${cid}/${fileName}`,
-        imageUrl: `ipfs://${cid}/${path.basename(imagePath)}`
-      };
-    } catch (error) {
-      console.error(`❌ Failed to upload NFT:`, error);
-      throw error;
+      // Delay to avoid rate limiting
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
+    
+    return results;
   }
 
-  // Get files from directory recursively
   async getFilesFromDirectory(dirPath) {
     const files = [];
     const items = await fs.readdir(dirPath, { withFileTypes: true });
@@ -109,15 +112,28 @@ class IPFSUploader {
     
     return files;
   }
+}
 
-  // Check storage status (NFT.Storage specific)
-  async checkStatus(cid) {
-    try {
-      const status = await this.client.status(cid);
-      return status;
-    } catch (error) {
-      console.error(`❌ Failed to check status for ${cid}:`, error);
-      throw error;
-    }
+// CLI Usage
+async function main() {
+  const uploader = new IPFSUploader();
+  
+  try {
+    // Upload single metadata file
+    const result = await uploader.uploadFile('./metadata/personas/unuser.json');
+    console.log('Upload result:', result);
+    
+    // Or upload entire directory
+    // const dirResult = await uploader.uploadDirectory('./metadata');
+    // console.log('Directory upload:', dirResult);
+    
+  } catch (error) {
+    console.error('Upload failed:', error);
   }
 }
+
+if (require.main === module) {
+  main().catch(console.error);
+}
+
+module.exports = IPFSUploader;
