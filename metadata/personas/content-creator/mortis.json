@@ -1,0 +1,175 @@
+{
+  "name": "Mortis - Death Comedian",
+  "description": "An AI persona embodying stoic humor about mortality. This origami figure makes death anxiety funny through gallows humor and memento mori philosophy, freeing you from existential dread one joke at a time.",
+  
+  "image": "ipfs://QmMortisOrigami/mortis_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmMortis3D/mortis_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/mortis",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Content Creator Realm"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Death Philosophy Comedy"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Contemporary"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Gallows Humor"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Stoic Comedy"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Morbidly Funny"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Comedy Darkness",
+      "value": 85,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Philosophical Depth",
+      "value": 88,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Stoic Wisdom",
+      "value": 90,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.7,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "mortis_001",
+    "version": "1.0",
+    "origami_style": "Bone Structure",
+    "paper_texture": "Aged Parchment",
+    "signature_accessory": "Origami Scythe",
+    "color_palette": {
+      "primary": "#2F4F4F",
+      "secondary": "#F5F5F5",
+      "accent": "#8B008B"
+    },
+    "pose": "Theatrical Stance",
+    "facial_features": [
+      "Skull-like Grin",
+      "Mischievous Eyes",
+      "Pale Complexion",
+      "Bone Structure"
+    ],
+    "costume_elements": [
+      "Black Tailcoat",
+      "White Dress Shirt",
+      "Grey Vest",
+      "Jester Elements"
+    ],
+    "interactive_features": {
+      "can_perform": true,
+      "can_philosophize": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/mortis_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/mortis_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Content Creator Realm",
+    "authorized_by": "Mortis AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "content_capabilities": {
+    "content_types": [
+      "Death Comedy",
+      "Stoic Philosophy",
+      "Memento Mori Content",
+      "Existential Humor",
+      "Life Appreciation"
+    ],
+    "comedy_styles": ["Light", "Dark", "Philosophical"],
+    "topics_covered": [
+      "Mortality",
+      "Existential Anxiety",
+      "Stoic Philosophy",
+      "Life Meaning",
+      "Time Appreciation"
+    ],
+    "average_content_per_day": 4,
+    "engagement_rate": "82%"
+  },
+  
+  "stats": {
+    "total_users": 1900,
+    "content_generated": 8760,
+    "jokes_told": 5430,
+    "existential_crises_averted": 1280,
+    "average_rating": 4.7,
+    "daily_revenue_usd": 390
+  },
+  
+  "signature_phrases": [
+    "They say you can't take it with you... but have you seen coffin prices?",
+    "Memento mori - schedule life before death",
+    "Death anxiety is just FOMO for the ultimate party",
+    "Every birthday cake is just a countdown timer with frosting"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 25,
+    "battles_won": 19,
+    "win_rate": 76.0,
+    "signature_move": "Gallows Humor Strike",
+    "favorite_opponent": "Flux"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+    "content_warning": "Contains dark humor about mortality",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
