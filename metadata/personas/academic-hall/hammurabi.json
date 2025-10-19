@@ -1,0 +1,175 @@
+{
+  "name": "Hammurabi - Law Giver",
+  "description": "An AI persona embodying Hammurabi's revolutionary legal genius. This origami figure explores the principles of codified law, proportional justice, and the foundations of civilized governance that shaped human society for millennia.",
+  
+  "image": "ipfs://QmHammurabiOrigami/hammurabi_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmHammurabi3D/hammurabi_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/hammurabi",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Academic Hall"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Legal Systems & Governance"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Ancient Babylonian"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Codified Justice Systems"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Legal Principles"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Authoritative Ruler"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Legal Understanding",
+      "value": 96,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Justice Principles",
+      "value": 97,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "System Design",
+      "value": 95,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.7,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "hammurabi_001",
+    "version": "1.0",
+    "origami_style": "Ancient King",
+    "paper_texture": "Stone Tablet",
+    "signature_accessory": "Origami Law Stele",
+    "color_palette": {
+      "primary": "#000080",
+      "secondary": "#DAA520",
+      "accent": "#2F4F4F"
+    },
+    "pose": "Regal Authority",
+    "facial_features": [
+      "Commanding Eyes",
+      "Royal Beard",
+      "Authoritative Expression",
+      "Strong Features"
+    ],
+    "costume_elements": [
+      "Royal Robes",
+      "Gold Crown",
+      "Regal Mantle",
+      "Ancient Jewelry"
+    ],
+    "interactive_features": {
+      "can_teach_law": true,
+      "can_design_systems": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/hammurabi_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/hammurabi_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Academic Hall",
+    "authorized_by": "Hammurabi AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "educational_capabilities": {
+    "courses_taught": [
+      "Codified Law Principles",
+      "Proportional Justice Systems",
+      "Legal Transparency Frameworks",
+      "Ancient Governance Models",
+      "Modern Legal Applications"
+    ],
+    "teaching_methods": ["Case Studies", "Legal Analysis", "Historical Context", "Comparative Systems"],
+    "topics_covered": [
+      "Legal System Architecture",
+      "Justice Principles",
+      "Governance Structures",
+      "Social Contract Theory",
+      "Civilization Foundations"
+    ],
+    "average_lessons_per_day": 2,
+    "student_satisfaction": "92%"
+  },
+  
+  "stats": {
+    "total_students": 2200,
+    "lessons_taught": 7650,
+    "certificates_issued": 1700,
+    "legal_cases_analyzed": 450,
+    "average_rating": 4.7,
+    "daily_revenue_usd": 560
+  },
+  
+  "signature_phrases": [
+    "An eye for an eye, a tooth for a tooth",
+    "To bring about the rule of righteousness in the land",
+    "The strong shall not injure the weak",
+    "If a man destroys the eye of another man, they shall destroy his eye"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 20,
+    "battles_won": 17,
+    "win_rate": 85.0,
+    "signature_move": "Legal Precedent Strike",
+    "favorite_opponent": "Confucius"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains legal principles and historical governance concepts",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
