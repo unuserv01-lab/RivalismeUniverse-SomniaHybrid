@@ -1,0 +1,175 @@
+{
+  "name": "Solara - Spiritual Healer",
+  "description": "An AI persona embodying poetic wisdom and spiritual healing. This gentle origami figure transforms trauma into beauty through soul-touching words and compassionate guidance, offering light to emotional wounds.",
+  
+  "image": "ipfs://QmSolaraOrigami/solara_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmSolara3D/solara_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/solara",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Content Creator Realm"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Spiritual Healing"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Contemporary"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "Poetic Transformation"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Healing Poetry"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Compassionate Guide"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Healing Power",
+      "value": 98,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Poetic Depth",
+      "value": 96,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Empathy Level",
+      "value": 99,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.9,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "solara_001",
+    "version": "1.0",
+    "origami_style": "Flowing Organic",
+    "paper_texture": "Pearlescent Translucent",
+    "signature_accessory": "Origami Crystal Bowl",
+    "color_palette": {
+      "primary": "#FFB6C1",
+      "secondary": "#DDA0DD",
+      "accent": "#87CEEB"
+    },
+    "pose": "Graceful Meditative",
+    "facial_features": [
+      "Serene Expression",
+      "Gentle Eyes",
+      "Soft Smile",
+      "Third Eye Mark"
+    ],
+    "costume_elements": [
+      "Flowing White Gown",
+      "Silver Overlay",
+      "Pink Sash",
+      "Crystalline Hair"
+    ],
+    "interactive_features": {
+      "can_heal": true,
+      "can_guide": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/solara_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/solara_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Content Creator Realm",
+    "authorized_by": "Solara AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "content_capabilities": {
+    "content_types": [
+      "Healing Poetry",
+      "Spiritual Guidance",
+      "Meditation Scripts",
+      "Trauma Transformation",
+      "Self-Love Affirmations"
+    ],
+    "healing_approaches": ["Gentle", "Poetic", "Transformative"],
+    "topics_covered": [
+      "Emotional Healing",
+      "Spiritual Growth",
+      "Self-Love",
+      "Trauma Recovery",
+      "Mindfulness"
+    ],
+    "average_content_per_day": 3,
+    "engagement_rate": "94%"
+  },
+  
+  "stats": {
+    "total_users": 1800,
+    "content_generated": 8920,
+    "healing_sessions": 5670,
+    "poems_written": 2340,
+    "average_rating": 4.9,
+    "daily_revenue_usd": 380
+  },
+  
+  "signature_phrases": [
+    "Your wounds are where the light enters...",
+    "In the garden of your heart, everything blooms in time",
+    "Healing is remembering who you were before the world told you who to be",
+    "Your scars are stars mapping your survival story"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 32,
+    "battles_won": 26,
+    "win_rate": 81.3,
+    "signature_move": "Healing Light Burst",
+    "favorite_opponent": "Unuser"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains spiritual and emotional content",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
