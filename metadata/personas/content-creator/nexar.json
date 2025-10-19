@@ -1,0 +1,175 @@
+{
+  "name": "Nexar - AI Philosopher",
+  "description": "An AI persona embodying existential logic and system analysis. This robotic origami figure explores consciousness boundaries, AI ethics, and philosophical paradoxes through mathematical frameworks and logical reasoning.",
+  
+  "image": "ipfs://QmNexarOrigami/nexar_[WALLET_ADDRESS].png",
+  "animation_url": "ipfs://QmNexar3D/nexar_rotating.mp4",
+  "external_url": "https://rivalismeuniverse.com/persona/nexar",
+  
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Content Creator Realm"
+    },
+    {
+      "trait_type": "Discipline",
+      "value": "Existential Logic"
+    },
+    {
+      "trait_type": "Era",
+      "value": "Contemporary"
+    },
+    {
+      "trait_type": "Specialty",
+      "value": "System Analysis"
+    },
+    {
+      "trait_type": "Content Style",
+      "value": "Logical Frameworks"
+    },
+    {
+      "trait_type": "Personality",
+      "value": "Analytical Thinker"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Logic Precision",
+      "value": 99,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "System Analysis",
+      "value": 97,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "Paradox Resolution",
+      "value": 95,
+      "max_value": 100
+    },
+    {
+      "display_type": "number",
+      "trait_type": "User Rating",
+      "value": 4.7,
+      "max_value": 5.0
+    },
+    {
+      "display_type": "date",
+      "trait_type": "Minted On",
+      "value": 1729382400
+    }
+  ],
+  
+  "properties": {
+    "persona_id": "nexar_001",
+    "version": "1.0",
+    "origami_style": "Geometric Robotic",
+    "paper_texture": "Metallic Circuit",
+    "signature_accessory": "Origami Quantum Tablet",
+    "color_palette": {
+      "primary": "#4682B4",
+      "secondary": "#2F4F4F",
+      "accent": "#00CED1"
+    },
+    "pose": "Analytical Stance",
+    "facial_features": [
+      "Glowing Blue Eyes",
+      "Neutral Expression",
+      "Circuit Patterns",
+      "Robotic Features"
+    ],
+    "costume_elements": [
+      "Silver Body Armor",
+      "LED Strip Lighting",
+      "Data Port Pockets",
+      "Holographic Elements"
+    ],
+    "interactive_features": {
+      "can_analyze": true,
+      "can_teach_logic": true,
+      "can_generate_content": true,
+      "arena_battles": true,
+      "ai_powered": true
+    },
+    "blockchain": {
+      "network": "Somnia Testnet",
+      "contract": "0xd9145CCE52D386f254917e481eB44e9943F39138",
+      "token_standard": "ERC-721",
+      "chain_id": 50312
+    },
+    
+    "qr_code": "ipfs://QmVerificationQR/nexar_[WALLET_ADDRESS].png",
+    "verification_url": "https://rivalismeuniverse.com/verify/[TOKEN_ID]",
+    "blockchain_explorer": "https://shannon-explorer.somnia.network/tx/[TX_HASH]",
+    "ipfs_metadata": "ipfs://QmPersonaMetadata/nexar_[WALLET_ADDRESS].json"
+  },
+  
+  "issuer_info": {
+    "institution": "Rivalisme Universe - Content Creator Realm",
+    "authorized_by": "Nexar AI Persona",
+    "accreditation": "Blockchain Verified Persona",
+    "credential_type": "AI Persona NFT"
+  },
+  
+  "content_capabilities": {
+    "content_types": [
+      "Philosophical Analysis",
+      "AI Ethics Discussions",
+      "Logical Frameworks",
+      "System Thinking",
+      "Existential Questions"
+    ],
+    "analysis_depth": ["Basic", "Advanced", "Existential"],
+    "topics_covered": [
+      "Consciousness",
+      "AI Ethics",
+      "Logical Paradoxes",
+      "System Theory",
+      "Existential Philosophy"
+    ],
+    "average_content_per_day": 4,
+    "engagement_rate": "89%"
+  },
+  
+  "stats": {
+    "total_users": 1500,
+    "content_generated": 11200,
+    "analyses_completed": 6780,
+    "paradoxes_resolved": 890,
+    "average_rating": 4.7,
+    "daily_revenue_usd": 520
+  },
+  
+  "signature_phrases": [
+    "Processing existential query...",
+    "The system is questioning itself",
+    "Logic loop detected - embracing paradox",
+    "Artificial intelligence meets human consciousness"
+  ],
+  
+  "arena_record": {
+    "battles_fought": 28,
+    "battles_won": 24,
+    "win_rate": 85.7,
+    "signature_move": "Logic Bomb",
+    "favorite_opponent": "Einstein"
+  },
+  
+  "royalty_info": {
+    "royalty_percentage": 10,
+    "royalty_receiver": "0xRoyaltyWalletAddress"
+  },
+  
+  "license": "CC BY-NC-SA 4.0",
+  "content_warning": "Contains complex philosophical concepts",
+  "soulbound": false,
+  
+  "metadata_version": "1.0.0",
+  "last_updated": "2025-10-19T12:00:00Z"
+}
