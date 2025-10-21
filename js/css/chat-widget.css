@@ -1,4 +1,4 @@
-/* Chat-widget – Floating Neon Chat with Draggable & Minimize */
+/* Chat-widget – Floating Neon Chat with Draggable & Minimize - FIXED */
 .chat-widget {
   position: fixed;
   bottom: 20px;
@@ -13,42 +13,17 @@
     0 0 25px rgba(160, 32, 240, 0.6),
     0 0 50px rgba(160, 32, 240, 0.3),
     inset 0 0 15px rgba(160, 32, 240, 0.2);
-  display: flex;
+  display: none;
   flex-direction: column;
-  z-index: 9999;
+  z-index: 10000;
   font-family: 'Orbitron', sans-serif;
   font-size: 14px;
   overflow: hidden;
   animation: glowPulse 3s ease-in-out infinite;
-  cursor: move;
-  user-select: none;
-  resize: both;
-  min-width: 300px;
-  min-height: 400px;
-  max-width: 90vw;
-  max-height: 80vh;
 }
 
-/* Dragging state */
-.chat-widget.dragging {
-  opacity: 0.8;
-  box-shadow: 
-    0 0 40px rgba(255, 0, 255, 0.8),
-    0 0 80px rgba(255, 0, 255, 0.4);
-  cursor: grabbing;
-}
-
-/* Resizing handle */
-.chat-widget::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  right: 2px;
-  width: 12px;
-  height: 12px;
-  background: linear-gradient(135deg, transparent 50%, #a020f0 50%);
-  cursor: nwse-resize;
-  border-bottom-right-radius: 18px;
+.chat-widget.active {
+  display: flex;
 }
 
 @keyframes glowPulse {
@@ -84,10 +59,6 @@
   user-select: none;
 }
 
-.chat-header:hover {
-  background: rgba(160, 32, 240, 0.15);
-}
-
 .header-controls {
   display: flex;
   gap: 8px;
@@ -99,7 +70,8 @@
   padding: 15px;
   overflow-y: auto;
   background: rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Scrollbar styling */
@@ -125,10 +97,9 @@
   display: flex;
   border-top: 1px solid rgba(160, 32, 240, 0.4);
   background: rgba(15, 0, 30, 0.7);
-  transition: all 0.3s ease;
 }
 
-.chat-footer input {
+.chat-input {
   flex: 1;
   border: none;
   padding: 12px 15px;
@@ -139,15 +110,15 @@
   outline: none;
 }
 
-.chat-footer input::placeholder {
+.chat-input::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.chat-footer input:focus {
+.chat-input:focus {
   background: rgba(160, 32, 240, 0.1);
 }
 
-.chat-footer button {
+.send-btn {
   background: linear-gradient(135deg, #a020f0, #ff00ff);
   color: #000;
   border: none;
@@ -156,18 +127,11 @@
   font-weight: 700;
   font-family: inherit;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
 }
 
-.chat-footer button:hover {
+.send-btn:hover {
   background: linear-gradient(135deg, #ff00ff, #a020f0);
   box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
-  transform: translateY(-1px);
-}
-
-.chat-footer button:active {
-  transform: translateY(0);
 }
 
 /* Chat bubbles */
@@ -177,7 +141,6 @@
   border-radius: 16px;
   max-width: 85%;
   word-wrap: break-word;
-  position: relative;
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -195,41 +158,24 @@
 .bubble.user {
   background: linear-gradient(135deg, rgba(160, 32, 240, 0.3), rgba(255, 0, 255, 0.2));
   border: 1px solid rgba(160, 32, 240, 0.5);
-  align-self: flex-end;
   margin-left: auto;
   color: #fff;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .bubble.bot {
   background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(160, 32, 240, 0.1));
   border: 1px solid rgba(0, 255, 255, 0.3);
-  align-self: flex-start;
+  margin-right: auto;
   color: #e6e6fa;
-  text-shadow: 0 0 5px rgba(230, 230, 250, 0.5);
 }
 
 .bubble.error {
   background: linear-gradient(135deg, rgba(255, 20, 147, 0.3), rgba(255, 0, 0, 0.2));
   border: 1px solid rgba(255, 20, 147, 0.5);
   color: #ff69b4;
-  text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
-  align-self: center;
   max-width: 90%;
-}
-
-/* Timestamp for messages */
-.bubble::after {
-  content: attr(data-time);
-  display: block;
-  font-size: 10px;
-  opacity: 0.6;
-  margin-top: 4px;
-  text-align: right;
-}
-
-.bubble.bot::after {
-  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Control buttons */
@@ -239,11 +185,11 @@
   color: #ff00ff;
   font-size: 16px;
   cursor: pointer;
-  padding: 6px 8px;
+  padding: 6px;
   border-radius: 50%;
   transition: all 0.3s ease;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -251,22 +197,15 @@
 
 .control-btn:hover {
   background: rgba(255, 0, 255, 0.2);
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
   transform: scale(1.1);
 }
 
-.control-btn:active {
-  transform: scale(0.95);
-}
-
-/* Specific button styles */
 .chat-minimize {
   color: #00ffff;
 }
 
 .chat-minimize:hover {
   background: rgba(0, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .chat-close {
@@ -275,29 +214,12 @@
 
 .chat-close:hover {
   background: rgba(255, 20, 147, 0.2);
-  box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
 }
 
-/* Chat widget when minimized */
+/* Minimized state */
 .chat-widget.minimized {
-  height: 50px !important;
-  width: 200px !important;
-  min-height: 50px !important;
-  min-width: 200px !important;
-  animation: minimizedGlow 2s ease-in-out infinite;
-}
-
-@keyframes minimizedGlow {
-  0%, 100% {
-    box-shadow: 
-      0 0 15px rgba(160, 32, 240, 0.4),
-      0 0 30px rgba(160, 32, 240, 0.2);
-  }
-  50% {
-    box-shadow: 
-      0 0 25px rgba(160, 32, 240, 0.6),
-      0 0 50px rgba(160, 32, 240, 0.3);
-  }
+  height: 50px;
+  width: 200px;
 }
 
 .chat-widget.minimized .chat-body,
@@ -308,51 +230,22 @@
 .chat-widget.minimized .chat-header {
   padding: 8px 12px;
   font-size: 13px;
-  cursor: pointer;
 }
 
-/* Resize indicator */
-.resize-indicator {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 10px;
-  pointer-events: none;
-}
-
-/* Drag handle */
-.drag-handle {
-  cursor: move;
-  flex: 1;
-  user-select: none;
-}
-
-/* Responsive design */
+/* Responsive */
 @media (max-width: 480px) {
   .chat-widget {
-    width: calc(100vw - 40px) !important;
-    height: 60vh !important;
-    bottom: 10px !important;
-    right: 10px !important;
-    left: 10px !important;
-    max-width: calc(100vw - 40px) !important;
-    resize: none;
+    width: calc(100vw - 40px);
+    height: 60vh;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
   }
   
   .chat-widget.minimized {
-    width: 150px !important;
-    height: 40px !important;
-    bottom: 10px !important;
-    right: 10px !important;
+    width: 150px;
+    height: 40px;
+    bottom: 10px;
+    right: 10px;
   }
-}
-
-/* Loading animation for minimize/restore */
-.chat-widget.minimizing {
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.chat-widget.restoring {
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
