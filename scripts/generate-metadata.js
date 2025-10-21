@@ -10,6 +10,7 @@ class MetadataGenerator {
 
   generateTokenId(personaId) {
     return `${personaId}_${uuidv4().slice(0, 8)}`;
+    
   }
 
   replaceTemplateVariables(metadata, variables) {
@@ -97,3 +98,40 @@ async function main() {
 }
 
 module.exports = MetadataGenerator;
+
+
+// Exported helper to build metadata from personaData (for server integration)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports.buildMetadataFromPersona = function(personaData, overrides = {}) {
+    // Reuse existing generateMetadata logic by calling the main function if present
+    // If the original file exported a function, prefer that. Otherwise, implement a lightweight builder.
+    try {
+      if (typeof generateMetadata === 'function') {
+        // if original had a generateMetadata function that returns metadata, call it
+        return generateMetadata(personaData, overrides);
+      }
+    } catch (e) {
+      // fallthrough to simple builder
+    }
+
+    // Simple fallback metadata builder
+    const name = personaData.name || overrides.name || `Unnamed Persona ${Date.now()}`;
+    const description = personaData.description || overrides.description || '';
+    const traits = personaData.traits || overrides.traits || [];
+    const visual = personaData.visual_prompt || personaData.visual || '';
+    const timestamp = new Date().toISOString();
+
+    const metadata = {
+      name,
+      description,
+      image: personaData.image || overrides.image || '',
+      attributes: traits.map(t => ({ trait_type: 'trait', value: t })),
+      properties: {
+        visual_prompt: visual,
+        created_at: timestamp
+      }
+    };
+
+    return metadata;
+  };
+}
