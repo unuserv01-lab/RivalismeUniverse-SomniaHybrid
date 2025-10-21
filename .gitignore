@@ -1,53 +1,130 @@
-# Dependencies
+# ========================================
+# 🔮 RIVALISMEUNIVERSE GITIGNORE TEMPLATE
+# ========================================
+
+# ==========================
+# 📦 Dependencies
+# ==========================
 node_modules/
 package-lock.json
 
-# Environment variables
+# ==========================
+# 🔐 Environment variables
+# ==========================
 .env
 .env.local
 .env.production
+.env.test
+# Allow example env file
+!.env.example
 
-# Hardhat
+# ==========================
+# ⚙️ Hardhat / Blockchain
+# ==========================
 cache/
 artifacts/
 typechain/
 typechain-types/
+deployments/
+!deployments/.gitkeep
 
-# Coverage
+# ==========================
+# 📊 Coverage
+# ==========================
 coverage/
 coverage.json
 
-# IDE
+# ==========================
+# 🧠 Generated Metadata / IPFS Temp Files
+# ==========================
+generated_metadata/
+ipfs_uploads/
+pinata_temp/
+ai_outputs/
+metadata_cache.json
+
+# ==========================
+# 🧱 Build Outputs
+# ==========================
+dist/
+build/
+out/
+.cache/
+*.tmp
+
+# ==========================
+# 🪶 Logs
+# ==========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================
+# 🧰 IDE / Editor
+# ==========================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS
+# ==========================
+# 💻 Operating System
+# ==========================
 .DS_Store
 Thumbs.db
 .AppleDouble
 .LSOverride
+ehthumbs.db
+Desktop.ini
 
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Build outputs
-dist/
-build/
-out/
-
-# Temporary files
-*.tmp
-.cache/
-
-# Testing
+# ==========================
+# 🧪 Testing / Coverage
+# ==========================
 .nyc_output/
+jest-html-reporters-attach/
 
-# Deployment
+# ==========================
+# 🌐 Server / Temp Data
+# ==========================
+server/logs/
+server/uploads/
+server/tmp/
+server/.cache/
+
+# ==========================
+# 📱 Termux / Android
+# ==========================
+storage/
+*.termux-backup
+*.termux-session
+*.termux-shell
+*.termux-history
+
+# ==========================
+# 🔧 Miscellaneous
+# ==========================
+*.bak
+*.old
+*.orig
+*.rej
+*.pid
+*.seed
+
+# ==========================
+# 🚀 Deployment
+# ==========================
 deployments/
 !deployments/.gitkeep
+
+# ==========================
+# 🧩 Rivalisme Specific
+# ==========================
+# Persona data archives & engine configs (private intellectual property)
+engine/core/
+engine/persona/
+engine/functions/
+registry.json
+ai-prompts/
+private_scripts/
