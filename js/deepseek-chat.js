@@ -1,5 +1,5 @@
 
-/* Deepseek Chat Core – Fixed Version v3 */
+/* Deepseek Chat Core – Fixed Version v3.1 */
 /* Complete Persona Integration for Rivalisme Universe */
 console.log("✅ Deepseek Chat loaded with 18 personas. Waiting for persona click...");
 
@@ -155,6 +155,7 @@ Example: "If a man destroys the eye of another man, they shall destroy his eye. 
 /* Chat Widget Core */
 let currentPersona = null;
 let chatHistory = [];
+let isMinimized = false;
 
 function openDeepseekChat(personaId) {
   currentPersona = personaId;
@@ -166,125 +167,48 @@ function openDeepseekChat(personaId) {
   if (!chatWidget) {
     chatWidget = document.createElement('div');
     chatWidget.id = 'deepseek-chat-widget';
+    chatWidget.className = 'chat-widget';
     chatWidget.innerHTML = `
       <div class="chat-header">
-        <h3>💬 ${personaName}</h3>
-        <button onclick="closeDeepseekChat()">×</button>
+        <div>
+          <strong>💬 ${personaName}</strong>
+        </div>
+        <div>
+          <button class="chat-minimize" onclick="toggleMinimize()">−</button>
+          <button class="chat-close" onclick="closeDeepseekChat()">×</button>
+        </div>
       </div>
-      <div class="chat-messages" id="chat-messages"></div>
-      <div class="chat-input">
-        <textarea id="chat-input-text" placeholder="Ask ${personaName} anything..." rows="3"></textarea>
+      <div class="chat-body" id="chat-body">
+        <div class="bubble bot" data-time="${getCurrentTime()}">
+          <strong>${personaName}:</strong><br>
+          ${getWelcomeMessage(personaId)}
+        </div>
+      </div>
+      <div class="chat-footer">
+        <input type="text" id="chat-input" placeholder="Ask ${personaName} anything..." autocomplete="off">
         <button onclick="sendMessage()">Send</button>
       </div>
     `;
     document.body.appendChild(chatWidget);
     
-    // Add basic styles if not already loaded
-    if (!document.querySelector('#deepseek-chat-styles')) {
-      const styles = document.createElement('style');
-      styles.id = 'deepseek-chat-styles';
-      styles.textContent = `
-        #deepseek-chat-widget {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          width: 400px;
-          height: 500px;
-          background: rgba(15, 23, 42, 0.95);
-          backdrop-filter: blur(10px);
-          border: 2px solid #ff1493;
-          border-radius: 15px;
-          z-index: 10000;
-          display: flex;
-          flex-direction: column;
-          box-shadow: 0 0 30px rgba(255, 20, 147, 0.5);
-        }
-        .chat-header {
-          background: rgba(255, 20, 147, 0.2);
-          padding: 15px;
-          border-radius: 13px 13px 0 0;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-bottom: 1px solid #ff1493;
-        }
-        .chat-header h3 {
-          margin: 0;
-          color: #00ffff;
-          font-family: 'Orbitron', sans-serif;
-        }
-        .chat-header button {
-          background: none;
-          border: none;
-          color: #ff1493;
-          font-size: 24px;
-          cursor: pointer;
-          padding: 0;
-          width: 30px;
-          height: 30px;
-        }
-        .chat-messages {
-          flex: 1;
-          padding: 15px;
-          overflow-y: auto;
-          color: white;
-          font-family: 'Source Code Pro', monospace;
-        }
-        .chat-input {
-          padding: 15px;
-          border-top: 1px solid #ff1493;
-        }
-        .chat-input textarea {
-          width: 100%;
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid #00ffff;
-          border-radius: 8px;
-          color: white;
-          padding: 10px;
-          font-family: 'Source Code Pro', monospace;
-          resize: vertical;
-        }
-        .chat-input button {
-          width: 100%;
-          margin-top: 10px;
-          padding: 10px;
-          background: linear-gradient(45deg, #ff1493, #00ffff);
-          border: none;
-          border-radius: 8px;
-          color: black;
-          font-weight: bold;
-          cursor: pointer;
-          font-family: 'Orbitron', sans-serif;
-        }
-        .message {
-          margin-bottom: 15px;
-          padding: 10px;
-          border-radius: 8px;
-        }
-        .user-message {
-          background: rgba(0, 255, 255, 0.2);
-          border-left: 3px solid #00ffff;
-        }
-        .ai-message {
-          background: rgba(255, 20, 147, 0.2);
-          border-left: 3px solid #ff1493;
-        }
-      `;
-      document.head.appendChild(styles);
-    }
+    // Add enter key support
+    document.getElementById('chat-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
   }
   
+  // Reset minimized state
+  isMinimized = false;
+  chatWidget.classList.remove('minimized');
   chatWidget.style.display = 'flex';
   chatHistory = [];
   
-  // Add welcome message
-  const messagesDiv = document.getElementById('chat-messages');
-  messagesDiv.innerHTML = `
-    <div class="message ai-message">
-      <strong>${personaName}:</strong><br>
-      ${getWelcomeMessage(personaId)}
-    </div>
-  `;
+  // Focus input
+  setTimeout(() => {
+    document.getElementById('chat-input').focus();
+  }, 100);
 }
 
 function getWelcomeMessage(personaId) {
@@ -311,6 +235,25 @@ function getWelcomeMessage(personaId) {
   return welcomeMessages[personaId] || `Welcome to our conversation. I am ${personaId.charAt(0).toUpperCase() + personaId.slice(1)}. How may I assist you today?`;
 }
 
+function getCurrentTime() {
+  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function toggleMinimize() {
+  const chatWidget = document.getElementById('deepseek-chat-widget');
+  if (chatWidget) {
+    isMinimized = !isMinimized;
+    if (isMinimized) {
+      chatWidget.classList.add('minimized');
+    } else {
+      chatWidget.classList.remove('minimized');
+      setTimeout(() => {
+        document.getElementById('chat-input').focus();
+      }, 100);
+    }
+  }
+}
+
 function closeDeepseekChat() {
   const chatWidget = document.getElementById('deepseek-chat-widget');
   if (chatWidget) {
@@ -318,33 +261,35 @@ function closeDeepseekChat() {
   }
   currentPersona = null;
   chatHistory = [];
+  isMinimized = false;
 }
 
 async function sendMessage() {
   if (!currentPersona) return;
   
-  const input = document.getElementById('chat-input-text');
+  const input = document.getElementById('chat-input');
   const message = input.value.trim();
-  const messagesDiv = document.getElementById('chat-messages');
+  const chatBody = document.getElementById('chat-body');
   
   if (!message) return;
   
   // Add user message
-  messagesDiv.innerHTML += `
-    <div class="message user-message">
-      <strong>You:</strong><br>${message}
-    </div>
-  `;
+  const userBubble = document.createElement('div');
+  userBubble.className = 'bubble user';
+  userBubble.setAttribute('data-time', getCurrentTime());
+  userBubble.innerHTML = `<strong>You:</strong><br>${message}`;
+  chatBody.appendChild(userBubble);
   
   input.value = '';
   input.disabled = true;
   
   // Show typing indicator
-  const typingIndicator = document.createElement('div');
-  typingIndicator.id = 'typing-indicator';
-  typingIndicator.innerHTML = '<em>💭 Thinking...</em>';
-  messagesDiv.appendChild(typingIndicator);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  const typingBubble = document.createElement('div');
+  typingBubble.className = 'bubble bot';
+  typingBubble.id = 'typing-indicator';
+  typingBubble.innerHTML = '<strong>🤖:</strong><br><em>💭 Thinking...</em>';
+  chatBody.appendChild(typingBubble);
+  chatBody.scrollTop = chatBody.scrollHeight;
   
   try {
     const response = await fetchDeepseekResponse(message, currentPersona);
@@ -353,23 +298,24 @@ async function sendMessage() {
     document.getElementById('typing-indicator')?.remove();
     
     // Add AI response
-    messagesDiv.innerHTML += `
-      <div class="message ai-message">
-        <strong>${currentPersona.charAt(0).toUpperCase() + currentPersona.slice(1)}:</strong><br>${response}
-      </div>
-    `;
+    const aiBubble = document.createElement('div');
+    aiBubble.className = 'bubble bot';
+    aiBubble.setAttribute('data-time', getCurrentTime());
+    aiBubble.innerHTML = `<strong>${currentPersona.charAt(0).toUpperCase() + currentPersona.slice(1)}:</strong><br>${response}`;
+    chatBody.appendChild(aiBubble);
     
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    chatBody.scrollTop = chatBody.scrollHeight;
     
   } catch (error) {
     document.getElementById('typing-indicator')?.remove();
     
-    messagesDiv.innerHTML += `
-      <div class="message ai-message">
-        <strong>System:</strong><br>Sorry, I encountered an error: ${error.message}. Please try again.
-      </div>
-    `;
+    const errorBubble = document.createElement('div');
+    errorBubble.className = 'bubble error';
+    errorBubble.setAttribute('data-time', getCurrentTime());
+    errorBubble.innerHTML = `<strong>System Error:</strong><br>Sorry, I encountered an error: ${error.message}. Please try again.`;
+    chatBody.appendChild(errorBubble);
     
+    chatBody.scrollTop = chatBody.scrollHeight;
     console.error('Deepseek API Error:', error);
   }
   
@@ -445,3 +391,4 @@ document.addEventListener('keydown', function(e) {
 window.openDeepseekChat = openDeepseekChat;
 window.closeDeepseekChat = closeDeepseekChat;
 window.sendMessage = sendMessage;
+window.toggleMinimize = toggleMinimize;
