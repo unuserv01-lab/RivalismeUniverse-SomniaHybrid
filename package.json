@@ -1,35 +1,49 @@
 {
   "name": "rivalismeuniverse-somnia",
   "version": "1.0.0",
-  "description": "AI Persona Economy on Somnia Blockchain",
-  "main": "index.js",
+  "description": "AI Persona Economy on Somnia Blockchain — RivalismeUniverse integrates AI generation, IPFS storage (Pinata), and NFT minting on the Somnia Testnet.",
+  "main": "server/index.js",
   "scripts": {
-    "compile": "hardhat compile",
-    "deploy:somnia": "hardhat run scripts/deploy.js --network somnia",
-    "test": "hardhat test"
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "compile": "npx hardhat compile",
+    "deploy:somnia": "npx hardhat run scripts/deploy.js --network somniaTestnet",
+    "test": "npx hardhat test",
+    "lint": "eslint ."
   },
   "keywords": [
     "blockchain",
     "nft",
     "somnia",
     "ai",
-    "web3"
+    "ipfs",
+    "pinata",
+    "persona",
+    "web3",
+    "rivalismeuniverse"
   ],
   "author": "unuserv01",
   "license": "MIT",
-{
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "@openzeppelin/contracts": "^5.0.0",
     "dotenv": "^16.3.1",
     "hardhat": "^2.19.0",
-    "ethers": "^5.7.2" 
+    "ethers": "^5.7.2",
+    "eslint": "^8.52.0",
+    "nodemon": "^3.0.1"
   },
   "dependencies": {
     "axios": "^1.5.0",
-    "nft.storage": "^7.0.0",
-    "csv-parser": "^3.0.0", 
+    "body-parser": "^1.20.2",
+    "csv-parser": "^3.0.0",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
     "mime-types": "^2.1.35",
+    "node-fetch": "^3.3.2",
     "uuid": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
