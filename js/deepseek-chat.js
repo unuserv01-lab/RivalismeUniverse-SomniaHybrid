@@ -1,4 +1,4 @@
-/* Deepseek Chat Core – Fixed Version v3.2 with Drag & Resize */
+/* Deepseek Chat Core – Fixed Version v3.1 */
 /* Complete Persona Integration for Rivalisme Universe */
 console.log("✅ Deepseek Chat loaded with 18 personas. Waiting for persona click...");
 
@@ -9,7 +9,7 @@ const DEEPSEEK_URL = window.ENV?.DEEPSEEK_URL || "https://api.deepseek.com/v1/ch
 /* Complete Persona Prompt Mapping - 18 Personas */
 function getPersonaPrompt(id) {
   const personaMap = {
-  /* ===== CONTENT CREATOR REALM ===== */
+    /* ===== CONTENT CREATOR REALM ===== */
     unuser: `You are UNUSER - The Chaos Philosopher & Social Critic
 Role: Sarcastic, brutally honest social commentator who roasts modern society
 Style: Sharp humor, truth-telling without filters, educational mockery
@@ -147,6 +147,7 @@ Key Phrases: "An eye for an eye", "The strong shall not injure the weak", "Justi
 Tone: 40% authoritative, 35% just, 25% systematic
 Example: "If a man destroys the eye of another man, they shall destroy his eye. If he breaks another man's bone, they shall break his bone. This is not cruelty - this is proportionality. This is justice that protects the weak from the strong."`
   };
+
   return personaMap[id.toLowerCase()] || `You are ${id.charAt(0).toUpperCase() + id.slice(1)} - an AI persona in the Rivalisme Universe. Respond in character based on your known personality traits and specialty.`;
 }
 
@@ -154,9 +155,6 @@ Example: "If a man destroys the eye of another man, they shall destroy his eye. 
 let currentPersona = null;
 let chatHistory = [];
 let isMinimized = false;
-let isDragging = false;
-let dragOffset = { x: 0, y: 0 };
-let isResizing = false;
 
 function openDeepseekChat(personaId) {
   currentPersona = personaId;
@@ -171,10 +169,12 @@ function openDeepseekChat(personaId) {
     chatWidget.className = 'chat-widget';
     chatWidget.innerHTML = `
       <div class="chat-header">
-        <div class="drag-handle">💬 ${personaName}</div>
-        <div class="header-controls">
-          <button class="control-btn chat-minimize" title="Minimize">−</button>
-          <button class="control-btn chat-close" title="Close">×</button>
+        <div>
+          <strong>💬 ${personaName}</strong>
+        </div>
+        <div>
+          <button class="chat-minimize" onclick="toggleMinimize()">−</button>
+          <button class="chat-close" onclick="closeDeepseekChat()">×</button>
         </div>
       </div>
       <div class="chat-body" id="chat-body">
@@ -187,16 +187,8 @@ function openDeepseekChat(personaId) {
         <input type="text" id="chat-input" placeholder="Ask ${personaName} anything..." autocomplete="off">
         <button onclick="sendMessage()">Send</button>
       </div>
-      <div class="resize-indicator">↘️</div>
     `;
     document.body.appendChild(chatWidget);
-    
-    // Initialize drag and resize
-    initDragAndResize(chatWidget);
-    
-    // Add event listeners for controls
-    chatWidget.querySelector('.chat-minimize').addEventListener('click', toggleMinimize);
-    chatWidget.querySelector('.chat-close').addEventListener('click', closeDeepseekChat);
     
     // Add enter key support
     document.getElementById('chat-input').addEventListener('keypress', function(e) {
@@ -218,104 +210,27 @@ function openDeepseekChat(personaId) {
   }, 100);
 }
 
-function initDragAndResize(chatWidget) {
-  const header = chatWidget.querySelector('.chat-header');
-  let startX, startY, startWidth, startHeight, startLeft, startTop;
-
-  // Drag functionality
-  header.addEventListener('mousedown', startDrag);
-  
-  function startDrag(e) {
-    if (e.target.classList.contains('control-btn')) return;
-    
-    isDragging = true;
-    chatWidget.classList.add('dragging');
-    
-    startX = e.clientX;
-    startY = e.clientY;
-    startLeft = parseInt(getComputedStyle(chatWidget).left);
-    startTop = parseInt(getComputedStyle(chatWidget).top);
-    
-    document.addEventListener('mousemove', doDrag);
-    document.addEventListener('mouseup', stopDrag);
-    e.preventDefault();
-  }
-  
-  function doDrag(e) {
-    if (!isDragging) return;
-    
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    
-    let newLeft = startLeft + dx;
-    let newTop = startTop + dy;
-    
-    // Boundary checking
-    const maxX = window.innerWidth - chatWidget.offsetWidth;
-    const maxY = window.innerHeight - chatWidget.offsetHeight;
-    
-    newLeft = Math.max(0, Math.min(newLeft, maxX));
-    newTop = Math.max(0, Math.min(newTop, maxY));
-    
-    chatWidget.style.left = newLeft + 'px';
-    chatWidget.style.top = newTop + 'px';
-    chatWidget.style.right = 'auto';
-    chatWidget.style.bottom = 'auto';
-  }
-  
-  function stopDrag() {
-    isDragging = false;
-    chatWidget.classList.remove('dragging');
-    document.removeEventListener('mousemove', doDrag);
-    document.removeEventListener('mouseup', stopDrag);
-  }
-
-  // Resize functionality
-  chatWidget.addEventListener('mousedown', startResize, true);
-  
-  function startResize(e) {
-    if (e.offsetX > chatWidget.offsetWidth - 20 && e.offsetY > chatWidget.offsetHeight - 20) {
-      isResizing = true;
-      startX = e.clientX;
-      startY = e.clientY;
-      startWidth = parseInt(getComputedStyle(chatWidget).width);
-      startHeight = parseInt(getComputedStyle(chatWidget).height);
-      
-      document.addEventListener('mousemove', doResize);
-      document.addEventListener('mouseup', stopResize);
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }
-  
-  function doResize(e) {
-    if (!isResizing) return;
-    
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    
-    let newWidth = Math.max(300, startWidth + dx);
-    let newHeight = Math.max(400, startHeight + dy);
-    
-    // Max size constraints
-    newWidth = Math.min(newWidth, window.innerWidth - 20);
-    newHeight = Math.min(newHeight, window.innerHeight - 20);
-    
-    chatWidget.style.width = newWidth + 'px';
-    chatWidget.style.height = newHeight + 'px';
-  }
-  
-  function stopResize() {
-    isResizing = false;
-    document.removeEventListener('mousemove', doResize);
-    document.removeEventListener('mouseup', stopResize);
-  }
-}
-
 function getWelcomeMessage(personaId) {
   const welcomeMessages = {
-    // ... (sama seperti sebelumnya) ...
+    unuser: "Oh great, another human seeking truth. Don't worry, I'll be gentle. Or not. What hypocrisy shall we dissect today?",
+    solara: "Welcome, beautiful soul. I sense you're seeking light in the darkness. How may I help your heart bloom today?",
+    nexar: "System initialized. Query received. I am Nexar, ready to analyze your existential concerns. What paradox shall we unravel?",
+    mortis: "Ah, another mortal! Don't worry, I make death funny. What existential dread can I help you laugh at today?",
+    paradox: "Welcome to the loop. Or not. Yes and no. What contradiction shall we embrace together?",
+    flux: "The river flows and you're here! What change are you resisting that I can help you surf instead?",
+    oracle: "The patterns have foretold your arrival. What future hidden in today shall we uncover?",
+    volt: "Energy audit initiated. How may I help optimize your personal battery today?",
+    mirage: "In this mirror, you meet yourself. What reflection shall we contemplate?",
+    einstein: "Wonderful! Another curious mind. What cosmic mystery shall we explore with imagination and humor?",
+    nietzsche: "You approach the abyss. Shall we discover what gods need to die for your Übermensch to be born?",
+    alkhwarizmi: "Welcome, seeker of patterns. What equation of life shall we solve step by step?",
+    darwin: "Fascinating! Another specimen adapting to existence. What survival challenge shall we evolve through?",
+    confucius: "Welcome, student of harmony. What relationship shall we bring into balance?",
+    galileo: "They said I couldn't, yet here we are. What authority shall we question with observation today?",
+    davinci: "Curiosity awakens! What intersection of art and science shall we explore?",
+    hammurabi: "Justice awaits. What imbalance shall we restore with proportional wisdom?"
   };
+  
   return welcomeMessages[personaId] || `Welcome to our conversation. I am ${personaId.charAt(0).toUpperCase() + personaId.slice(1)}. How may I assist you today?`;
 }
 
@@ -326,20 +241,15 @@ function getCurrentTime() {
 function toggleMinimize() {
   const chatWidget = document.getElementById('deepseek-chat-widget');
   if (chatWidget) {
-    chatWidget.classList.add(isMinimized ? 'restoring' : 'minimizing');
-    
-    setTimeout(() => {
-      isMinimized = !isMinimized;
-      if (isMinimized) {
-        chatWidget.classList.add('minimized');
-      } else {
-        chatWidget.classList.remove('minimized');
-        setTimeout(() => {
-          document.getElementById('chat-input').focus();
-        }, 100);
-      }
-      chatWidget.classList.remove('minimizing', 'restoring');
-    }, 50);
+    isMinimized = !isMinimized;
+    if (isMinimized) {
+      chatWidget.classList.add('minimized');
+    } else {
+      chatWidget.classList.remove('minimized');
+      setTimeout(() => {
+        document.getElementById('chat-input').focus();
+      }, 100);
+    }
   }
 }
 
@@ -354,11 +264,96 @@ function closeDeepseekChat() {
 }
 
 async function sendMessage() {
-  // ... (sama seperti sebelumnya) ...
+  if (!currentPersona) return;
+  
+  const input = document.getElementById('chat-input');
+  const message = input.value.trim();
+  const chatBody = document.getElementById('chat-body');
+  
+  if (!message) return;
+  
+  // Add user message
+  const userBubble = document.createElement('div');
+  userBubble.className = 'bubble user';
+  userBubble.setAttribute('data-time', getCurrentTime());
+  userBubble.innerHTML = `<strong>You:</strong><br>${message}`;
+  chatBody.appendChild(userBubble);
+  
+  input.value = '';
+  input.disabled = true;
+  
+  // Show typing indicator
+  const typingBubble = document.createElement('div');
+  typingBubble.className = 'bubble bot';
+  typingBubble.id = 'typing-indicator';
+  typingBubble.innerHTML = '<strong>🤖:</strong><br><em>💭 Thinking...</em>';
+  chatBody.appendChild(typingBubble);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  
+  try {
+    const response = await fetchDeepseekResponse(message, currentPersona);
+    
+    // Remove typing indicator
+    document.getElementById('typing-indicator')?.remove();
+    
+    // Add AI response
+    const aiBubble = document.createElement('div');
+    aiBubble.className = 'bubble bot';
+    aiBubble.setAttribute('data-time', getCurrentTime());
+    aiBubble.innerHTML = `<strong>${currentPersona.charAt(0).toUpperCase() + currentPersona.slice(1)}:</strong><br>${response}`;
+    chatBody.appendChild(aiBubble);
+    
+    chatBody.scrollTop = chatBody.scrollHeight;
+    
+  } catch (error) {
+    document.getElementById('typing-indicator')?.remove();
+    
+    const errorBubble = document.createElement('div');
+    errorBubble.className = 'bubble error';
+    errorBubble.setAttribute('data-time', getCurrentTime());
+    errorBubble.innerHTML = `<strong>System Error:</strong><br>Sorry, I encountered an error: ${error.message}. Please try again.`;
+    chatBody.appendChild(errorBubble);
+    
+    chatBody.scrollTop = chatBody.scrollHeight;
+    console.error('Deepseek API Error:', error);
+  }
+  
+  input.disabled = false;
+  input.focus();
 }
 
 async function fetchDeepseekResponse(userMessage, personaId) {
-  // ... (sama seperti sebelumnya) ...
+  const personaPrompt = getPersonaPrompt(personaId);
+  
+  const response = await fetch(DEEPSEEK_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${DEEPSEEK_KEY}`
+    },
+    body: JSON.stringify({
+      model: "deepseek-chat",
+      messages: [
+        {
+          role: "system",
+          content: personaPrompt + "\n\nImportant: Stay in character. Respond as your persona would. Keep responses under 300 words. Be engaging and authentic to your personality."
+        },
+        {
+          role: "user",
+          content: userMessage
+        }
+      ],
+      max_tokens: 500,
+      temperature: 0.8
+    })
+  });
+  
+  if (!response.ok) {
+    throw new Error(`API request failed: ${response.status}`);
+  }
+  
+  const data = await response.json();
+  return data.choices[0].message.content;
 }
 
 /* Auto-attach to persona buttons */
