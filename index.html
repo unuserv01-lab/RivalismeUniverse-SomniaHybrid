@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -336,7 +337,7 @@ body {
     transition: width 0.3s ease;
 }
 
-/* 2. Persona Generation Modal Styles */
+/* Persona Generation Modal Styles */
 .persona-modal {
     position: fixed;
     top: 50%;
@@ -516,7 +517,7 @@ body {
 
   <div class="persona-modal" id="personaModal">
       <h3>Generate New Persona</h3>
-      <textarea class="persona-input" placeholder="Describe your desired AI persona... (e.g., 'A Japanese anime artist specializing in cyberpunk themes')"></textarea>
+      <textarea class="persona-input" id="personaPrompt" placeholder="Describe your desired AI persona... (e.g., 'A Japanese anime artist specializing in cyberpunk themes')"></textarea>
       
       <div class="persona-options">
           <div class="persona-option active" data-type="creative">Creative</div>
@@ -1724,6 +1725,10 @@ function exploreSomnia() {
   window.open('https://explorer.somnia.network/address/0xd9145CCE52D386f254917e481eB44e9943F39138?tab=index', '_blank');
 }
 
+// ============================================
+// PERSONA GENERATION FUNCTIONS - INTEGRATED
+// ============================================
+
 // Persona Modal Functions
 function initializePersonaModal() {
     const options = document.querySelectorAll('.persona-option');
@@ -1746,8 +1751,9 @@ window.closePersonaModal = function() {
     modal.style.display = 'none';
 }
 
-window.startPersonaGeneration = function() {
-    const input = document.querySelector('.persona-input');
+// Main function to start persona generation - INTEGRATED WITH YOUR SCRIPT
+window.startPersonaGeneration = async function() {
+    const input = document.getElementById('personaPrompt');
     const activeOption = document.querySelector('.persona-option.active');
     
     if (input.value.trim() === '') {
@@ -1760,14 +1766,106 @@ window.startPersonaGeneration = function() {
     generateBtn.textContent = 'Generating...';
     generateBtn.disabled = true;
 
-    setTimeout(() => {
-        alert(`Persona generation started!\nType: ${activeOption.dataset.type}\nDescription: "${input.value}"`);
+    try {
+        // Check if wallet is connected
+        if (!currentWalletAddress) {
+            alert('Please connect your wallet first!');
+            closePersonaModal();
+            generateBtn.textContent = originalText;
+            generateBtn.disabled = false;
+            return;
+        }
+
+        // Call your existing generatePersonaClientFlow function
+        await generatePersonaClientFlow(input.value, activeOption.dataset.type);
+        
         closePersonaModal();
+        input.value = '';
+        
+    } catch (error) {
+        console.error('Persona generation failed:', error);
+        alert('Failed to generate persona: ' + error.message);
+    } finally {
         generateBtn.textContent = originalText;
         generateBtn.disabled = false;
-        input.value = '';
-    }, 2000);
+    }
 }
+
+// Your existing generatePersonaClientFlow function - MODIFIED
+async function generatePersonaClientFlow(promptText, personaType = 'creative') {
+    if (!promptText) {
+        alert('No prompt provided.');
+        return;
+    }
+
+    try {
+        // Show generating state
+        const generateBtn = document.querySelector('.modal-btn.generate');
+        if (generateBtn) { 
+            generateBtn.innerText = 'Generating...'; 
+            generateBtn.disabled = true; 
+        }
+
+        // Combine prompt with type for better generation
+        const enhancedPrompt = `${personaType} persona: ${promptText}`;
+
+        const resp = await fetch('/api/generate-persona', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                prompt: enhancedPrompt,
+                type: personaType,
+                walletAddress: currentWalletAddress 
+            })
+        });
+
+        if (!resp.ok) {
+            const e = await resp.json().catch(()=>({error:'unknown'}));
+            throw new Error(e.error || 'Server error');
+        }
+
+        const data = await resp.json();
+        const persona = data.persona || {};
+        const name = persona.name || 'Unnamed';
+        const title = persona.title || '';
+        const desc = persona.description || '';
+        const image = data.imageUrl || persona.image || './assets/placeholder.jpg';
+        const ipfs = data.ipfsUrl || '#';
+
+        const cardHTML = `
+            <div class="persona-card">
+                <img src="${image}" alt="${name}" />
+                <h3>${name}</h3>
+                <p>${title}</p>
+                <p>${desc}</p>
+                <small><a href="${ipfs}" target="_blank">View on IPFS</a></small>
+            </div>
+        `;
+
+        // Save to localStorage for personas page
+        const queue = JSON.parse(localStorage.getItem('newPersonaCards') || '[]');
+        queue.push(cardHTML);
+        localStorage.setItem('newPersonaCards', JSON.stringify(queue));
+
+        alert(`Persona "${name}" generated successfully! 🎉\n\nOpen Personas page to see it.`);
+
+        // Optional: Auto-redirect to personas page
+        // window.location.href = 'personas.html';
+
+    } catch (err) {
+        console.error('Persona generation error:', err);
+        alert('Failed to generate persona: ' + err.message);
+    } finally {
+        const generateBtn = document.querySelector('.modal-btn.generate');
+        if (generateBtn) { 
+            generateBtn.innerText = 'Generate Persona'; 
+            generateBtn.disabled = false; 
+        }
+    }
+}
+
+// Make function globally available
+window.generatePersonaClientFlow = generatePersonaClientFlow;
 
 window.addEventListener('click', function(event) {
     const modal = document.getElementById('personaModal');
@@ -1791,5 +1889,6 @@ function closeModal() {
     modal.classList.remove("show");
 }
 </script>
+
 </body>
 </html>
