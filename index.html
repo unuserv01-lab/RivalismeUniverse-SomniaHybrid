@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -1791,77 +1790,95 @@ window.startPersonaGeneration = async function() {
     }
 }
 
-// Your existing generatePersonaClientFlow function - MODIFIED
+// ✅ FIXED: generatePersonaClientFlow dengan error handling yang lebih baik
 async function generatePersonaClientFlow(promptText, personaType = 'creative') {
-    if (!promptText) {
-        alert('No prompt provided.');
-        return;
+  if (!promptText || promptText.trim().length < 5) {
+    alert('Please provide a more detailed description (at least 5 characters)');
+    return;
+  }
+
+  try {
+    // Show generating state
+    const generateBtn = document.querySelector('.modal-btn.generate');
+    if (generateBtn) { 
+      generateBtn.innerHTML = '<span class="loading"></span> Generating...'; 
+      generateBtn.disabled = true; 
     }
 
-    try {
-        // Show generating state
-        const generateBtn = document.querySelector('.modal-btn.generate');
-        if (generateBtn) { 
-            generateBtn.innerText = 'Generating...'; 
-            generateBtn.disabled = true; 
-        }
+    // Combine prompt with type for better generation
+    const enhancedPrompt = `${personaType} persona: ${promptText}`;
 
-        // Combine prompt with type for better generation
-        const enhancedPrompt = `${personaType} persona: ${promptText}`;
+    console.log('🔄 Sending request to AI...');
+    
+    const resp = await fetch('/api/generate-persona', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        prompt: enhancedPrompt,
+        type: personaType,
+        walletAddress: currentWalletAddress 
+      })
+    });
 
-        const resp = await fetch('/api/generate-persona', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                prompt: enhancedPrompt,
-                type: personaType,
-                walletAddress: currentWalletAddress 
-            })
-        });
+    const data = await resp.json();
+    
+    if (!resp.ok) {
+      throw new Error(data.error || data.details || 'Server error');
+    }
 
-        if (!resp.ok) {
-            const e = await resp.json().catch(()=>({error:'unknown'}));
-            throw new Error(e.error || 'Server error');
-        }
+    if (!data.success) {
+      throw new Error(data.error || 'Generation failed');
+    }
 
-        const data = await resp.json();
-        const persona = data.persona || {};
-        const name = persona.name || 'Unnamed';
-        const title = persona.title || '';
-        const desc = persona.description || '';
-        const image = data.imageUrl || persona.image || './assets/placeholder.jpg';
-        const ipfs = data.ipfsUrl || '#';
+    const persona = data.persona || {};
+    const name = persona.name || 'Unnamed Persona';
+    
+    console.log('✅ Persona generated:', persona);
 
-        const cardHTML = `
-            <div class="persona-card">
-                <img src="${image}" alt="${name}" />
-                <h3>${name}</h3>
-                <p>${title}</p>
-                <p>${desc}</p>
-                <small><a href="${ipfs}" target="_blank">View on IPFS</a></small>
-            </div>
-        `;
+    // Save to localStorage for personas page
+    const queue = JSON.parse(localStorage.getItem('newPersonaCards') || '[]');
+    queue.push({
+      name: name,
+      title: persona.title || '',
+      description: persona.description || '',
+      image: data.imageUrl || persona.image,
+      ipfs: data.ipfsUrl || '#',
+      traits: persona.traits || [],
+      timestamp: new Date().toISOString(),
+      type: personaType
+    });
+    
+    localStorage.setItem('newPersonaCards', JSON.stringify(queue));
 
-        // Save to localStorage for personas page
-        const queue = JSON.parse(localStorage.getItem('newPersonaCards') || '[]');
-        queue.push(cardHTML);
-        localStorage.setItem('newPersonaCards', JSON.stringify(queue));
-
-        alert(`Persona "${name}" generated successfully! 🎉\n\nOpen Personas page to see it.`);
+    alert(`🎉 Persona "${name}" generated successfully!\n\nYou can now view it in the Personas page.`);
 
         // Optional: Auto-redirect to personas page
         // window.location.href = 'personas.html';
 
-    } catch (err) {
-        console.error('Persona generation error:', err);
-        alert('Failed to generate persona: ' + err.message);
-    } finally {
-        const generateBtn = document.querySelector('.modal-btn.generate');
-        if (generateBtn) { 
-            generateBtn.innerText = 'Generate Persona'; 
-            generateBtn.disabled = false; 
-        }
+    // Close modal
+    closePersonaModal();
+
+  } catch (err) {
+    console.error('❌ Persona generation error:', err);
+    
+    let errorMessage = 'Failed to generate persona: ';
+    
+    if (err.message.includes('API key') || err.message.includes('key not configured')) {
+      errorMessage = 'AI service is not properly configured. Please check server setup.';
+    } else if (err.message.includes('network') || err.message.includes('fetch')) {
+      errorMessage = 'Cannot connect to the server. Please make sure the backend is running on localhost:3000';
+    } else {
+      errorMessage += err.message;
     }
+    
+    alert(errorMessage);
+  } finally {
+    const generateBtn = document.querySelector('.modal-btn.generate');
+    if (generateBtn) { 
+      generateBtn.innerHTML = 'Generate Persona'; 
+      generateBtn.disabled = false; 
+    }
+  }
 }
 
 // Make function globally available
