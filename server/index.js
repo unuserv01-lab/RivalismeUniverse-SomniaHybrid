@@ -1,66 +1,120 @@
-// ============================================================
-// 🔧 SERVER ENTRY POINT — FIXED VERSION
-// ============================================================
-
-// 1️⃣ Load environment variables paling awal
 require('dotenv').config();
-
-// 2️⃣ Import dependencies utama
 const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan'); // optional: untuk logging request
+const bodyParser = require('body-parser');
+const createPersona = require('./create-persona');
 const path = require('path');
 
-// 3️⃣ Inisialisasi server
 const app = express();
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '..')));
 
-// 4️⃣ Validasi variabel environment kritis
-if (!process.env.AI_API_KEY) {
-  console.error("❌ [CONFIG ERROR] Variabel AI_API_KEY hilang atau belum diset di file .env");
-  process.exit(1); // hentikan server
-}
-
-// 5️⃣ Konfigurasi CORS dengan whitelist origin (React dev server)
-const corsOptions = {
-  origin: 'http://localhost:3000', // sesuaikan dengan port frontend kamu
-  methods: ['GET', 'POST'],
-  credentials: true
-};
-app.use(cors(corsOptions));
-
-// 6️⃣ Middleware umum
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev')); // log semua request di console
-
-// 7️⃣ Routing utama (AI Client)
-const aiClientRoutes = require('./ai-client');
-app.use('/api/ai', aiClientRoutes);
-
-// 8️⃣ Fallback route (404)
+// ✅ ADDED: CORS middleware untuk handle frontend-backend communication
 app.use((req, res, next) => {
-  res.status(404).json({
-    success: false,
-    message: `Endpoint tidak ditemukan: ${req.originalUrl}`
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
+// ✅ IMPROVED: Better error handling untuk generate persona
+app.post('/api/generate-persona', async (req, res) => {
+  try {
+    const { prompt, type, walletAddress } = req.body;
+    
+    console.log('🎯 Received persona generation request:', {
+      prompt: prompt?.substring(0, 100) + '...',
+      type,
+      walletAddress: walletAddress ? `${walletAddress.substring(0, 10)}...` : 'none'
+    });
+
+    if (!prompt) {
+      return res.status(400).json({ 
+        error: 'Missing prompt',
+        message: 'Please provide a description for the AI persona'
+      });
+    }
+
+    if (prompt.length < 5) {
+      return res.status(400).json({
+        error: 'Prompt too short',
+        message: 'Please provide a more detailed description (at least 5 characters)'
+      });
+    }
+
+    const result = await createPersona.generateAndPublish(prompt);
+    
+    console.log('✅ Persona generated successfully:', result.persona?.name);
+    
+    res.json({
+      success: true,
+      persona: result.persona,
+      metadata: result.metadata,
+      ipfsUrl: result.ipfsUrl,
+      ipfsHash: result.ipfsHash,
+      imageUrl: result.imageUrl
+    });
+
+  } catch (err) {
+    console.error('❌ Error in /api/generate-persona:', err);
+    
+    // User-friendly error messages
+    let errorMessage = 'Failed to generate persona';
+    let errorDetails = err.message;
+
+    if (err.message.includes('API key') || err.message.includes('key not configured')) {
+      errorMessage = 'AI service configuration error';
+      errorDetails = 'Please check your API keys configuration';
+    } else if (err.message.includes('network') || err.message.includes('fetch')) {
+      errorMessage = 'Network error';
+      errorDetails = 'Please check your internet connection and try again';
+    }
+
+    res.status(500).json({ 
+      error: errorMessage,
+      details: errorDetails,
+      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    });
+  }
+});
+
+// ✅ ADDED: Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    services: {
+      ai: 'configured',
+      pinata: process.env.PINATA_JWT ? 'configured' : 'missing',
+      freepik: process.env.FREEPIK_API_KEY ? 'configured' : 'missing'
+    }
   });
 });
 
-// 9️⃣ Global Error Handler
-app.use((err, req, res, next) => {
-  const status = err.status || 500;
-  const message = err.message || 'Terjadi kesalahan tak terduga pada server.';
-
-  console.error(`[ERROR ${status}] ${req.method} ${req.originalUrl}:`, message, err.stack);
-
-  res.status(status).json({
-    success: false,
-    status,
-    message: status === 500 ? 'Internal Server Error' : message
-  });
+// ✅ ADDED: Test AI connection endpoint
+app.get('/api/test-ai', async (req, res) => {
+  try {
+    const { generatePersonaJSON } = require('./ai-client');
+    const testResult = await generatePersonaJSON('test persona - friendly AI assistant');
+    
+    res.json({
+      status: 'AI service working',
+      testPersona: testResult,
+      keys: {
+        deepseek: process.env.DEEPSEEK_KEY ? 'configured' : 'missing',
+        gemini: process.env.GEMINI_API_KEY ? 'configured' : 'missing',
+        openai: process.env.OPENAI_API_KEY ? 'configured' : 'missing'
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'AI service error',
+      error: error.message
+    });
+  }
 });
 
-// 🔟 Jalankan server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🔍 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`🤖 AI test: http://localhost:${PORT}/api/test-ai`);
 });
