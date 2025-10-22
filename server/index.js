@@ -1,85 +1,63 @@
 require('dotenv').config();
-const fetch = require('node-fetch');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
+const { generateAndPublish } = require('./create-persona');
 
-const DEEPSEEK_KEY = process.env.DEEPSEEK_KEY || '';
-const DEEPSEEK_URL = process.env.DEEPSEEK_URL || 'https://api.deepseek.com/v1/chat/completions';
+const app = express();
 
-async function callDeepseek(prompt) {
-    if (!DEEPSEEK_KEY) throw new Error('Deepseek key not configured');
-    
-    const body = {
-        model: "deepseek-chat",
-        messages: [
-            {
-                role: "system",
-                content: "You are a persona generator. Return ONLY valid JSON with keys: name, title, description, traits (array of strings), visual_prompt (string for image generation)."
-            },
-            {
-                role: "user",
-                content: `Create an AI persona based on: ${prompt}`
-            }
-        ],
-        temperature: 0.8,
-        max_tokens: 500
-    };
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '..')));
 
-    const response = await fetch(DEEPSEEK_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${DEEPSEEK_KEY}`
-        },
-        body: JSON.stringify(body)
+// Health check
+app.get('/api/health', (req, res) => {
+    res.json({ 
+        status: 'OK', 
+        deepseek: !!process.env.DEEPSEEK_KEY,
+        pinata: !!(process.env.PINATA_API_KEY && process.env.PINATA_SECRET)
     });
+});
 
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Deepseek API Error: ${response.status} - ${errorText}`);
-    }
-
-    const data = await response.json();
-    const text = data?.choices?.[0]?.message?.content || '';
-    return extractJSONFromText(text);
-}
-
-function extractJSONFromText(text) {
-    if (!text) return { name: 'Unknown', title: '', description: '', traits: [], visual_prompt: '' };
-    
-    // Try to extract JSON from markdown code blocks
-    const jsonMatch = text.match(/```json\n?([\s\S]*?)\n?```/) || text.match(/\{[\s\S]*\}/);
-    
-    if (!jsonMatch) {
-        return { 
-            name: 'Generated Persona', 
-            title: '', 
-            description: text, 
-            traits: [], 
-            visual_prompt: text.substring(0, 100) 
-        };
-    }
-
+// Generate Persona API
+app.post('/api/generate-persona', async (req, res) => {
     try {
-        const jsonText = jsonMatch[1] || jsonMatch[0];
-        const parsed = JSON.parse(jsonText);
+        const { prompt, type, walletAddress } = req.body;
         
-        // Validate required fields
-        return {
-            name: parsed.name || 'Unknown Persona',
-            title: parsed.title || '',
-            description: parsed.description || '',
-            traits: Array.isArray(parsed.traits) ? parsed.traits : [],
-            visual_prompt: parsed.visual_prompt || parsed.name || ''
-        };
-    } catch (e) {
-        console.warn('JSON parse failed:', e.message);
-        return { 
-            name: 'Generated Persona', 
-            title: '', 
-            description: text, 
-            traits: [], 
-            visual_prompt: '' 
-        };
-    }
-}
+        if (!prompt) {
+            return res.status(400).json({ error: 'Missing prompt' });
+        }
 
-module.exports = { callDeepseek };
+        console.log(`\n🎯 Request from: ${walletAddress || 'anonymous'}`);
+        console.log(`📝 Prompt: ${prompt}`);
+        console.log(`🏷️ Type: ${type || 'general'}`);
+
+        const result = await generateAndPublish(prompt);
+
+        res.json({
+            success: true,
+            persona: result.persona,
+            metadata: result.metadata,
+            ipfsUrl: result.ipfsUrl,
+            ipfsHash: result.ipfsHash,
+            imageUrl: result.imageUrl
+        });
+
+    } catch (error) {
+        console.error('❌ Error in /api/generate-persona:', error);
+        res.status(500).json({ 
+            error: 'Server error', 
+            details: error.message 
+        });
+    }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`\n🚀 RivalismeUniverse Server Running`);
+    console.log(`📍 URL: http://localhost:${PORT}`);
+    console.log(`🔑 Deepseek: ${process.env.DEEPSEEK_KEY ? '✅ Configured' : '❌ Missing'}`);
+    console.log(`📦 Pinata: ${process.env.PINATA_API_KEY ? '✅ Configured' : '❌ Missing'}\n`);
+});
