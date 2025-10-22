@@ -234,4 +234,4 @@ function extractJSONFromText(text) {
   };
 }
 
-module.exports = { generatePersonaJSON };
+module.exports = router;
