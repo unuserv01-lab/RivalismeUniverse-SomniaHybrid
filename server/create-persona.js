@@ -1,64 +1,48 @@
 require('dotenv').config();
-const { generatePersonaJSON } = require('./ai-client');
-const { searchFreepikImage } = require('./freepik');
+const { callDeepseek } = require('./ai-client');
 const { uploadJSONToPinata } = require('./pinata');
-const { buildMetadataFromPersona } = require('../scripts/generate-metadata');
-const path = require('path');
-const fs = require('fs').promises;
-
-function buildMetadata(personaData) {
-  // Use existing generator if available, otherwise fallback
-  try {
-    if (typeof buildMetadataFromPersona === 'function') {
-      return buildMetadataFromPersona(personaData);
-    }
-  } catch (e) {
-    console.warn('generate-metadata builder not available, using fallback');
-  }
-  // fallback
-  const timestamp = new Date().toISOString();
-  return {
-    name: personaData.name || `Unnamed Persona ${Date.now()}`,
-    description: personaData.description || '',
-    image: personaData.image || '',
-    attributes: (personaData.traits || []).map(t => ({ trait_type: 'Trait', value: t })),
-    properties: { created_at: timestamp }
-  };
-}
 
 async function generateAndPublish(prompt) {
-  // 1. Generate persona JSON from AI
-  const personaData = await generatePersonaJSON(prompt);
-  personaData.origin_prompt = prompt;
+    console.log('🎭 Generating persona from prompt:', prompt);
 
-  // 2. Get image (freepik) or fallback to local asset
-  let imageUrl = await searchFreepikImage(personaData.visual_prompt || personaData.name);
-  if (!imageUrl) {
-    imageUrl = `${process.env.SERVER_BASE_URL || 'http://localhost:3000'}/assets/placeholder.jpg`;
-  }
-  personaData.image = imageUrl;
+    // 1. Generate persona JSON from Deepseek
+    const personaData = await callDeepseek(prompt);
+    personaData.origin_prompt = prompt;
+    personaData.created_at = new Date().toISOString();
 
-  // 3. Build metadata (NFT friendly)
-  const metadata = buildMetadata(personaData);
-  metadata.image = personaData.image;
+    // 2. Use placeholder image (you can integrate Freepik later)
+    const imageUrl = `${process.env.SERVER_BASE_URL || 'http://localhost:3000'}/assets/images/placeholder.jpg`;
+    personaData.image = imageUrl;
 
-  // 4. Upload metadata to Pinata
-  const pinRes = await uploadJSONToPinata(metadata);
+    // 3. Build NFT metadata
+    const metadata = {
+        name: personaData.name,
+        description: personaData.description,
+        image: imageUrl,
+        attributes: personaData.traits.map(trait => ({
+            trait_type: 'Trait',
+            value: trait
+        })),
+        properties: {
+            persona_id: `persona_${Date.now()}`,
+            created_at: personaData.created_at,
+            visual_prompt: personaData.visual_prompt,
+            origin_prompt: prompt
+        }
+    };
 
-  // 5. Save a local copy of metadata for record
-  const savePath = path.join(__dirname, '..', 'generated_metadata');
-  await fs.mkdir(savePath, { recursive: true });
-  const uniqueId = metadata.properties && metadata.properties.unique_id ? metadata.properties.unique_id : `persona-${Date.now()}`;
-  await fs.writeFile(path.join(savePath, `${uniqueId}.json`), JSON.stringify({ metadata, pinRes, personaData }, null, 2));
+    // 4. Upload to Pinata
+    console.log('📤 Uploading to IPFS...');
+    const pinataResult = await uploadJSONToPinata(metadata);
 
-  // 6. Return result for frontend
-  return {
-    persona: personaData,
-    metadata,
-    ipfsUrl: pinRes.ipfsUrl,
-    ipfsHash: pinRes.ipfsHash,
-    imageUrl
-  };
+    // 5. Return complete result
+    return {
+        persona: personaData,
+        metadata,
+        ipfsUrl: pinataResult.ipfsUrl,
+        ipfsHash: pinataResult.ipfsHash,
+        imageUrl
+    };
 }
 
 module.exports = { generateAndPublish };
